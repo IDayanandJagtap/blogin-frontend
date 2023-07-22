@@ -1,0 +1,23 @@
+Creating a blog application : 
+
+
+essential : 
+	authentication 
+	db storage 
+
+
+pages : 
+	Home 
+	All posts 
+	Post ! (to those who have an account ) 
+	My posts
+	
+
+later : 
+	user Dashboard 
+
+
+
+features : 
+	enabling comments on every single post 
+	sharing to social media 
