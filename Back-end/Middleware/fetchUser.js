@@ -6,13 +6,13 @@ const fetchUser = async (req, res, next) => {
   const jsonToken = req.header("auth-token");
 
   if (!jsonToken) {
-    res.status(400).send({ success: false, error: "User not authenticated" });
+    res.status(401).send({ success: false, error: "Unauthorised access" });
     return;
   }
   try {
     const tokenData = jwt.verify(jsonToken, JWT_SECRET_KEY);
     if (!tokenData) {
-      res.status(400).send({ success: false, error: "User not authenticated" });
+      res.status(401).send({ success: false, error: "Unauthorised access" });
       return;
     }
 
