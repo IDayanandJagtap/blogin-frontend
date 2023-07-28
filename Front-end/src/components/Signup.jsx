@@ -1,85 +1,108 @@
-import React, { useEffect } from 'react'
+import React, { useState, useRef } from "react";
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    useDisclosure,
     Input,
     VStack,
     FormLabel,
     FormControl,
-    Box,
-    Text,
-} from '@chakra-ui/react'
+    InputGroup,
+    InputRightElement,
+    Button,
+    FormErrorMessage,
+} from "@chakra-ui/react";
+import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 
-const Signup = ({ openModal, setOpenModal }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+const Signup = ({ signupData, setSignupData }) => {
+    const [showPassword, setShowPassword] = useState(false);
+    const passwordRef = useRef(null);
 
-    useEffect(() => {
-        if (openModal)
-            onOpen();
-        setOpenModal(false)
-        //eslint-disable-next-line
-    }, [openModal])
+    const handleShowPassword = () => {
+        if (showPassword) {
+            setShowPassword(false);
+            passwordRef.current.type = "password";
+            passwordRef.current.placeholder = "********";
+        } else {
+            setShowPassword(true);
+            passwordRef.current.type = "text";
+            passwordRef.current.placeholder = "password";
+        }
+    };
 
-    const handleOnClose = () => {
-        setOpenModal(false);
-        onClose();
-    }
-
-
-
+    const setFormData = (e) => {
+        setSignupData({
+            ...signupData,
+            [e.target.name]: e.target.value,
+        });
+    };
     return (
-        <Modal isOpen={isOpen} onClose={handleOnClose} b>
-            {/* <Button onClick={onOpen} ref={btnRef} clicked={openModal}></Button> */}
-            <ModalOverlay />
-            <ModalContent>
-                <ModalHeader>
-                    Signup
-                    <Box h={.5} bgColor={'purple.100'} w={'100%'} mt={5}></Box>
-                </ModalHeader>
-                <ModalCloseButton onClick={() => setOpenModal(false)} />
-                <ModalBody>
+        <form method="">
+            <VStack gap={5} alignContent={"flex-start"}>
+                <FormControl>
+                    <FormLabel>Name</FormLabel>
+                    <Input
+                        type="text"
+                        focusBorderColor={"purple"}
+                        placeholder="John Doe"
+                        name="name"
+                        onChange={setFormData}
+                    />
+                </FormControl>
+                <FormControl>
+                    <FormLabel>Email</FormLabel>
+                    <Input
+                        type="email"
+                        focusBorderColor={"purple"}
+                        placeholder="john@doe.com"
+                        name="email"
+                        onChange={setFormData}
+                    />
+                </FormControl>
+                <FormControl>
+                    <FormLabel>Password</FormLabel>
+                    <InputGroup>
+                        <InputGroup>
+                            <Input
+                                type="password"
+                                focusBorderColor={"purple"}
+                                placeholder="********"
+                                name="password"
+                                onChange={setFormData}
+                                ref={passwordRef}
+                            />
+                            <InputRightElement width="4.5rem">
+                                <Button
+                                    h="1.75rem"
+                                    size="sm"
+                                    colorScheme="whiteAlpha"
+                                    color={"black"}
+                                    opacity={0.7}
+                                    onClick={handleShowPassword}
+                                >
+                                    {showPassword ? (
+                                        <RiEyeFill size={20} />
+                                    ) : (
+                                        <RiEyeCloseFill size={20} />
+                                    )}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                    </InputGroup>
+                </FormControl>
+                <FormControl isInvalid={signupData.passError}>
+                    <FormLabel>Confirm password</FormLabel>
+                    <Input
+                        type="password"
+                        focusBorderColor={"purple"}
+                        placeholder="********"
+                        name="confirm_password"
+                        onChange={setFormData}
+                    />
+                    <FormErrorMessage>
+                        Password and confirm password must be same.
+                    </FormErrorMessage>
+                </FormControl>
+            </VStack>
+        </form>
+    );
+};
 
-                    <form method=''>
-                        <VStack gap={5} alignContent={'flex-start'}>
-                            <FormControl>
-                                <FormLabel>Name</FormLabel>
-                                <Input type='text' focusBorderColor={'purple'} placeholder='John Doe' name='name' />
-                            </FormControl>
-                            <FormControl>
-                                <FormControl>Email</FormControl>
-                                <Input type='email' focusBorderColor={'purple'} placeholder='john@doe.com' name='email' />
-
-                            </FormControl>
-                            <FormControl>
-                                <FormControl>Password</FormControl>
-                                <Input type='password' focusBorderColor={'purple'} placeholder='********' name='password' />
-                            </FormControl>
-                            <FormControl>
-                                <FormControl>Confirm password</FormControl>
-                                <Input type='password' focusBorderColor={'purple'} placeholder='********' name='cpassword' />
-                            </FormControl>
-                        </VStack>
-                    </form>
-                </ModalBody>
-
-                <ModalFooter>
-                    <VStack gap={3} w={'full'}>
-                        <Button variant={'solid'} colorScheme='purple' alignSelf={'flex-end'}>Signup</Button>
-                        <Text fontSize={'sm'} textAlign={'center'}>Already have an account ? <Button variant={"link"} colorScheme='purple'> Login here</Button></Text>
-
-                    </VStack>
-                </ModalFooter>
-            </ModalContent>
-
-        </Modal >
-    )
-}
-
-export default Signup
+export default Signup;
