@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Signup from "./Signup";
-import Login from "./Login";
+import Signup from "./Authentication/Signup";
+import Login from "./Authentication/Login";
 
 import {
     Modal,

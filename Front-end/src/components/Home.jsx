@@ -2,6 +2,10 @@ import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import bgImage from "../assets/bg-1.jpg";
 import home1 from "../assets/home1.png";
+import RecentPosts from "./Home/RecentPosts";
+import NewsLetter from "./Home/NewsLetter";
+import About from "./Home/About";
+import Footer from "./Footer";
 
 const Home = () => {
     return (
@@ -21,7 +25,13 @@ const Home = () => {
                     <Image src={home1} width={"80%"} ml={32} />
                 </HStack>
             </Box>
-            <Box minH={"90vh"}></Box>
+            <Box>
+                <About />
+                <RecentPosts />
+                <NewsLetter />
+            </Box>
+
+            <Footer />
         </>
     );
 };

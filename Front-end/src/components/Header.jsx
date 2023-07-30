@@ -28,6 +28,7 @@ const Header = () => {
                 left={0}
                 bgColor={scrolled ? "white" : "transparent"}
                 boxShadow={scrolled ? "lg" : ""}
+                zIndex={1}
             >
                 <nav>
                     <HStack justifyContent={"space-between"} p={4}>
@@ -35,6 +36,7 @@ const Header = () => {
                             as={"h1"}
                             fontFamily={"cursive"}
                             color={scrolled ? "blak" : "white"}
+                            ml={10}
                         >
                             Blogin
                         </Heading>
@@ -69,7 +71,7 @@ const Header = () => {
                                 <Text
                                     fontSize={"lg"}
                                     fontWeight={"medium"}
-                                    px={2}
+                                    px={1}
                                     borderBottom={"3px solid transparent"}
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
@@ -81,8 +83,10 @@ const Header = () => {
 
                             <Button
                                 colorScheme="purple"
-                                mx={4}
+                                ml={2}
+                                mr={10}
                                 onClick={handleOnSignupClick}
+                                px={6}
                             >
                                 Login
                             </Button>
