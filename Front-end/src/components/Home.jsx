@@ -1,11 +1,12 @@
 import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import React from "react";
 import bgImage from "../assets/bg-1.jpg";
-import home1 from "../assets/home1.png";
+import home1 from "../assets/home2.png";
 import RecentPosts from "./Home/RecentPosts";
 import NewsLetter from "./Home/NewsLetter";
 import About from "./Home/About";
 import Footer from "./Footer";
+import { motion } from "framer-motion";
 
 const Home = () => {
     return (
@@ -17,13 +18,71 @@ const Home = () => {
                 display={"grid"}
                 gridTemplateColumns={"1fr 1fr"}
                 alignItems={"center"}
+                pt={20}
             >
-                <Stack border={"1px solid white"} w={"100%"}>
-                    <Text>Hello world </Text>
+                <Stack
+                    w={["100vw", "100vw", "100%"]}
+                    pl={"16"}
+                    textAlign={["center", "center", "left"]}
+                >
+                    <Text
+                        fontSize={["3xl", "4xl", "5xl"]}
+                        color={"whiteAlpha.900"}
+                        wordBreak={"break"}
+                        fontWeight={"semibold"}
+                        letterSpacing={1.2}
+                        wordSpacing={4}
+                    >
+                        SPREAD{" "}
+                        <Text as="span" color="pink.500">
+                            YOUR
+                        </Text>{" "}
+                        THOUGHTS
+                    </Text>
+                    <br />
+                    <Text
+                        fontSize={["3xl", "4xl", "5xl"]}
+                        color={"whiteAlpha.900"}
+                        wordBreak={"break"}
+                        fontWeight={"semibold"}
+                        letterSpacing={1.2}
+                        wordSpacing={4}
+                    >
+                        WE{" "}
+                        <Text as={"span"} color="pink.500">
+                            BELIEVE
+                        </Text>{" "}
+                        IN YOUR KNOWLEDGE!
+                    </Text>
                 </Stack>
-                <HStack width={"100%"} mt={10}>
-                    {/* <Image src={home1} width={"80%"} ml={32} /> */}
-                </HStack>
+                <motion.div
+                    style={{
+                        height: "80%",
+                        width: "100%",
+                        marginTop: "40px",
+                    }}
+                    animate={{ translateY: "10px" }}
+                    transition={{
+                        ease: "linear",
+                        duration: 1,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                    }}
+                >
+                    <HStack
+                        width={"100%"}
+                        height={"100%"}
+                        display={["none", "none", "flex"]}
+                        justifyContent={"center"}
+                        className="headerImg"
+                    >
+                        <Image
+                            src={home1}
+                            width={["100%", "100%", "80%", "60%", "50%"]}
+                            id="headerImg"
+                        />
+                    </HStack>
+                </motion.div>
             </Box>
             <Box>
                 <About />

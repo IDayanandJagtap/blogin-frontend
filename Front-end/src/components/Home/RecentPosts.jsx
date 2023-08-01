@@ -31,11 +31,12 @@ const RecentPosts = () => {
                 bgColor={"gray.100"}
                 borderRadius={"lg"}
                 boxShadow={"lg"}
-                py={8}
+                py={16}
             >
                 <Heading
                     as={"h2"}
-                    my={6}
+                    mt={-2}
+                    mb={6}
                     textAlign={"center"}
                     fontFamily={"sans-serif"}
                 >
@@ -112,21 +113,6 @@ const dummyData = [
         title: "This is a post to check if the card works properly",
         description:
             "I could have paster the lorem epsum but I think it is okay to just keep writing  <PostCard /> <PostCard /> whatever is coming to mind which will be huuuhhh.... react is open source spa framework.",
-    },
-    {
-        title: "This is a post to check if the card works properly",
-        description:
-            "I could have paster the lorem epsum but I think it is okay to just keep writing whatever is coming to mind which will be huuuhhh.... react is open source spa framework.",
-    },
-    {
-        title: "This is a post to check if the card works properly",
-        description:
-            "I could have paster the lorem epsum but I think it is okay to just keep writing whatever is coming to mind which will be huuuhhh.... react is open source spa framework.",
-    },
-    {
-        title: "This is a post to check if the card works properly",
-        description:
-            "I could have paster the lorem epsum but I think it is okay to add content to some page without knowing it is harmful thing for you too and for the viewers too just keep writing whatever is coming to mind which will be huuuhhh.... react is open source spa framework.",
     },
     {
         title: "This is a post to check if the card works properly",

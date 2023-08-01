@@ -13,7 +13,7 @@ import {
     VStack,
     useDisclosure,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Authentication from "./Authentication";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
@@ -24,7 +24,7 @@ const Header = () => {
 
     // Drawer
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const btnRef = useRef();
+    const btnRef = React.useRef();
 
     useState(() => {
         const handleScroll = (e) => {
@@ -209,6 +209,7 @@ const SideDrawer = ({ btnRef, isOpen, onClose, handleOnLoginClick }) => (
                             onClose();
                         }}
                         px={6}
+                        mb={28}
                     >
                         Login
                     </Button>
