@@ -22,7 +22,7 @@ const Home = () => {
                     <Text>Hello world </Text>
                 </Stack>
                 <HStack width={"100%"} mt={10}>
-                    <Image src={home1} width={"80%"} ml={32} />
+                    {/* <Image src={home1} width={"80%"} ml={32} /> */}
                 </HStack>
             </Box>
             <Box>
