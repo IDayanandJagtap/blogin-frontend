@@ -7,11 +7,12 @@ const About = () => {
         <Box
             maxW={[
                 "container.sm",
+                "container.sm",
                 "container.md",
                 "container.lg",
                 "container.xl",
             ]}
-            mx={"auto"}
+            mx={["20px", "8%", "auto", "auto", "auto"]}
             my={20}
             borderRadius={"lg"}
             py={8}

@@ -43,7 +43,14 @@ const Footer = () => {
                         {" "}
                         Quick Links
                     </Text>
-                    <VStack>
+                    <VStack
+                        alignItems={[
+                            "flex-start",
+                            "flex-start",
+                            "flex-start",
+                            "center",
+                        ]}
+                    >
                         <Text _hover={{ color: "purple.500" }}>
                             <Link to={"/"}>Home</Link>
                         </Text>

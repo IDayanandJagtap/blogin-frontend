@@ -19,8 +19,14 @@ const RecentPosts = () => {
     return (
         <section>
             <Box
-                maxW={"container.xl"}
-                mx={"auto"}
+                maxW={[
+                    "container.sm",
+                    "container.sm",
+                    "container.md",
+                    "container.lg",
+                    "container.xl",
+                ]}
+                mx={["20px", "8%", "auto", "auto", "auto"]}
                 my={20}
                 bgColor={"gray.100"}
                 borderRadius={"lg"}

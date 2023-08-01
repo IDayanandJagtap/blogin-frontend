@@ -13,9 +13,15 @@ import React from "react";
 const NewsLetter = () => {
     return (
         <Box
-            maxW={"container.xl"}
+            maxW={[
+                "container.sm",
+                "container.sm",
+                "container.md",
+                "container.lg",
+                "container.xl",
+            ]}
             bgColor={"purple.600"}
-            mx={"auto"}
+            mx={["20px", "8%", "auto", "auto", "auto"]}
             py={8}
             borderRadius={"lg"}
             boxShadow={"lg"}
@@ -25,6 +31,7 @@ const NewsLetter = () => {
                     as={"h1"}
                     fontSize={["xl", "2xl", "3xl", "4xl"]}
                     letterSpacing={2}
+                    textAlign={"center"}
                 >
                     Subscribe to our news letter
                 </Heading>

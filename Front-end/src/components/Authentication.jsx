@@ -59,7 +59,12 @@ const Authentication = ({ openModal, setOpenModal }) => {
     };
 
     return (
-        <Modal isOpen={isOpen} onClose={handleOnClose} b>
+        <Modal
+            isOpen={isOpen}
+            onClose={handleOnClose}
+            size={["xs", "sm", "md"]}
+            isCentered={1}
+        >
             {/* <Button onClick={onOpen} ref={btnRef} clicked={openModal}></Button> */}
             <ModalOverlay />
             <ModalContent>
