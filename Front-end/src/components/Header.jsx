@@ -54,7 +54,7 @@ const Header = () => {
                             as={"h1"}
                             fontFamily={"cursive"}
                             color={scrolled ? "black" : "white"}
-                            ml={10}
+                            ml={[2, 2, 10]}
                         >
                             Blogin
                         </Heading>

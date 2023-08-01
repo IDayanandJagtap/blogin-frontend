@@ -22,7 +22,8 @@ const Home = () => {
             >
                 <Stack
                     w={["100vw", "100vw", "100%"]}
-                    pl={"16"}
+                    pl={["4", "4", "16"]}
+                    p={4}
                     textAlign={["center", "center", "left"]}
                 >
                     <Text
