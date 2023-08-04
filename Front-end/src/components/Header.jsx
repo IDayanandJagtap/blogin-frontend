@@ -24,24 +24,19 @@ const Header = () => {
 
     // Drawer
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const btnRef = React.useRef();
 
     // Get current url path
-    let currentUrlPath = window.location.pathname;
+    const currentUrlPath = "/";
 
-    // Change style if current page is not the home page
     useEffect(() => {
-        if (currentUrlPath !== "/") setScrolled(1);
-        else setScrolled(0);
+        const handleScroll = () => {
+            if (window.scrollY) setScrolled(1);
+            else setScrolled(0);
+        };
         window.addEventListener("scroll", handleScroll);
-    }, [currentUrlPath]);
+    });
 
-    // Handle styles on scroll
-    const handleScroll = (e) => {
-        if (window.scrollY) setScrolled(1);
-        else setScrolled(0);
-    };
-
+    // handle login button click
     const handleOnLoginClick = () => {
         setOpenModal(true);
     };
@@ -143,7 +138,6 @@ const Header = () => {
                         >
                             <HiOutlineMenuAlt3
                                 size={"32"}
-                                ref={btnRef}
                                 onClick={onOpen}
                                 color={scrolled ? "black" : "white"}
                             />
@@ -157,7 +151,6 @@ const Header = () => {
 
             {/* Side drawer (ham menu) */}
             <SideDrawer
-                btnRef={btnRef}
                 isOpen={isOpen}
                 onClose={onClose}
                 handleOnLoginClick={handleOnLoginClick}
@@ -168,7 +161,6 @@ const Header = () => {
 };
 
 const SideDrawer = ({
-    btnRef,
     isOpen,
     onClose,
     handleOnLoginClick,
@@ -179,11 +171,10 @@ const SideDrawer = ({
             isOpen={isOpen}
             placement="right"
             onClose={onClose}
-            finalFocusRef={btnRef}
             colorScheme={"purple"}
             size={"full"}
         >
-            <DrawerOverlay closeOnOverlayClick={true} />
+            <DrawerOverlay />
             <DrawerContent>
                 <DrawerCloseButton size={"xl"} pt={4} pr={2} />
 
