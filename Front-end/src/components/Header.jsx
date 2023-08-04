@@ -13,7 +13,7 @@ import {
     VStack,
     useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Authentication from "./Authentication";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
@@ -26,13 +26,21 @@ const Header = () => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
 
-    useState(() => {
-        const handleScroll = (e) => {
-            if (window.scrollY) setScrolled(1);
-            else setScrolled(0);
-        };
+    // Get current url path
+    let currentUrlPath = window.location.pathname;
+
+    // Change style if current page is not the home page
+    useEffect(() => {
+        if (currentUrlPath !== "/") setScrolled(1);
+        else setScrolled(0);
         window.addEventListener("scroll", handleScroll);
-    }, []);
+    }, [currentUrlPath]);
+
+    // Handle styles on scroll
+    const handleScroll = (e) => {
+        if (window.scrollY) setScrolled(1);
+        else setScrolled(0);
+    };
 
     const handleOnLoginClick = () => {
         setOpenModal(true);
@@ -70,7 +78,11 @@ const Header = () => {
                                     fontSize={"lg"}
                                     fontWeight={"medium"}
                                     px={2}
-                                    borderBottom={"3px solid transparent"}
+                                    borderBottom={
+                                        currentUrlPath === "/"
+                                            ? "3px solid #805ad5"
+                                            : "3px solid transparent"
+                                    }
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
                                     }}
@@ -78,12 +90,16 @@ const Header = () => {
                                     Home
                                 </Text>
                             </Link>
-                            <Link to={"/"}>
+                            <Link to={"/posts"}>
                                 <Text
                                     fontSize={"lg"}
                                     fontWeight={"medium"}
                                     px={2}
-                                    borderBottom={"3px solid transparent"}
+                                    borderBottom={
+                                        currentUrlPath === "/posts"
+                                            ? "3px solid #805ad5"
+                                            : "3px solid transparent"
+                                    }
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
                                     }}
@@ -91,12 +107,16 @@ const Header = () => {
                                     Posts
                                 </Text>
                             </Link>
-                            <Link to={"/"}>
+                            <Link to={"/post"}>
                                 <Text
                                     fontSize={"lg"}
                                     fontWeight={"medium"}
                                     px={1}
-                                    borderBottom={"3px solid transparent"}
+                                    borderBottom={
+                                        currentUrlPath === "/post"
+                                            ? "3px solid #805ad5"
+                                            : "3px solid transparent"
+                                    }
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
                                     }}
@@ -141,12 +161,19 @@ const Header = () => {
                 isOpen={isOpen}
                 onClose={onClose}
                 handleOnLoginClick={handleOnLoginClick}
+                currentUrlPath={currentUrlPath}
             />
         </header>
     );
 };
 
-const SideDrawer = ({ btnRef, isOpen, onClose, handleOnLoginClick }) => (
+const SideDrawer = ({
+    btnRef,
+    isOpen,
+    onClose,
+    handleOnLoginClick,
+    currentUrlPath,
+}) => (
     <>
         <Drawer
             isOpen={isOpen}
@@ -166,6 +193,11 @@ const SideDrawer = ({ btnRef, isOpen, onClose, handleOnLoginClick }) => (
                             <Text
                                 fontSize={"2xl"}
                                 fontWeight={"semibold"}
+                                color={
+                                    currentUrlPath === "/"
+                                        ? "purple.500"
+                                        : "black"
+                                }
                                 _hover={{
                                     color: "purple.500",
                                 }}
@@ -174,10 +206,15 @@ const SideDrawer = ({ btnRef, isOpen, onClose, handleOnLoginClick }) => (
                                 Home
                             </Text>
                         </Link>
-                        <Link to={"/"}>
+                        <Link to={"/posts"}>
                             <Text
                                 fontSize={"2xl"}
                                 fontWeight={"semibold"}
+                                color={
+                                    currentUrlPath === "/posts"
+                                        ? "purple.500"
+                                        : "black"
+                                }
                                 _hover={{
                                     color: "purple.500",
                                 }}
@@ -186,10 +223,15 @@ const SideDrawer = ({ btnRef, isOpen, onClose, handleOnLoginClick }) => (
                                 Posts
                             </Text>
                         </Link>
-                        <Link to={"/"}>
+                        <Link to={"/post"}>
                             <Text
                                 fontSize={"2xl"}
                                 fontWeight={"semibold"}
+                                color={
+                                    currentUrlPath === "/post"
+                                        ? "purple.500"
+                                        : "black"
+                                }
                                 _hover={{
                                     color: "purple.500",
                                 }}
