@@ -21,8 +21,6 @@ export default function TextEditor({
         localStorage.setItem("post", postData);
     };
 
-    // chakra ui resets the default html styling so let's get it back.
-
     return (
         <>
             <Editor
@@ -71,10 +69,10 @@ export default function TextEditor({
                     size={"md"}
                     onClick={() => {
                         setPostData(editorRef.current.getContent());
-                        setIsPreview(1);
+                        setIsPreview(!isPreview);
                     }}
                 >
-                    Preview
+                    {isPreview ? "Hide Preview" : "Preview"}
                 </Button>
             </HStack>
         </>

@@ -1,7 +1,13 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import "../styles/defaultStyles.css";
+
 const RenderHtmlComponent = ({ htmlContent }) => {
-    return <Box dangerouslySetInnerHTML={{ __html: htmlContent }}></Box>;
+    return (
+        <div
+            className="previewDiv"
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+        ></div>
+    );
 };
 
 export default RenderHtmlComponent;

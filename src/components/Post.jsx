@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TextEditor from "./TextEditor";
-import { Box, useToast } from "@chakra-ui/react";
+import { Box, Button, Divider, HStack, useToast } from "@chakra-ui/react";
 import RenderHtmlComponent from "./RenderHtmlComponent";
 
 const Post = () => {
@@ -8,29 +8,6 @@ const Post = () => {
     const [postData, setPostData] = useState(localStorage.getItem("post"));
     const [isPreview, setIsPreview] = useState(0);
     const [usingMobile, setUsingMobile] = useState(false);
-
-    // chakra ui resets the default html styling so let's get it back.
-    const changeToChakraTags = () => {
-        let textString = localStorage.getItem("post");
-        console.log(typeof textString);
-        textString = textString.replace("<h1", "<Heading as='h1'");
-        textString = textString.replace("<h2", "<Heading as='h2'");
-        textString = textString.replace("<h3", "<Heading as='h3'");
-        textString = textString.replace("<h4", "<Heading as='h4'");
-        textString = textString.replace("<h5", "<Heading as='h5'");
-        textString = textString.replace("<h6", "<Heading as='h6'");
-        textString = textString.replace("</h1>", "</Heading>");
-        textString = textString.replace("</h2>", "</Heading>");
-        textString = textString.replace("</h3>", "</Heading>");
-        textString = textString.replace("</h4>", "</Heading>");
-        textString = textString.replace("</h5>", "</Heading>");
-        textString = textString.replace("</h6>", "</Heading>");
-        textString = textString.replace("<p>", "<Text>");
-        textString = textString.replace("</p>", "</Text>");
-
-        localStorage.setItem("post", textString);
-        setPostData(textString);
-    };
 
     useEffect(() => {
         const screenWidth = window.screen.width;
@@ -42,8 +19,6 @@ const Post = () => {
                 "post",
                 JSON.stringify("Start writing here !")
             );
-
-        changeToChakraTags();
     }, []);
 
     return (
@@ -58,7 +33,7 @@ const Post = () => {
                 ]}
                 mx={["10px", "auto"]}
                 mt={32}
-                border={"2px solid gray"}
+                border={"3px solid #805ad5"}
                 borderRadius={"lg"}
             >
                 {usingMobile &&
@@ -95,11 +70,24 @@ const PreviewPost = ({ postData }) => (
         ]}
         mx={["10px", "auto"]}
         mt={24}
-        p={4}
-        border={"2px solid gray"}
+        py={4}
+        px={6}
+        border={"3px solid gray"}
         borderRadius={"lg"}
+        bgColor={"gray.100"}
     >
-        <RenderHtmlComponent htmlContent={postData} />
+        <Box>
+            <RenderHtmlComponent htmlContent={postData} />
+        </Box>
+        <Divider mt={6} />
+        <HStack mt={6} justifyContent={"flex-end"}>
+            <Button variant={"outline"} colorScheme="purple">
+                Draft
+            </Button>
+            <Button variant={"solid"} colorScheme="purple">
+                Post
+            </Button>
+        </HStack>
     </Box>
 );
 
