@@ -21,20 +21,25 @@ import { HiOutlineMenuAlt3 } from "react-icons/hi";
 const Header = () => {
     const [openModal, setOpenModal] = useState(false);
     const [scrolled, setScrolled] = useState(0);
+    const [currentUrlPath, setCurrentUrlPath] = useState(
+        window.location.pathname
+    );
 
     // Drawer
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    // Get current url path
-    const currentUrlPath = "/";
+    // Handle styles on scroll !
+    const handleScroll = () => {
+        if (window.scrollY === 0 && currentUrlPath === "/") setScrolled(0);
+        else setScrolled(1);
+    };
+    // Add event listener to handle scroll      // ******************** It can be optimised but make to sure to create a branch first!
+    window.addEventListener("scroll", handleScroll);
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY) setScrolled(1);
-            else setScrolled(0);
-        };
-        window.addEventListener("scroll", handleScroll);
-    });
+        handleScroll();
+        //eslint-disable-next-line
+    }, [currentUrlPath]);
 
     // handle login button click
     const handleOnLoginClick = () => {
@@ -49,7 +54,7 @@ const Header = () => {
                 left={0}
                 bgColor={scrolled ? "white" : "transparent"}
                 boxShadow={scrolled ? "lg" : ""}
-                zIndex={1}
+                zIndex={3}
             >
                 <nav>
                     <HStack justifyContent={"space-between"} p={4}>
@@ -81,6 +86,7 @@ const Header = () => {
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
                                     }}
+                                    onClick={() => setCurrentUrlPath("/")}
                                 >
                                     Home
                                 </Text>
@@ -98,6 +104,7 @@ const Header = () => {
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
                                     }}
+                                    onClick={() => setCurrentUrlPath("/posts")}
                                 >
                                     Posts
                                 </Text>
@@ -115,6 +122,7 @@ const Header = () => {
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
                                     }}
+                                    onClick={() => setCurrentUrlPath("/post")}
                                 >
                                     Post
                                 </Text>
@@ -155,6 +163,7 @@ const Header = () => {
                 onClose={onClose}
                 handleOnLoginClick={handleOnLoginClick}
                 currentUrlPath={currentUrlPath}
+                setCurrentUrlPath={setCurrentUrlPath}
             />
         </header>
     );
@@ -165,6 +174,7 @@ const SideDrawer = ({
     onClose,
     handleOnLoginClick,
     currentUrlPath,
+    setCurrentUrlPath,
 }) => (
     <>
         <Drawer
@@ -192,7 +202,10 @@ const SideDrawer = ({
                                 _hover={{
                                     color: "purple.500",
                                 }}
-                                onClick={onClose}
+                                onClick={() => {
+                                    setCurrentUrlPath("/");
+                                    onClose();
+                                }}
                             >
                                 Home
                             </Text>
@@ -209,7 +222,10 @@ const SideDrawer = ({
                                 _hover={{
                                     color: "purple.500",
                                 }}
-                                onClick={onClose}
+                                onClick={() => {
+                                    setCurrentUrlPath("/posts");
+                                    onClose();
+                                }}
                             >
                                 Posts
                             </Text>
@@ -226,7 +242,10 @@ const SideDrawer = ({
                                 _hover={{
                                     color: "purple.500",
                                 }}
-                                onClick={onClose}
+                                onClick={() => {
+                                    setCurrentUrlPath("/post");
+                                    onClose();
+                                }}
                             >
                                 Post
                             </Text>

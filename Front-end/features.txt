@@ -21,3 +21,10 @@ later :
 features : 
 	enabling comments on every single post 
 	sharing to social media 
+
+
+Right now : 
+	Store the post ... 
+	use state doesn't work because the comoponent gets render when the page is changes ...
+	It can be either stored in localStorage or somewhere else ! 
+	Or useMemo maybe !

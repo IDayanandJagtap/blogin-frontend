@@ -5,7 +5,6 @@ import home1 from "../assets/home2.png";
 import RecentPosts from "./Home/RecentPosts";
 import NewsLetter from "./Home/NewsLetter";
 import About from "./Home/About";
-import Footer from "./Footer";
 import { motion } from "framer-motion";
 
 const Home = () => {
@@ -91,7 +90,7 @@ const Home = () => {
                 <NewsLetter />
             </Box>
 
-            <Footer />
+            
         </>
     );
 };

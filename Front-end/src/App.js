@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Header from "./components/Header";
 import Post from "./components/Post";
+import Footer from "./components/Footer";
 
 function App() {
     return (
@@ -13,6 +14,7 @@ function App() {
                 <Route path="/post" element={<Post />}></Route>
                 <Route path="*" element={<p>404 not found !</p>}></Route>
             </Routes>
+            <Footer />
         </BrowserRouter>
     );
 }

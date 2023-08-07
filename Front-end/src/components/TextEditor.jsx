@@ -1,22 +1,37 @@
 import React, { useRef } from "react";
 import { Editor } from "@tinymce/tinymce-react";
+import { Button, HStack } from "@chakra-ui/react";
 
-export default function TextEditor() {
+export default function TextEditor({
+    isPreview,
+    setIsPreview,
+    setPostData,
+    postData,
+}) {
     //**************  Move this api key to env ***************************
     const API_KEY = "jgz5jj3s34rhiz3u7ivietk9q3epaj2k1sczpuwzgad2vub7";
 
     const editorRef = useRef(null);
-    const log = () => {
-        if (editorRef.current) {
-            console.log(editorRef.current.getContent());
-        }
+
+    const handleEditorDataOnChange = () => {
+        setPostData(editorRef.current.getContent());
     };
+
+    const handleSaveLocal = () => {
+        localStorage.setItem("post", postData);
+    };
+
+    // chakra ui resets the default html styling so let's get it back.
+
     return (
         <>
             <Editor
+                id="post-editor"
                 apiKey={API_KEY}
                 onInit={(evt, editor) => (editorRef.current = editor)}
-                initialValue="<p>Start writing from here.</p>"
+                initialValue={postData}
+                onBlur={handleSaveLocal}
+                onChange={handleEditorDataOnChange}
                 init={{
                     height: 500,
                     menubar: false,
@@ -39,6 +54,7 @@ export default function TextEditor() {
                         "code",
                         "help",
                         "wordcount",
+                        "save",
                     ],
                     toolbar:
                         "undo redo | blocks | " +
@@ -49,7 +65,18 @@ export default function TextEditor() {
                         "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                 }}
             />
-            <button onClick={log}>Log editor content</button>
+            <HStack mt={2} p={4} w={"100%"} justifyContent={"flex-end"}>
+                <Button
+                    colorScheme="purple"
+                    size={"md"}
+                    onClick={() => {
+                        setPostData(editorRef.current.getContent());
+                        setIsPreview(1);
+                    }}
+                >
+                    Preview
+                </Button>
+            </HStack>
         </>
     );
 }
