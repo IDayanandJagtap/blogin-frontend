@@ -1,4 +1,5 @@
 import {
+    Avatar,
     Box,
     Button,
     Drawer,
@@ -17,6 +18,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Authentication from "./Authentication";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
+import { AiOutlineUser } from "react-icons/ai";
+import UserDrawer from "./Authentication/UserDrawer";
 
 const Header = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -24,6 +27,10 @@ const Header = () => {
     const [currentUrlPath, setCurrentUrlPath] = useState(
         window.location.pathname
     );
+    // For userDashboard
+    //eslint-disable-next-line
+    const [isLoggedIn, setIsLoggedIn] = useState(1);
+    const [openUserBar, setOpenUserBar] = useState(false);
 
     // Drawer
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -44,6 +51,11 @@ const Header = () => {
     // handle login button click
     const handleOnLoginClick = () => {
         setOpenModal(true);
+    };
+
+    // handle user avatar click
+    const handleOnAvatarClick = () => {
+        setOpenUserBar(true);
     };
     return (
         <header>
@@ -128,15 +140,30 @@ const Header = () => {
                                 </Text>
                             </Link>
 
-                            <Button
-                                colorScheme="purple"
-                                ml={2}
-                                mr={10}
-                                onClick={handleOnLoginClick}
-                                px={6}
-                            >
-                                Login
-                            </Button>
+                            {!isLoggedIn ? (
+                                <Button
+                                    colorScheme="purple"
+                                    ml={2}
+                                    mr={10}
+                                    onClick={handleOnLoginClick}
+                                    px={6}
+                                >
+                                    Login
+                                </Button>
+                            ) : (
+                                <Avatar
+                                    ml={2}
+                                    mr={10}
+                                    bg="purple.600"
+                                    size={"sm"}
+                                    cursor={"pointer"}
+                                    transform={"scale(1.1)"}
+                                    transition={"all 0.3s"}
+                                    _hover={{ transform: "scale(1.2)" }}
+                                    icon={<AiOutlineUser fontSize="1.5rem" />}
+                                    onClick={handleOnAvatarClick}
+                                />
+                            )}
                         </HStack>
 
                         {/* Display only before md breakpoint and then hide it */}
@@ -144,6 +171,19 @@ const Header = () => {
                             display={["flex", "flex", "none", "none", "none"]}
                             alignItems={"center"}
                         >
+                            {isLoggedIn && (
+                                <Avatar
+                                    mx={4}
+                                    bg="purple.600"
+                                    size={"sm"}
+                                    cursor={"pointer"}
+                                    transform={"scale(1.1)"}
+                                    transition={"all 0.3s"}
+                                    _hover={{ transform: "scale(1.2)" }}
+                                    icon={<AiOutlineUser fontSize="1.5rem" />}
+                                    onClick={handleOnAvatarClick}
+                                />
+                            )}
                             <HiOutlineMenuAlt3
                                 size={"32"}
                                 onClick={onOpen}
@@ -161,9 +201,16 @@ const Header = () => {
             <SideDrawer
                 isOpen={isOpen}
                 onClose={onClose}
+                isLoggedIn={isLoggedIn}
                 handleOnLoginClick={handleOnLoginClick}
                 currentUrlPath={currentUrlPath}
                 setCurrentUrlPath={setCurrentUrlPath}
+            />
+
+            {/* user dashboard */}
+            <UserDrawer
+                openUserBar={openUserBar}
+                setOpenUserBar={setOpenUserBar}
             />
         </header>
     );
@@ -172,6 +219,7 @@ const Header = () => {
 const SideDrawer = ({
     isOpen,
     onClose,
+    isLoggedIn,
     handleOnLoginClick,
     currentUrlPath,
     setCurrentUrlPath,
@@ -254,17 +302,31 @@ const SideDrawer = ({
                 </DrawerBody>
 
                 <DrawerFooter display={"flex"} justifyContent={"center"}>
-                    <Button
-                        colorScheme="purple"
-                        onClick={() => {
-                            handleOnLoginClick();
-                            onClose();
-                        }}
-                        px={6}
-                        mb={28}
-                    >
-                        Login
-                    </Button>
+                    {!isLoggedIn ? (
+                        <Button
+                            colorScheme="purple"
+                            onClick={() => {
+                                handleOnLoginClick();
+                                onClose();
+                            }}
+                            px={6}
+                            mb={28}
+                        >
+                            Login
+                        </Button>
+                    ) : (
+                        <Button
+                            variant={"outline"}
+                            colorScheme="purple"
+                            onClick={() => {
+                                onClose();
+                            }}
+                            px={6}
+                            mb={28}
+                        >
+                            Logout
+                        </Button>
+                    )}
                 </DrawerFooter>
             </DrawerContent>
         </Drawer>
