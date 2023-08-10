@@ -111,7 +111,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                         </VStack>
                     </DrawerBody>
 
-                    <DrawerFooter mb={[28, 28, 20, 10, 5]}>
+                    <DrawerFooter mb={5}>
                         <HStack w={"full"} justifyContent={"center"}>
                             <Button colorScheme="purple" variant={"outline"}>
                                 Logout
