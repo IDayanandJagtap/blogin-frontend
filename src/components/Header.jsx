@@ -20,16 +20,18 @@ import Authentication from "./Authentication";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
 import UserDrawer from "./Authentication/UserDrawer";
+import { useSelector, useDispatch } from "react-redux";
 
 const Header = () => {
     const [openModal, setOpenModal] = useState(false);
     const [scrolled, setScrolled] = useState(0);
-    const [currentUrlPath, setCurrentUrlPath] = useState(
-        window.location.pathname
-    );
+
+    const { activeTab } = useSelector((state) => state.header);
+    const dispatch = useDispatch();
+
     // For userDashboard
     //eslint-disable-next-line
-    const [isLoggedIn, setIsLoggedIn] = useState(1);
+    const { userInfo } = useSelector((state) => state.authentication);
     const [openUserBar, setOpenUserBar] = useState(false);
 
     // Drawer
@@ -37,7 +39,7 @@ const Header = () => {
 
     // Handle styles on scroll !
     const handleScroll = () => {
-        if (window.scrollY === 0 && currentUrlPath === "/") setScrolled(0);
+        if (window.scrollY === 0 && activeTab === "/") setScrolled(0);
         else setScrolled(1);
     };
     // Add event listener to handle scroll      // ******************** It can be optimised but make to sure to create a branch first!
@@ -46,7 +48,7 @@ const Header = () => {
     useEffect(() => {
         handleScroll();
         //eslint-disable-next-line
-    }, [currentUrlPath]);
+    }, [activeTab]);
 
     // handle login button click
     const handleOnLoginClick = () => {
@@ -91,14 +93,19 @@ const Header = () => {
                                     fontWeight={"medium"}
                                     px={2}
                                     borderBottom={
-                                        currentUrlPath === "/"
+                                        activeTab === "/"
                                             ? "3px solid #805ad5"
                                             : "3px solid transparent"
                                     }
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
                                     }}
-                                    onClick={() => setCurrentUrlPath("/")}
+                                    onClick={() =>
+                                        dispatch({
+                                            type: "setActiveTab",
+                                            payload: "/",
+                                        })
+                                    }
                                 >
                                     Home
                                 </Text>
@@ -109,14 +116,19 @@ const Header = () => {
                                     fontWeight={"medium"}
                                     px={2}
                                     borderBottom={
-                                        currentUrlPath === "/posts"
+                                        activeTab === "/posts"
                                             ? "3px solid #805ad5"
                                             : "3px solid transparent"
                                     }
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
                                     }}
-                                    onClick={() => setCurrentUrlPath("/posts")}
+                                    onClick={() =>
+                                        dispatch({
+                                            type: "setActiveTab",
+                                            payload: "/posts",
+                                        })
+                                    }
                                 >
                                     Posts
                                 </Text>
@@ -127,20 +139,25 @@ const Header = () => {
                                     fontWeight={"medium"}
                                     px={1}
                                     borderBottom={
-                                        currentUrlPath === "/post"
+                                        activeTab === "/post"
                                             ? "3px solid #805ad5"
                                             : "3px solid transparent"
                                     }
                                     _hover={{
                                         borderBottom: "3px solid #805ad5",
                                     }}
-                                    onClick={() => setCurrentUrlPath("/post")}
+                                    onClick={() =>
+                                        dispatch({
+                                            type: "setActiveTab",
+                                            payload: "/post",
+                                        })
+                                    }
                                 >
                                     Post
                                 </Text>
                             </Link>
 
-                            {!isLoggedIn ? (
+                            {!userInfo.isLoggedIn ? (
                                 <Button
                                     colorScheme="purple"
                                     ml={2}
@@ -171,7 +188,7 @@ const Header = () => {
                             display={["flex", "flex", "none", "none", "none"]}
                             alignItems={"center"}
                         >
-                            {isLoggedIn && (
+                            {userInfo.isLoggedIn && (
                                 <Avatar
                                     mx={4}
                                     bg="purple.600"
@@ -201,10 +218,10 @@ const Header = () => {
             <SideDrawer
                 isOpen={isOpen}
                 onClose={onClose}
-                isLoggedIn={isLoggedIn}
+                isLoggedIn={userInfo.isLoggedIn}
                 handleOnLoginClick={handleOnLoginClick}
-                currentUrlPath={currentUrlPath}
-                setCurrentUrlPath={setCurrentUrlPath}
+                activeTab={activeTab}
+                dispatch={dispatch}
             />
 
             {/* user dashboard */}
@@ -221,8 +238,8 @@ const SideDrawer = ({
     onClose,
     isLoggedIn,
     handleOnLoginClick,
-    currentUrlPath,
-    setCurrentUrlPath,
+    activeTab,
+    dispatch,
 }) => (
     <>
         <Drawer
@@ -243,15 +260,16 @@ const SideDrawer = ({
                                 fontSize={"2xl"}
                                 fontWeight={"semibold"}
                                 color={
-                                    currentUrlPath === "/"
-                                        ? "purple.500"
-                                        : "black"
+                                    activeTab === "/" ? "purple.500" : "black"
                                 }
                                 _hover={{
                                     color: "purple.500",
                                 }}
                                 onClick={() => {
-                                    setCurrentUrlPath("/");
+                                    dispatch({
+                                        type: "setActiveTab",
+                                        payload: "/",
+                                    });
                                     onClose();
                                 }}
                             >
@@ -263,7 +281,7 @@ const SideDrawer = ({
                                 fontSize={"2xl"}
                                 fontWeight={"semibold"}
                                 color={
-                                    currentUrlPath === "/posts"
+                                    activeTab === "/posts"
                                         ? "purple.500"
                                         : "black"
                                 }
@@ -271,7 +289,10 @@ const SideDrawer = ({
                                     color: "purple.500",
                                 }}
                                 onClick={() => {
-                                    setCurrentUrlPath("/posts");
+                                    dispatch({
+                                        type: "setActiveTab",
+                                        payload: "/posts",
+                                    });
                                     onClose();
                                 }}
                             >
@@ -283,7 +304,7 @@ const SideDrawer = ({
                                 fontSize={"2xl"}
                                 fontWeight={"semibold"}
                                 color={
-                                    currentUrlPath === "/post"
+                                    activeTab === "/post"
                                         ? "purple.500"
                                         : "black"
                                 }
@@ -291,7 +312,10 @@ const SideDrawer = ({
                                     color: "purple.500",
                                 }}
                                 onClick={() => {
-                                    setCurrentUrlPath("/post");
+                                    dispatch({
+                                        type: "setActiveTab",
+                                        payload: "/post",
+                                    });
                                     onClose();
                                 }}
                             >
@@ -320,6 +344,7 @@ const SideDrawer = ({
                             colorScheme="purple"
                             onClick={() => {
                                 onClose();
+                                dispatch({ type: "logout" });
                             }}
                             px={6}
                             mb={28}

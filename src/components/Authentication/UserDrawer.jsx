@@ -18,9 +18,11 @@ import { useEffect } from "react";
 import { HiPlus } from "react-icons/hi";
 import { BiSolidMessageSquare, BiSolidFile, BiSolidCog } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (openUserBar) onOpen();
@@ -113,7 +115,14 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
 
                     <DrawerFooter mb={[28, 28, 20, 10, 5]}>
                         <HStack w={"full"} justifyContent={"center"}>
-                            <Button colorScheme="purple" variant={"outline"}>
+                            <Button
+                                colorScheme="purple"
+                                variant={"outline"}
+                                onClick={() => {
+                                    handleClose();
+                                    dispatch({ type: "logout" });
+                                }}
+                            >
                                 Logout
                             </Button>
                         </HStack>

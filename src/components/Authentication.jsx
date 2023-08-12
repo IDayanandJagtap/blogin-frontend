@@ -17,6 +17,7 @@ import {
     Stack,
     Flex,
 } from "@chakra-ui/react";
+import { useDispatch } from "react-redux";
 
 const Authentication = ({ openModal, setOpenModal }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -28,6 +29,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
         confirm_password: "",
         passError: false,
     });
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (openModal) onOpen();
@@ -50,6 +52,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
 
     const handleLogin = () => {
         console.log(loginData);
+        dispatch({ type: "login" });
     };
     const handleSignup = () => {
         if (signupData.password !== signupData.confirm_password) {
