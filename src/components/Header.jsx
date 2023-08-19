@@ -31,7 +31,8 @@ const Header = () => {
 
     // For userDashboard
     //eslint-disable-next-line
-    const { userInfo } = useSelector((state) => state.authentication);
+    const userInfo = useSelector((state) => state.auth.userInfo);
+    console.log(userInfo);
     const [openUserBar, setOpenUserBar] = useState(false);
 
     // Drawer

@@ -1,12 +1,13 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-export const authReducers = createReducer(
-    {
+export const authSlice = createSlice({
+    name: "auth",
+    initialState: {
         userInfo: {
             isLoggedIn: false,
         },
     },
-    {
+    reducers: {
         isLoggedIn: (state, action) => {
             if (!state.userInfo.isLoggedIn) {
                 const cookie = document.cookie;
@@ -51,5 +52,9 @@ export const authReducers = createReducer(
             document.cookie = `userId=; expires=${expireNow}`;
             state.userInfo = { isLoggedIn: false };
         },
-    }
-);
+    },
+});
+
+export const { isLoggedIn, login, logout } = authSlice.actions;
+
+export default authSlice.reducer;

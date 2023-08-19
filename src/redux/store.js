@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { headerReducer } from "./headerReducer";
-import { authReducers } from "./authReducers";
+import authReducer from "./authSlice";
+import headerReducer from "./headerSlice";
 
 export default configureStore({
     reducer: {
         header: headerReducer,
-        authentication: authReducers,
+        auth: authReducer,
     },
 });
