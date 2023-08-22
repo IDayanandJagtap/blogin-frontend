@@ -120,7 +120,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                                 variant={"outline"}
                                 onClick={() => {
                                     handleClose();
-                                    dispatch({ type: "logout" });
+                                    dispatch({ type: "auth/logout" });
                                 }}
                             >
                                 Logout

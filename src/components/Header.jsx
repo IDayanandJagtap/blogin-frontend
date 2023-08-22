@@ -32,7 +32,6 @@ const Header = () => {
     // For userDashboard
     //eslint-disable-next-line
     const userInfo = useSelector((state) => state.auth.userInfo);
-    console.log(userInfo);
     const [openUserBar, setOpenUserBar] = useState(false);
 
     // Drawer
@@ -344,8 +343,9 @@ const SideDrawer = ({
                             variant={"outline"}
                             colorScheme="purple"
                             onClick={() => {
+                                console.log("clicked");
+                                dispatch({ type: "auth/logout" });
                                 onClose();
-                                dispatch({ type: "logout" });
                             }}
                             px={6}
                             mb={28}

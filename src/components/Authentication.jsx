@@ -18,6 +18,7 @@ import {
     Flex,
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
+import { loginUser, signupUser } from "../redux/authSlice";
 
 const Authentication = ({ openModal, setOpenModal }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,15 +51,24 @@ const Authentication = ({ openModal, setOpenModal }) => {
         if (selectLogin) setSelectLogin(false);
     };
 
-    const handleLogin = () => {
-        console.log(loginData);
-        dispatch({ type: "login" });
+    const handleLogin = async () => {
+        try {
+            dispatch(loginUser(loginData))
+                .then((e) => {
+                    console.log("loggedinsucessfully");
+                })
+                .catch((err) => {
+                    throw new Error("somehting");
+                });
+        } catch (err) {
+            console.log(err);
+        }
     };
     const handleSignup = () => {
         if (signupData.password !== signupData.confirm_password) {
             setSignupData((signupData.passError = true));
         }
-        console.log(signupData);
+        dispatch(signupUser(signupData));
     };
 
     return (

@@ -1,8 +1,72 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
+// Aysnc thunks
+
+export const fetchUser = createAsyncThunk("auth/fetchUser", async (userId) => {
+    const { data } = await axios.get("http://localhost:8000/auth/getuser", {
+        headers: {
+            "Content-Type": "application/json",
+            "auth-token": userId,
+        },
+    });
+    // Fetch users on successfull api req returns an object {success, data} ...
+    // Due to axios ... the return value is stored in data ... so data.data
+    return data.data;
+});
+
+export const loginUser = createAsyncThunk(
+    "auth/loginUser",
+    async (loginData, thunkAPI) => {
+        try {
+            const response = await axios.post(
+                "http://localhost:8000/auth/login",
+                loginData,
+                {
+                    headers: {
+                        "Content-type": "application/json",
+                    },
+                }
+            );
+            const payload = response.data;
+
+            const userData = await thunkAPI.dispatch(fetchUser(payload.data));
+            thunkAPI.dispatch(setUser(userData));
+
+            return payload;
+        } catch (err) {
+            throw new Error("Invalid credentials");
+        }
+    }
+);
+
+export const signupUser = createAsyncThunk(
+    "auth/signupUser",
+    async (signupData, thunkAPI) => {
+        const response = await axios.post(
+            "http://localhost:8000/auth/signup",
+            signupData,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+
+        const payload = response.data;
+
+        const userData = await thunkAPI.dispatch(fetchUser(payload.data));
+        thunkAPI.dispatch(setUser(userData));
+
+        return payload;
+    }
+);
+
+// Main slice
 export const authSlice = createSlice({
     name: "auth",
     initialState: {
+        userToken: null,
         userInfo: {
             isLoggedIn: false,
         },
@@ -10,51 +74,60 @@ export const authSlice = createSlice({
     reducers: {
         isLoggedIn: (state, action) => {
             if (!state.userInfo.isLoggedIn) {
-                const cookie = document.cookie;
-                let userId = cookie.split(";");
-                userId = userId.find((e) => {
-                    if (e.contains("userId")) {
-                        return e;
-                    }
-                    return null;
-                });
-
-                if (userId === null) {
+                const token = localStorage.getItem("userToken");
+                if (!token) {
                     state.userInfo.isLoggedIn = false;
                 } else {
+                    let userData = localStorage.getItem("user");
+                    userData = JSON.parse(userData);
+                    state.userInfo = userData;
                     state.userInfo.isLoggedIn = true;
                 }
             }
         },
-        login: (state, action) => {
-            if (!state.userInfo.isLoggedIn) {
-                const userId = 10;
-                const userName = "DJ";
-                const posts = 10;
+        setUser: (state, action) => {
+            const user = action.payload.payload;
 
-                state.userInfo = {
-                    userId: userId,
-                    userName: userName,
-                    posts: posts,
-                    isLoggedIn: true,
-                };
-                let expirationDate = new Date();
-                expirationDate.setDate(expirationDate.getDate() + 7);
-                expirationDate = expirationDate.toUTCString();
-                document.cookie = `userId=${userId}; expires=${expirationDate};`;
-                console.log(document.cookie);
-            }
+            const userData = {
+                ...state.userInfo,
+                id: user._id,
+                name: user.name,
+                email: user.email,
+            };
+            state.userInfo = userData;
+            state.userInfo.isLoggedIn = true;
+            localStorage.setItem("user", JSON.stringify(userData));
         },
-
         logout: (state, action) => {
-            let expireNow = new Date();
-            expireNow = expireNow.toUTCString();
-            document.cookie = `userId=; expires=${expireNow}`;
-            state.userInfo = { isLoggedIn: false };
+            if (state.userInfo.isLoggedIn) {
+                localStorage.removeItem("userToken");
+                localStorage.removeItem("user");
+                state.userInfo = { isLoggedIn: false };
+                console.log("inside of logout");
+            }
+            console.log("outside of logout");
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(loginUser.fulfilled, (state, action) => {
+                if (action.payload.success) {
+                    const token = action.payload.data;
+                    state.userToken = token;
+                    localStorage.setItem("userToken", token);
+                }
+                // We could have used another addCase(.rejected) but we want to run only a single function so it will be easy to write in else.
+            })
+            .addCase(signupUser.fulfilled, (state, action) => {
+                if (action.payload.success) {
+                    const token = action.payload.data;
+                    state.userToken = token;
+                    localStorage.setItem("userToken", token);
+                }
+            });
     },
 });
 
-export const { isLoggedIn, login, logout } = authSlice.actions;
+export const { setUser, isLoggedIn, logout } = authSlice.actions;
 
 export default authSlice.reducer;
