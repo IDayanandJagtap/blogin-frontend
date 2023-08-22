@@ -35,7 +35,8 @@ export const loginUser = createAsyncThunk(
 
             return payload;
         } catch (err) {
-            throw new Error("Invalid credentials");
+            console.log("Error occured");
+            throw new Error(err.message);
         }
     }
 );

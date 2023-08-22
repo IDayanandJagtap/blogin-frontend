@@ -52,23 +52,25 @@ const Authentication = ({ openModal, setOpenModal }) => {
     };
 
     const handleLogin = async () => {
-        try {
-            dispatch(loginUser(loginData))
-                .then((e) => {
-                    console.log("loggedinsucessfully");
-                })
-                .catch((err) => {
-                    throw new Error("somehting");
-                });
-        } catch (err) {
-            console.log(err);
-        }
+        // Thunk always retuns a fullfilled promise so we need to unwrap it first.
+        dispatch(loginUser(loginData))
+            .unwrap()
+            .then((e) => {
+                handleOnClose();
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
     };
     const handleSignup = () => {
         if (signupData.password !== signupData.confirm_password) {
             setSignupData((signupData.passError = true));
+            return;
         }
-        dispatch(signupUser(signupData));
+        dispatch(signupUser(signupData))
+            .unwrap()
+            .then(() => handleOnClose())
+            .catch((err) => console.log(err.message));
     };
 
     return (

@@ -102,7 +102,7 @@ const Header = () => {
                                     }}
                                     onClick={() =>
                                         dispatch({
-                                            type: "setActiveTab",
+                                            type: "header/setActiveTab",
                                             payload: "/",
                                         })
                                     }
@@ -125,7 +125,7 @@ const Header = () => {
                                     }}
                                     onClick={() =>
                                         dispatch({
-                                            type: "setActiveTab",
+                                            type: "header/setActiveTab",
                                             payload: "/posts",
                                         })
                                     }
@@ -148,7 +148,7 @@ const Header = () => {
                                     }}
                                     onClick={() =>
                                         dispatch({
-                                            type: "setActiveTab",
+                                            type: "header/setActiveTab",
                                             payload: "/post",
                                         })
                                     }
@@ -267,7 +267,7 @@ const SideDrawer = ({
                                 }}
                                 onClick={() => {
                                     dispatch({
-                                        type: "setActiveTab",
+                                        type: "header/setActiveTab",
                                         payload: "/",
                                     });
                                     onClose();
@@ -290,7 +290,7 @@ const SideDrawer = ({
                                 }}
                                 onClick={() => {
                                     dispatch({
-                                        type: "setActiveTab",
+                                        type: "header/setActiveTab",
                                         payload: "/posts",
                                     });
                                     onClose();
@@ -313,7 +313,7 @@ const SideDrawer = ({
                                 }}
                                 onClick={() => {
                                     dispatch({
-                                        type: "setActiveTab",
+                                        type: "header/setActiveTab",
                                         payload: "/post",
                                     });
                                     onClose();

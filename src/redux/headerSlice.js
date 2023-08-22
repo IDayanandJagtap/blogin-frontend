@@ -10,10 +10,9 @@ export const headerReducer = createSlice({
             state.activeTab = action.payload;
         },
 
-        setIsloggedIn: (state, action) => {},
     },
 });
 
-export const { setActiveTab, setIsloggedIn } = headerReducer.actions;
+export const { setActiveTab } = headerReducer.actions;
 
 export default headerReducer.reducer;
