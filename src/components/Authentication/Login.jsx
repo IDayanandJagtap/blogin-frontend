@@ -7,6 +7,8 @@ import {
     InputRightElement,
     Button,
     InputGroup,
+    HStack,
+    Text,
 } from "@chakra-ui/react";
 import { RiEyeCloseFill, RiEyeFill } from "react-icons/ri";
 
@@ -35,6 +37,17 @@ const Login = ({ loginData, setLoginData }) => {
     return (
         <form method="">
             <VStack gap={5} alignContent={"flex-start"}>
+                {loginData.isError && (
+                    <HStack
+                        bgColor={"red.200"}
+                        w={"full"}
+                        py={2}
+                        px={4}
+                        borderRadius={"md"}
+                    >
+                        <Text>Invalid credentials</Text>
+                    </HStack>
+                )}
                 <FormControl>
                     <FormLabel>Email</FormLabel>
                     <Input

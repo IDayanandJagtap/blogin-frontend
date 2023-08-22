@@ -23,7 +23,11 @@ import { loginUser, signupUser } from "../redux/authSlice";
 const Authentication = ({ openModal, setOpenModal }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [selectLogin, setSelectLogin] = useState(true);
-    const [loginData, setLoginData] = useState({ email: "", password: "" });
+    const [loginData, setLoginData] = useState({
+        email: "",
+        password: "",
+        isError: false,
+    });
     const [signupData, setSignupData] = useState({
         name: "",
         email: "",
@@ -41,6 +45,9 @@ const Authentication = ({ openModal, setOpenModal }) => {
     const handleOnClose = () => {
         setOpenModal(false);
         onClose();
+        // Set all errors to false;
+        setLoginData({ isError: false });
+        setSignupData({ passError: false });
     };
 
     const handleSwitchToLogin = () => {
@@ -56,21 +63,32 @@ const Authentication = ({ openModal, setOpenModal }) => {
         dispatch(loginUser(loginData))
             .unwrap()
             .then((e) => {
+                setLoginData({ ...loginData, isError: false });
                 handleOnClose();
             })
             .catch((err) => {
-                console.log(err.message);
+                setLoginData({ ...loginData, isError: true });
             });
     };
+
     const handleSignup = () => {
+        // Validate password :
         if (signupData.password !== signupData.confirm_password) {
-            setSignupData((signupData.passError = true));
+            setSignupData({ ...signupData, passError: true });
             return;
         }
+
+        //Dispatch the signup function.
         dispatch(signupUser(signupData))
             .unwrap()
-            .then(() => handleOnClose())
-            .catch((err) => console.log(err.message));
+            .then(() => {
+                setSignupData({ ...signupData, passError: false });
+                handleOnClose();
+            })
+            .catch((err) => {
+                console.log(err);
+                // setSignupData({ ...signupData, passError: true });
+            });
     };
 
     return (
@@ -84,7 +102,10 @@ const Authentication = ({ openModal, setOpenModal }) => {
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader></ModalHeader>
-                <ModalCloseButton onClick={() => setOpenModal(false)} />
+                <ModalCloseButton
+                    tabIndex={-1}
+                    onClick={() => setOpenModal(false)}
+                />
                 <ModalBody transition={"all 0.7s"}>
                     <Flex
                         justifyContent={"space-between"}

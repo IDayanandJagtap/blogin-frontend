@@ -33,10 +33,13 @@ const Signup = ({ signupData, setSignupData }) => {
             [e.target.name]: e.target.value,
         });
     };
+
+    // Set a validation for email !
+
     return (
         <form method="">
             <VStack gap={5} alignContent={"flex-start"}>
-                <FormControl>
+                <FormControl isRequired>
                     <FormLabel>Name</FormLabel>
                     <Input
                         type="text"
@@ -55,6 +58,7 @@ const Signup = ({ signupData, setSignupData }) => {
                         name="email"
                         onChange={setFormData}
                     />
+                    <FormErrorMessage>Enter a valid email!</FormErrorMessage>
                 </FormControl>
                 <FormControl>
                     <FormLabel>Password</FormLabel>

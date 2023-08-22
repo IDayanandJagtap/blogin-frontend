@@ -36,7 +36,7 @@ export const loginUser = createAsyncThunk(
             return payload;
         } catch (err) {
             console.log("Error occured");
-            throw new Error(err.message);
+            throw new Error(err);
         }
     }
 );
@@ -44,22 +44,26 @@ export const loginUser = createAsyncThunk(
 export const signupUser = createAsyncThunk(
     "auth/signupUser",
     async (signupData, thunkAPI) => {
-        const response = await axios.post(
-            "http://localhost:8000/auth/signup",
-            signupData,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            }
-        );
+        try {
+            const response = await axios.post(
+                "http://localhost:8000/auth/signup",
+                signupData,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
 
-        const payload = response.data;
+            const payload = response.data;
 
-        const userData = await thunkAPI.dispatch(fetchUser(payload.data));
-        thunkAPI.dispatch(setUser(userData));
+            const userData = await thunkAPI.dispatch(fetchUser(payload.data));
+            thunkAPI.dispatch(setUser(userData));
 
-        return payload;
+            return payload;
+        } catch (err) {
+            throw new Error(err);
+        }
     }
 );
 
