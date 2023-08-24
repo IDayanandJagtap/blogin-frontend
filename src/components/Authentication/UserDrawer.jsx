@@ -42,24 +42,27 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                     <DrawerHeader>Hello, user</DrawerHeader>
 
                     <DrawerBody>
-                        <Button
-                            leftIcon={<HiPlus />}
-                            variant={"solid"}
-                            color={"purple.600"}
-                            fontSize={"xl"}
-                            colorScheme="gray"
-                            py={6}
-                            px={4}
-                            borderRadius={"full"}
-                            w={"full"}
-                        >
-                            New post
-                        </Button>
+                        <Link to={"/post"}>
+                            <Button
+                                leftIcon={<HiPlus />}
+                                variant={"solid"}
+                                color={"purple.600"}
+                                fontSize={"xl"}
+                                colorScheme="gray"
+                                py={6}
+                                px={4}
+                                borderRadius={"full"}
+                                w={"full"}
+                                onClick={handleClose}
+                            >
+                                New post
+                            </Button>
+                        </Link>
 
                         <Divider mt={4} />
 
                         <VStack w={"full"} alignItems={"stretch"} mt={2}>
-                            <Link>
+                            <Link to={"/posts"} onClick={handleClose}>
                                 <HStack
                                     w={"full"}
                                     p="3"
@@ -76,7 +79,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                                     </Text>
                                 </HStack>
                             </Link>
-                            <Link>
+                            <Link onClick={handleClose}>
                                 <HStack
                                     w={"full"}
                                     p="3"
@@ -93,7 +96,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                                     </Text>
                                 </HStack>
                             </Link>
-                            <Link>
+                            <Link onClick={handleClose}>
                                 <HStack
                                     w={"full"}
                                     p="3"

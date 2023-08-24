@@ -2,14 +2,30 @@ import React, { useEffect, useState } from "react";
 import TextEditor from "./TextEditor";
 import { Box, Button, Divider, HStack, useToast } from "@chakra-ui/react";
 import RenderHtmlComponent from "./RenderHtmlComponent";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Post = () => {
     const toast = useToast();
     const [postData, setPostData] = useState(localStorage.getItem("post"));
     const [isPreview, setIsPreview] = useState(0);
     const [usingMobile, setUsingMobile] = useState(false);
+    const dispatch = useDispatch();
+    const { userInfo } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        // Set the header style
+        dispatch({
+            type: "header/setActiveTab",
+            payload: "/post",
+        });
+
+        // Check if user is logged in.
+        if (!userInfo.isLoggedIn) {
+            navigate("/");
+        }
+        // Show alert if user is on smaller device.
         const screenWidth = window.screen.width;
         if (screenWidth < 468) setUsingMobile(true);
         else setUsingMobile(false);
@@ -19,6 +35,8 @@ const Post = () => {
                 "post",
                 JSON.stringify("Start writing here !")
             );
+
+        // eslint-disable-next-line
     }, []);
 
     return (

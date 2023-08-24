@@ -133,7 +133,7 @@ const Header = () => {
                                     Posts
                                 </Text>
                             </Link>
-                            <Link to={"/post"}>
+                            {/* <Link to={"/post"}>
                                 <Text
                                     fontSize={"lg"}
                                     fontWeight={"medium"}
@@ -155,7 +155,7 @@ const Header = () => {
                                 >
                                     Post
                                 </Text>
-                            </Link>
+                            </Link> */}
 
                             {!userInfo.isLoggedIn ? (
                                 <Button
@@ -251,7 +251,7 @@ const SideDrawer = ({
         >
             <DrawerOverlay />
             <DrawerContent>
-                <DrawerCloseButton size={"xl"} pt={4} pr={2} />
+                <DrawerCloseButton size={"xl"} pt={4} pr={2} tabIndex={-1} />
 
                 <DrawerBody>
                     <VStack h={"full"} justifyContent={"center"} gap={12}>
@@ -299,7 +299,7 @@ const SideDrawer = ({
                                 Posts
                             </Text>
                         </Link>
-                        <Link to={"/post"}>
+                        {/*<Link to={"/post"}>
                             <Text
                                 fontSize={"2xl"}
                                 fontWeight={"semibold"}
@@ -321,7 +321,7 @@ const SideDrawer = ({
                             >
                                 Post
                             </Text>
-                        </Link>
+                        </Link> */}
                     </VStack>
                 </DrawerBody>
 

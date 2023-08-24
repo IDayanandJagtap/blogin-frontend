@@ -1,13 +1,24 @@
 import { Box, HStack, Image, Stack, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import bgImage from "../assets/bg-1.jpg";
 import home1 from "../assets/home2.png";
 import RecentPosts from "./Home/RecentPosts";
 import NewsLetter from "./Home/NewsLetter";
 import About from "./Home/About";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({
+            type: "header/setActiveTab",
+            payload: "/",
+        });
+        //eslint-disable-next-line
+    }, []);
+
     return (
         <>
             <Box
@@ -89,8 +100,6 @@ const Home = () => {
                 <RecentPosts />
                 <NewsLetter />
             </Box>
-
-            
         </>
     );
 };
