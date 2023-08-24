@@ -9,10 +9,22 @@ const Post = () => {
     const toast = useToast();
     const [postData, setPostData] = useState(localStorage.getItem("post"));
     const [isPreview, setIsPreview] = useState(0);
-    const [usingMobile, setUsingMobile] = useState(false);
+    // const [usingMobile, setUsingMobile] = useState(false);
     const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.auth);
     const navigate = useNavigate();
+
+    // Show toast notification
+    const showMobileToast = () => {
+        setTimeout(() => {
+            toast({
+                title: "Use a big screen for better usability!",
+                status: "info",
+                position: "bottom",
+                isClosable: true,
+            });
+        }, 2000);
+    };
 
     useEffect(() => {
         // Set the header style
@@ -27,8 +39,7 @@ const Post = () => {
         }
         // Show alert if user is on smaller device.
         const screenWidth = window.screen.width;
-        if (screenWidth < 468) setUsingMobile(true);
-        else setUsingMobile(false);
+        if (screenWidth < 468) showMobileToast();
 
         if (!localStorage.getItem("post"))
             localStorage.setItem(
@@ -40,7 +51,7 @@ const Post = () => {
     }, []);
 
     return (
-        <>
+        <Box w={"full"} minH={"75vh"}>
             <Box
                 maxW={[
                     "container.sm",
@@ -54,16 +65,6 @@ const Post = () => {
                 border={"3px solid #805ad5"}
                 borderRadius={"lg"}
             >
-                {usingMobile &&
-                    setTimeout(() => {
-                        toast({
-                            title: "Use a big screen for better usability!",
-                            status: "info",
-                            position: "bottom",
-                            isClosable: true,
-                        });
-                    }, 2000)}
-
                 <TextEditor
                     postData={postData}
                     setPostData={setPostData}
@@ -71,9 +72,9 @@ const Post = () => {
                     setIsPreview={setIsPreview}
                 />
             </Box>
-
-            {isPreview && <PreviewPost postData={postData} />}
-        </>
+            {/* Here firstly I used && operator instead of ternary operator but it used to display the value of isPreview on the bottom left side of the editor */}
+            {isPreview ? <PreviewPost postData={postData} /> : null}
+        </Box>
     );
 };
 
