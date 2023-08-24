@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from "react";
 import TextEditor from "./TextEditor";
-import { Box, Button, Divider, HStack, useToast } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    Divider,
+    HStack,
+    Heading,
+    Input,
+    Text,
+    VStack,
+    useToast,
+} from "@chakra-ui/react";
 import RenderHtmlComponent from "./RenderHtmlComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -65,6 +75,35 @@ const Post = () => {
                 border={"3px solid #805ad5"}
                 borderRadius={"lg"}
             >
+                <VStack w={"95%"} p={4}>
+                    <Heading
+                        as={"h4"}
+                        fontSize={"2xl"}
+                        textAlign={"start"}
+                        w={"full"}
+                    >
+                        Post title :
+                    </Heading>
+                    <Input
+                        type="text"
+                        name="title"
+                        fontSize={"xl"}
+                        placeholder="Post title..."
+                        my={2}
+                        mx={"auto"}
+                        border={"2px solid #b1b1b1"}
+                        focusBorderColor="#b1b1b1"
+                    ></Input>
+                </VStack>
+                <Heading
+                    as={"h4"}
+                    fontSize={"2xl"}
+                    textAlign={"start"}
+                    w={"full"}
+                    p={4}
+                >
+                    Description :
+                </Heading>
                 <TextEditor
                     postData={postData}
                     setPostData={setPostData}
