@@ -5,11 +5,17 @@ import Header from "./components/Header";
 import Post from "./components/Post";
 import Footer from "./components/Footer";
 import { useDispatch } from "react-redux";
+import { fetchUser } from "./redux/authSlice";
 
 function App() {
     const dispatch = useDispatch();
+    const userToken = localStorage.getItem("userToken");
     useEffect(() => {
         dispatch({ type: "auth/isLoggedIn" });
+
+        if (userToken) {
+            dispatch(fetchUser(userToken));
+        }
         //eslint-disable-next-line
     }, []);
     return (

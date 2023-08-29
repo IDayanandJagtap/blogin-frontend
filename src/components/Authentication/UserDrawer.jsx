@@ -17,12 +17,13 @@ import {
 import { useEffect } from "react";
 import { HiPlus } from "react-icons/hi";
 import { BiSolidMessageSquare, BiSolidFile, BiSolidCog } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (openUserBar) onOpen();
@@ -124,6 +125,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                                 onClick={() => {
                                     handleClose();
                                     dispatch({ type: "auth/logout" });
+                                    navigate("/");
                                 }}
                             >
                                 Logout

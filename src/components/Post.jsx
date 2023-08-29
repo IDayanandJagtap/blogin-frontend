@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TextEditor from "./TextEditor";
 import {
     Box,
@@ -7,7 +7,6 @@ import {
     HStack,
     Heading,
     Input,
-    Text,
     VStack,
     useToast,
 } from "@chakra-ui/react";
@@ -19,9 +18,10 @@ const Post = () => {
     const toast = useToast();
     const [postData, setPostData] = useState(localStorage.getItem("post"));
     const [isPreview, setIsPreview] = useState(0);
+    const titleRef = useRef(0);
     // const [usingMobile, setUsingMobile] = useState(false);
     const dispatch = useDispatch();
-    const { userInfo } = useSelector((state) => state.auth);
+    const { userToken, userInfo } = useSelector((state) => state.auth);
     const navigate = useNavigate();
 
     // Show toast notification
@@ -36,13 +36,16 @@ const Post = () => {
         }, 2000);
     };
 
+    const handleOnPostClick = () => {
+        dispatch({ type: "post/savePostToDb" });
+    };
+
     useEffect(() => {
         // Set the header style
         dispatch({
             type: "header/setActiveTab",
             payload: "/post",
         });
-
         // Check if user is logged in.
         if (!userInfo.isLoggedIn) {
             navigate("/");
@@ -75,7 +78,7 @@ const Post = () => {
                 border={"3px solid #805ad5"}
                 borderRadius={"lg"}
             >
-                <VStack w={"95%"} p={4}>
+                <VStack w={"100%"} p={4}>
                     <Heading
                         as={"h4"}
                         fontSize={"2xl"}
@@ -87,6 +90,7 @@ const Post = () => {
                     <Input
                         type="text"
                         name="title"
+                        ref={titleRef}
                         fontSize={"xl"}
                         placeholder="Post title..."
                         my={2}
@@ -112,12 +116,17 @@ const Post = () => {
                 />
             </Box>
             {/* Here firstly I used && operator instead of ternary operator but it used to display the value of isPreview on the bottom left side of the editor */}
-            {isPreview ? <PreviewPost postData={postData} /> : null}
+            {isPreview ? (
+                <PreviewPost
+                    postData={postData}
+                    handleOnPostClick={handleOnPostClick}
+                />
+            ) : null}
         </Box>
     );
 };
 
-const PreviewPost = ({ postData }) => (
+const PreviewPost = ({ postData, handleOnPostClick }) => (
     <Box
         maxW={[
             "container.sm",
@@ -142,7 +151,11 @@ const PreviewPost = ({ postData }) => (
             <Button variant={"outline"} colorScheme="purple">
                 Draft
             </Button>
-            <Button variant={"solid"} colorScheme="purple">
+            <Button
+                variant={"solid"}
+                colorScheme="purple"
+                onClick={handleOnPostClick}
+            >
                 Post
             </Button>
         </HStack>

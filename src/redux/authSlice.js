@@ -3,17 +3,31 @@ import axios from "axios";
 
 // Aysnc thunks
 
-export const fetchUser = createAsyncThunk("auth/fetchUser", async (userId) => {
-    const { data } = await axios.get("http://localhost:8000/auth/getuser", {
-        headers: {
-            "Content-Type": "application/json",
-            "auth-token": userId,
-        },
-    });
-    // Fetch users on successfull api req returns an object {success, data} ...
-    // Due to axios ... the return value is stored in data ... so data.data
-    return data.data;
-});
+export const fetchUser = createAsyncThunk(
+    "auth/fetchUser",
+    async (userToken, thunkAPI) => {
+        try {
+            const { data } = await axios.get(
+                "http://localhost:8000/auth/getuser",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": userToken,
+                    },
+                }
+            );
+
+            // Add userid(userToken to the data we are returning )
+            data.userToken = userToken;
+            // fetchUsers on successfull api req returns an object {success, data} ...
+            // Due to axios ... the return value is stored in data ... so data.data
+            thunkAPI.dispatch(setUser(data));
+            return data;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+);
 
 export const loginUser = createAsyncThunk(
     "auth/loginUser",
@@ -30,8 +44,7 @@ export const loginUser = createAsyncThunk(
             );
             const payload = response.data;
 
-            const userData = await thunkAPI.dispatch(fetchUser(payload.data));
-            thunkAPI.dispatch(setUser(userData));
+            await thunkAPI.dispatch(fetchUser(payload.data));
 
             return payload;
         } catch (err) {
@@ -57,8 +70,7 @@ export const signupUser = createAsyncThunk(
 
             const payload = response.data;
 
-            const userData = await thunkAPI.dispatch(fetchUser(payload.data));
-            thunkAPI.dispatch(setUser(userData));
+            await thunkAPI.dispatch(fetchUser(payload.data));
 
             return payload;
         } catch (err) {
@@ -91,7 +103,8 @@ export const authSlice = createSlice({
             }
         },
         setUser: (state, action) => {
-            const user = action.payload.payload;
+            const user = action.payload.data;
+            const userToken = action.payload.userToken;
 
             const userData = {
                 ...state.userInfo,
@@ -99,8 +112,10 @@ export const authSlice = createSlice({
                 name: user.name,
                 email: user.email,
             };
+
             state.userInfo = userData;
             state.userInfo.isLoggedIn = true;
+            state.userToken = userToken;
             localStorage.setItem("user", JSON.stringify(userData));
         },
         logout: (state, action) => {
