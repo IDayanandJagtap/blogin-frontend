@@ -1,9 +1,7 @@
 #Next to do :
 
     -###Post page :
-            - Remove from navbar (show only when user is logged in)
-            - Add min height to the editor container(page shrinks until the editor is loaded )
-            - Finally api to post.
+            - Clear the post containers (data) on successful post creation.
             - And then Draft (later because new schema will be required). (v2)
 
     -###Posts page :

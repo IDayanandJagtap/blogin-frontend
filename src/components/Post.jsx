@@ -13,13 +13,13 @@ import {
 import RenderHtmlComponent from "./RenderHtmlComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { savePostToDb } from "../redux/postSlice";
 
 const Post = () => {
     const toast = useToast();
     const [postData, setPostData] = useState(localStorage.getItem("post"));
     const [isPreview, setIsPreview] = useState(0);
     const titleRef = useRef(0);
-    // const [usingMobile, setUsingMobile] = useState(false);
     const dispatch = useDispatch();
     const { userToken, userInfo } = useSelector((state) => state.auth);
     const navigate = useNavigate();
@@ -37,7 +37,41 @@ const Post = () => {
     };
 
     const handleOnPostClick = () => {
-        dispatch({ type: "post/savePostToDb" });
+        const title = titleRef.current.value;
+
+        if (title.length < 3 || postData.length < 5) {
+            toast({
+                title: "The title/description should have min length",
+                status: "warning",
+                position: "bottom",
+                isClosable: true,
+            });
+            return;
+        }
+        const data = {
+            userToken: userToken,
+            title: title,
+            description: encodeURI(postData),
+        };
+
+        dispatch(savePostToDb(data))
+            .unwrap()
+            .then((e) => {
+                toast({
+                    title: "Post created successfully 🥳",
+                    status: "success",
+                    position: "bottom",
+                    isClosable: true,
+                });
+            })
+            .catch((e) => {
+                toast({
+                    title: "Something went wrong while creating post 😔",
+                    status: "error",
+                    position: "bottom",
+                    isClosable: true,
+                });
+            });
     };
 
     useEffect(() => {
