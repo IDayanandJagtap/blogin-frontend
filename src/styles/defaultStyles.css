@@ -2,7 +2,7 @@
 
 .previewDiv h1 {
     display: block;
-    font-size: 2em;
+    font-size: 1.7em;
     margin-top: 0.67em;
     margin-bottom: 0.67em;
     margin-left: 0;
@@ -12,7 +12,7 @@
 
 .previewDiv h2 {
     display: block;
-    font-size: 1.5em;
+    font-size: 1.4em;
     margin-top: 0.83em;
     margin-bottom: 0.83em;
     margin-left: 0;
@@ -58,4 +58,12 @@
     margin-left: 0;
     margin-right: 0;
     font-weight: bold;
+}
+
+.previewDiv {
+    font-family: "Baloo 2";
+    font-size: 1.3rem;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    word-spacing: 4px;
 }

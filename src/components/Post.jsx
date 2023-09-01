@@ -36,6 +36,12 @@ const Post = () => {
         }, 2000);
     };
 
+    const clearPost = () => {
+        titleRef.current.value = "";
+        localStorage.clear("post");
+        setPostData(null);
+    };
+
     const handleOnPostClick = () => {
         const title = titleRef.current.value;
 
@@ -63,6 +69,9 @@ const Post = () => {
                     position: "bottom",
                     isClosable: true,
                 });
+                clearPost();
+                // redirect the user to the myposts page !
+                navigate("/");
             })
             .catch((e) => {
                 toast({

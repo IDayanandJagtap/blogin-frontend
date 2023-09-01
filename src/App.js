@@ -6,6 +6,10 @@ import Post from "./components/Post";
 import Footer from "./components/Footer";
 import { useDispatch } from "react-redux";
 import { fetchUser } from "./redux/authSlice";
+import MyPosts from "./components/MyPosts";
+import AllPosts from "./components/AllPosts";
+import "./styles/index.css";
+import DetailedPost from "./components/DetailedPost";
 
 function App() {
     const dispatch = useDispatch();
@@ -22,8 +26,11 @@ function App() {
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route path="/" element={<Home />}></Route>
-                <Route path="/post" element={<Post />}></Route>
+                <Route path="/" exact element={<Home />}></Route>
+                <Route path="/post" exact element={<Post />}></Route>
+                <Route path="/myposts" exact element={<MyPosts />}></Route>
+                <Route path="/posts/:id" element={<DetailedPost />}></Route>
+                <Route path="/posts" exact element={<AllPosts />}></Route>
                 <Route path="*" element={<p>404 not found !</p>}></Route>
             </Routes>
             <Footer />
