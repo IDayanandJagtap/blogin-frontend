@@ -28,10 +28,35 @@ export const savePostToDb = createAsyncThunk(
     }
 );
 
+export const getPosts = createAsyncThunk(
+    "post/getPosts",
+    async (data, thunkAPI) => {
+        try {
+            const response = await axios.get("http://localhost:8000/api/posts");
+            console.log("I'm here");
+            thunkAPI.dispatch(setPosts(response.data.payload));
+
+            return response.data.payload;
+        } catch (err) {
+            throw new Error(err);
+        }
+    }
+);
+
 const postSlice = createSlice({
     name: "post",
-    initialState: {},
-    reducers: {},
+    initialState: {
+        posts: [],
+    },
+    reducers: {
+        setPosts: (state, action) => {
+            // state.posts = action.payload;
+            console.log("IN setposts");
+            console.log(action.payload);
+        },
+    },
 });
+
+export const { setPosts } = postSlice.actions;
 
 export default postSlice.reducer;

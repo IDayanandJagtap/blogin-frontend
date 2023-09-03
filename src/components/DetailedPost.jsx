@@ -4,6 +4,7 @@ import {
     Divider,
     HStack,
     Heading,
+    Stack,
     Text,
     VStack,
     useToast,
@@ -33,50 +34,71 @@ const DetailedPost = () => {
     description = decodeURI(description);
 
     return (
-        <Box
-            maxW={[
-                "container.sm",
-                "container.sm",
-                "container.md",
-                "container.lg",
-                "container.xl",
-            ]}
-            mt={24}
-            mx={"auto"}
-            p={6}
-            border={"3px solid gray"}
-            bgColor={"#f7f7f7"}
-            borderRadius={"md"}
+        <Stack
+            w={"full"}
+            mt={20}
+            flexDirection={["column", "column", "column", "row"]}
+            minH={"80vh"}
         >
-            <VStack w={"full"} alignItems={"flex-start"}>
-                <Heading
-                    fontFamily={"Roboto"}
-                    textAlign={"center"}
-                    w={"full"}
-                    py={3}
-                >
-                    {title}
-                </Heading>
-                <Divider></Divider>
-                <RenderHtmlComponent
-                    htmlContent={description}
-                ></RenderHtmlComponent>
-                <Divider py={4}></Divider>
-                <HStack w={"full"} justifyContent={"space-between"} py={4}>
-                    <HStack>
-                        <Avatar size={"sm"}></Avatar>
-                        <Text
-                            color={"blackAlpha.700"}
-                            fontSize={"md"}
-                            fontFamily={"Baloo 2"}
-                        >
-                            {author}
-                        </Text>
+            <Box
+                w={["96%", "96%", "96%", "70%"]}
+                mx={["auto", "auto", "auto", 6]}
+                p={6}
+                my={8}
+                bgGradient="linear(to-br, purple.200, blue.400)"
+                borderRadius={"md"}
+                boxShadow={"2px 2px 5px #b4b4b4"}
+            >
+                <VStack w={"full"} alignItems={"flex-start"}>
+                    <Heading
+                        fontFamily={"Poppins"}
+                        textAlign={"center"}
+                        w={"full"}
+                        py={3}
+                    >
+                        {title}
+                    </Heading>
+                    <Divider></Divider>
+                    <RenderHtmlComponent
+                        htmlContent={description}
+                    ></RenderHtmlComponent>
+                    <Divider py={4}></Divider>
+                    <HStack w={"full"} justifyContent={"space-between"} py={4}>
+                        <HStack>
+                            <Avatar size={"sm"} bg={"blackAlpha.800"}></Avatar>
+                            <Text
+                                color={"blackAlpha.800"}
+                                fontSize={"md"}
+                                fontWeight={"semibold"}
+                                fontFamily={"Baloo 2"}
+                            >
+                                {author}
+                            </Text>
+                        </HStack>
+                        <Text color={"blackAlpha.700"}>~ 20/08/2024</Text>
                     </HStack>
-                    <Text color={"blackAlpha.700"}>20/08/2024</Text>
-                </HStack>
-            </VStack>
-        </Box>
+                </VStack>
+            </Box>
+            <Box
+                w={["100%", "100%", "100%", "30%"]}
+                mx={[2]}
+                p={6}
+                my={8}
+                // bgGradient="linear(to-br, purple.300, blue.600)"
+                borderRadius={"md"}
+                bgGradient="linear(to-br, blue.100, blue.50)"
+                boxShadow={"2px 2px 5px #b4b4b4"}
+            >
+                <Heading
+                    textAlign={"center"}
+                    fontSize={"2xl"}
+                    color={"blackAlpha.600"}
+                    fontFamily={"Roboto"}
+                >
+                    Other links and info
+                </Heading>
+            </Box>
+        </Stack>
     );
 };
 

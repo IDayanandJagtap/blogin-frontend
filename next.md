@@ -5,15 +5,16 @@
             - And then Draft (later because new schema will be required). (v2)
 
     -###Posts page :
-            - Touch up the current page
-            - create a detailedPost page.
-            - Recent posts on page.
-            - Search bar.
-            - Single Post and comments.
-            - Tags (v2).
+            - solve console error (dangerouslySetHtml)
+            - See the post slice ... load the data from database now.
 
-    - ### DetailedPost :
-            - Create a post same as preview.
+            v2 :
+            - Single Post and comments.
+            - Search bar.
+
+            v3 :
+            - Tags.
+
     -###Home page:
             - Recent post (with posts page).
             - Quick fixes(links and ui in footer)

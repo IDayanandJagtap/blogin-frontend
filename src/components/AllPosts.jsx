@@ -11,6 +11,7 @@ import React, { useEffect } from "react";
 import RenderHtmlComponent from "./RenderHtmlComponent";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getPosts } from "../redux/postSlice";
 
 export const AllPosts = () => {
     const dispatch = useDispatch();
@@ -18,6 +19,14 @@ export const AllPosts = () => {
 
     useEffect(() => {
         dispatch({ type: "header/setActiveTab", payload: "/posts" });
+        dispatch(getPosts())
+            .unwrap()
+            .then((e) => {
+                // console.log("Succesfully loaded");
+            })
+            .catch((e) => {
+                // console.log("Eroror while loading posts");
+            });
     });
 
     return (
@@ -57,9 +66,8 @@ const Post = ({ id, title, description, author, navigate }) => {
             mx={"auto"}
             my={10}
             p={6}
-            bgColor={"#f7f7f7"}
+            bgGradient="linear(to-br, cyan.300, purple.400)"
             cursor={"pointer"}
-            border={".5px solid #b4b4b4"}
             borderRadius={"lg"}
             boxShadow={"2px 2px 5px #b4b4b4"}
             transition={"transform 0.2s linear"}
@@ -86,8 +94,15 @@ const Post = ({ id, title, description, author, navigate }) => {
             <HStack w={"full"} justifyContent={"space-between"} p={2}>
                 <HStack>
                     {" "}
-                    <Avatar size={"xs"} bgColor="purple.400"></Avatar>
-                    <Text color={"blackAlpha.600"}>{author}</Text>
+                    <Avatar size={"xs"} bg={"blackAlpha.800"}></Avatar>
+                    <Text
+                        color={"blackAlpha.800"}
+                        fontSize={"md"}
+                        fontWeight={"semibold"}
+                        fontFamily={"Baloo 2"}
+                    >
+                        {author}
+                    </Text>
                 </HStack>
                 <Text color={"blackAlpha.600"}>~ 20/08/24</Text>
             </HStack>
