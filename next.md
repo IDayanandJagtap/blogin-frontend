@@ -1,15 +1,13 @@
 #Next to do :
 
     -###Post page :
-            - Add a default date while creating a post.
-            - And then Draft (later because new schema will be required). (v2)
+            - Draft (later because new schema will be required). (v2)
 
     -###Posts page :
             - solve console error (dangerouslySetHtml)
-            - See the post slice ... load the data from database now.
 
             v2 :
-            - Single Post and comments.
+            - Comments.
             - Search bar.
 
             v3 :

@@ -12,6 +12,7 @@ export const savePostToDb = createAsyncThunk(
                 {
                     title: data.title,
                     description: data.description,
+                    createdAt: Date.now(),
                 },
                 {
                     headers: {
@@ -33,9 +34,8 @@ export const getPosts = createAsyncThunk(
     async (data, thunkAPI) => {
         try {
             const response = await axios.get("http://localhost:8000/api/posts");
-            console.log("I'm here");
-            thunkAPI.dispatch(setPosts(response.data.payload));
 
+            thunkAPI.dispatch(setPosts(response.data.payload));
             return response.data.payload;
         } catch (err) {
             throw new Error(err);
@@ -43,16 +43,14 @@ export const getPosts = createAsyncThunk(
     }
 );
 
-const postSlice = createSlice({
+export const postSlice = createSlice({
     name: "post",
     initialState: {
         posts: [],
     },
     reducers: {
         setPosts: (state, action) => {
-            // state.posts = action.payload;
-            console.log("IN setposts");
-            console.log(action.payload);
+            state.posts = action.payload;
         },
     },
 });
