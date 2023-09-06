@@ -13,6 +13,7 @@ import {
     Text,
     VStack,
     useDisclosure,
+    useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -28,6 +29,7 @@ const Header = () => {
 
     const { activeTab } = useSelector((state) => state.header);
     const dispatch = useDispatch();
+    const toast = useToast();
 
     // For userDashboard
     //eslint-disable-next-line
@@ -222,6 +224,7 @@ const Header = () => {
                 handleOnLoginClick={handleOnLoginClick}
                 activeTab={activeTab}
                 dispatch={dispatch}
+                toast={toast}
             />
 
             {/* user dashboard */}
@@ -240,6 +243,7 @@ const SideDrawer = ({
     handleOnLoginClick,
     activeTab,
     dispatch,
+    toast,
 }) => (
     <>
         <Drawer
@@ -346,6 +350,12 @@ const SideDrawer = ({
                                 console.log("clicked");
                                 dispatch({ type: "auth/logout" });
                                 onClose();
+                                toast({
+                                    title: "Logged out !",
+                                    status: "warning",
+                                    isClosable: "true",
+                                    position: "top",
+                                });
                             }}
                             px={6}
                             mb={28}

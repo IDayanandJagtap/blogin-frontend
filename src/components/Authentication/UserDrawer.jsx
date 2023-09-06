@@ -13,6 +13,7 @@ import {
     Divider,
     VStack,
     Text,
+    useToast,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { HiPlus } from "react-icons/hi";
@@ -24,6 +25,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const toast = useToast();
 
     useEffect(() => {
         if (openUserBar) onOpen();
@@ -126,6 +128,12 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                                     handleClose();
                                     dispatch({ type: "auth/logout" });
                                     navigate("/");
+                                    toast({
+                                        title: "Logged out !",
+                                        status: "warning",
+                                        isClosable: "true",
+                                        position: "top",
+                                    });
                                 }}
                             >
                                 Logout

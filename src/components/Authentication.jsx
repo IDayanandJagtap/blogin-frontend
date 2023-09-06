@@ -16,6 +16,7 @@ import {
     Text,
     Stack,
     Flex,
+    useToast,
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { loginUser, signupUser } from "../redux/authSlice";
@@ -35,6 +36,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
         passError: false,
     });
     const dispatch = useDispatch();
+    const toast = useToast();
 
     useEffect(() => {
         if (openModal) onOpen();
@@ -65,6 +67,12 @@ const Authentication = ({ openModal, setOpenModal }) => {
             .then((e) => {
                 setLoginData({ ...loginData, isError: false });
                 handleOnClose();
+                toast({
+                    title: "Logged in successfully 😃",
+                    status: "success",
+                    isClosable: "true",
+                    position: "top",
+                });
             })
             .catch((err) => {
                 setLoginData({ ...loginData, isError: true });
@@ -84,10 +92,22 @@ const Authentication = ({ openModal, setOpenModal }) => {
             .then(() => {
                 setSignupData({ ...signupData, passError: false });
                 handleOnClose();
+                toast({
+                    title: "Account created successfully 😃",
+                    status: "success",
+                    isClosable: "true",
+                    position: "top",
+                });
             })
             .catch((err) => {
-                console.log(err);
+                // console.log(err);
                 // setSignupData({ ...signupData, passError: true });
+                toast({
+                    title: "Error creating account 🙁",
+                    status: "error",
+                    isClosable: "true",
+                    position: "top",
+                });
             });
     };
 
