@@ -74,14 +74,16 @@ const Header = () => {
             >
                 <nav>
                     <HStack justifyContent={"space-between"} p={4}>
-                        <Heading
-                            as={"h1"}
-                            fontFamily={"cursive"}
-                            color={scrolled ? "black" : "white"}
-                            ml={[2, 2, 10]}
-                        >
-                            Blogin
-                        </Heading>
+                        <Link to={"/"}>
+                            <Heading
+                                as={"h1"}
+                                fontFamily={"Kalam, cursive, poppins"}
+                                color={scrolled ? "black" : "white"}
+                                ml={[2, 2, 10]}
+                            >
+                                Blogin
+                            </Heading>
+                        </Link>
 
                         {/* Display none before md breakpoint */}
                         <HStack
