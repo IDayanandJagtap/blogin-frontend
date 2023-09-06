@@ -9,15 +9,16 @@ import {
     VStack,
     useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import RenderHtmlComponent from "./RenderHtmlComponent";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const DetailedPost = () => {
     const { posts } = useSelector((state) => state.post);
     const { id } = useParams();
     const toast = useToast();
+    const dispatch = useDispatch();
     const post =
         posts.filter((e) => {
             return id === e._id;
@@ -32,10 +33,23 @@ const DetailedPost = () => {
         });
     }
 
-    let { title, description, author, createdAt } = post[0];
+    const dummyPost = {
+        title: "",
+        description: "",
+        author: "",
+        createdAt: "",
+    };
+    let { title, description, author, createdAt } = post[0] || dummyPost;
     description = decodeURI(description);
 
     const date = new Date(createdAt).toDateString();
+
+    useEffect(() => {
+        dispatch({
+            type: "header/setActiveTab",
+            payload: "/post",
+        });
+    });
 
     return (
         <Stack
@@ -85,8 +99,8 @@ const DetailedPost = () => {
                 </VStack>
             </Box>
             <Box
-                w={["100%", "100%", "100%", "30%"]}
-                mx={[2]}
+                w={["96%", "96%", "96%", "30%"]}
+                mx={["auto", "auto", "auto", 6]}
                 p={6}
                 my={8}
                 // bgGradient="linear(to-br, purple.300, blue.600)"
