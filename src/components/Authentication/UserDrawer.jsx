@@ -19,13 +19,14 @@ import { useEffect } from "react";
 import { HiPlus } from "react-icons/hi";
 import { BiSolidMessageSquare, BiSolidFile, BiSolidCog } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const toast = useToast();
+    const { userInfo } = useSelector((state) => state.auth);
 
     useEffect(() => {
         if (openUserBar) onOpen();
@@ -42,7 +43,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Hello, user</DrawerHeader>
+                    <DrawerHeader>Hello, {userInfo.name}</DrawerHeader>
 
                     <DrawerBody>
                         <Link to={"/post"}>
