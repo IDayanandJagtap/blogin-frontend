@@ -8,7 +8,8 @@ export const savePostToDb = createAsyncThunk(
         // Fetch or axios request !
         try {
             const response = await axios.post(
-                "http://localhost:8000/api/newpost",
+                // "http://localhost:8000/api/newpost",
+                "https://blogin-kpp7.onrender.com/api/newpost",
                 {
                     title: data.title,
                     description: data.description,
@@ -33,7 +34,10 @@ export const getPosts = createAsyncThunk(
     "post/getPosts",
     async (data, thunkAPI) => {
         try {
-            const response = await axios.get("http://localhost:8000/api/posts");
+            // const response = await axios.get("http://localhost:8000/api/posts");
+            const response = await axios.get(
+                "https://blogin-kpp7.onrender.com/api/posts"
+            );
 
             thunkAPI.dispatch(setPosts(response.data.payload));
             return response.data.payload;

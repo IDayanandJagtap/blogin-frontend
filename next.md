@@ -19,3 +19,5 @@
             - User drawer link fixes
 
     -#### Fonts and Quick ui fixes for prod ready app.
+
+    -# Mongodb is now live on mongodb atlas ... just make sure you make the backend live too !

@@ -8,7 +8,8 @@ export const fetchUser = createAsyncThunk(
     async (userToken, thunkAPI) => {
         try {
             const { data } = await axios.get(
-                "http://localhost:8000/auth/getuser",
+                // "http://localhost:8000/auth/getuser",
+                "https://blogin-kpp7.onrender.com/auth/getuser",
                 {
                     headers: {
                         "Content-Type": "application/json",
@@ -34,7 +35,8 @@ export const loginUser = createAsyncThunk(
     async (loginData, thunkAPI) => {
         try {
             const response = await axios.post(
-                "http://localhost:8000/auth/login",
+                // "http://localhost:8000/auth/login",
+                "https://blogin-kpp7.onrender.com/auth/login",
                 loginData,
                 {
                     headers: {
@@ -59,7 +61,8 @@ export const signupUser = createAsyncThunk(
     async (signupData, thunkAPI) => {
         try {
             const response = await axios.post(
-                "http://localhost:8000/auth/signup",
+                // "http://localhost:8000/auth/signup",
+                "https://blogin-kpp7.onrender.com/auth/signup",
                 signupData,
                 {
                     headers: {
