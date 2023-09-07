@@ -7,10 +7,21 @@ import {
     InputRightElement,
     Text,
     VStack,
+    useToast,
 } from "@chakra-ui/react";
 import React from "react";
 
 const NewsLetter = () => {
+    const toast = useToast();
+
+    const subscribe = () => {
+        toast({
+            title: "Subscribed successfully 😄",
+            status: "success",
+            isClosable: "true",
+            position: "top",
+        });
+    };
     return (
         <Box
             maxW={[
@@ -43,7 +54,7 @@ const NewsLetter = () => {
                     The best articles right in your inbox.
                 </Text>
             </VStack>
-            <VStack my={8} pt={10} w={["90%", "90%", "80%", "50%"]} mx={"auto"}>
+            <VStack my={8} pt={10} w={["95%", "95%", "80%", "50%"]} mx={"auto"}>
                 <InputGroup>
                     <Input
                         type="email"
@@ -52,14 +63,15 @@ const NewsLetter = () => {
                         color={"whiteAlpha.800"}
                         outline={"none"}
                         focusBorderColor="white"
-                        fontSize={"lg"}
+                        fontSize={["sm", "md", "lg"]}
                         p={3}
                     ></Input>
-                    <InputRightElement w={"6rem"}>
+                    <InputRightElement w={["5rem", "6rem"]}>
                         <Button
                             variant={"ghost"}
                             colorScheme=""
                             color={"white"}
+                            // onClick={subscribe}
                         >
                             Subscribe
                         </Button>
