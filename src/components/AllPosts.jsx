@@ -7,6 +7,7 @@ import {
     Text,
     VStack,
     useToast,
+    Stack,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import RenderHtmlComponent from "./RenderHtmlComponent";
@@ -36,33 +37,40 @@ export const AllPosts = () => {
     });
 
     return (
-        <Box
-            maxW={[
-                "container.sm",
-                "container.sm",
-                "container.md",
-                "container.lg",
-                "container.xl",
-            ]}
+        <Stack
+            w={"full"}
+            pt={20}
+            pb={12}
             minH={"80vh"}
-            mt={24}
-            mx={"auto"}
+            bgGradient="linear(to-br, pink.500, purple.500, purple.500, pink.500)"
         >
-            {posts.map((e) => {
-                const desc = decodeURI(e.description).slice(0, 1000) + "...";
-                return (
-                    <Post
-                        key={e._id}
-                        id={e._id}
-                        title={e.title}
-                        description={desc}
-                        author={e.author}
-                        createdAt={e.createdAt}
-                        navigate={navigate}
-                    />
-                );
-            })}
-        </Box>
+            <Box
+                maxW={[
+                    "container.sm",
+                    "container.sm",
+                    "container.md",
+                    "container.lg",
+                    "container.xl",
+                ]}
+                minH={"80vh"}
+                mx={"auto"}
+            >
+                {posts.map((e) => {
+                    const desc = decodeURI(e.description).slice(0, 500) + "...";
+                    return (
+                        <Post
+                            key={e._id}
+                            id={e._id}
+                            title={e.title}
+                            description={desc}
+                            author={e.author}
+                            createdAt={e.createdAt}
+                            navigate={navigate}
+                        />
+                    );
+                })}
+            </Box>
+        </Stack>
     );
 };
 
@@ -75,10 +83,9 @@ const Post = ({ id, title, description, author, createdAt, navigate }) => {
             mx={"auto"}
             my={10}
             p={6}
-            bgGradient="linear(to-br, cyan.300, purple.400)"
+            bgColor={"gray.50"}
             cursor={"pointer"}
             borderRadius={"lg"}
-            boxShadow={"2px 2px 5px #b4b4b4"}
             transition={"transform 0.2s linear"}
             _hover={{ transform: "scale(1.03)" }}
             onClick={() => {
@@ -86,34 +93,37 @@ const Post = ({ id, title, description, author, createdAt, navigate }) => {
             }}
         >
             <HStack w={"full"} justifyContent={"flex-start"} py={2}>
-                <Heading fontFamily={"Roboto"}>{title}</Heading>
-            </HStack>
-            <Divider></Divider>
-            <HStack w={"full"} p={2} justifyContent={"flex-start"}>
-                <Text
-                    fontFamily={"Baloo 2"}
-                    lineHeight={1.5}
-                    fontSize={"lg"}
-                    letterSpacing={1.1}
+                <Heading
+                    fontFamily={"Roboto"}
+                    fontSize={["xl", "xl", "2xl", "3xl"]}
                 >
-                    <RenderHtmlComponent htmlContent={description} />
-                </Text>
+                    {title}
+                </Heading>
             </HStack>
-            <Divider></Divider>
+            <Divider borderColor={"blackAlpha.400"}></Divider>
+            <HStack w={"full"} p={2} justifyContent={"flex-start"}>
+                <RenderHtmlComponent htmlContent={description} />
+            </HStack>
+            <Divider borderColor={"blackAlpha.400"}></Divider>
             <HStack w={"full"} justifyContent={"space-between"} p={2}>
                 <HStack>
                     {" "}
-                    <Avatar size={"xs"} bg={"blackAlpha.800"}></Avatar>
+                    <Avatar
+                        size={["2xs", "xs", "xs", "sm"]}
+                        bg={"blackAlpha.800"}
+                    ></Avatar>
                     <Text
                         color={"blackAlpha.800"}
-                        fontSize={"md"}
-                        fontWeight={"semibold"}
+                        fontSize={["xs", "xs", "sm"]}
+                        fontWeight={["normal"]}
                         fontFamily={"Baloo 2"}
                     >
                         {author}
                     </Text>
                 </HStack>
-                <Text color={"blackAlpha.600"}>~ {createdAt ? date : ""} </Text>
+                <Text color={"blackAlpha.600"} fontSize={["xs", "xs", "sm"]}>
+                    ~ {createdAt ? date : ""}{" "}
+                </Text>
             </HStack>
         </VStack>
     );

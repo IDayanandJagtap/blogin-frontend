@@ -6,7 +6,7 @@ import appStoreImg from "../assets/appStore.png";
 
 const Footer = () => {
     return (
-        <Box maxW={"full"} bgColor={"gray.100"} mt={20} p={8}>
+        <Box maxW={"full"} bgColor={"gray.100"} p={8}>
             <Stack
                 w={"full"}
                 flexDirection={["column", "column", "column", "row"]}
@@ -20,7 +20,11 @@ const Footer = () => {
                 gap={[12, 12, 12, 0]}
             >
                 <VStack alignItems={"flex-start"} w={"full"}>
-                    <Text fontWeight={"semibold"} fontSize={"4xl"} mb={2}>
+                    <Text
+                        fontWeight={"semibold"}
+                        fontSize={["2xl", "3xl", "4xl"]}
+                        mb={2}
+                    >
                         Blogin
                     </Text>
                     <Text letterSpacing={1.2} wordBreak={"break"}>
@@ -39,7 +43,11 @@ const Footer = () => {
                         "center",
                     ]}
                 >
-                    <Text fontWeight={"semibold"} fontSize={"4xl"} mb={2}>
+                    <Text
+                        fontWeight={"semibold"}
+                        fontSize={["2xl", "3xl", "4xl"]}
+                        mb={2}
+                    >
                         {" "}
                         Quick Links
                     </Text>
@@ -76,7 +84,11 @@ const Footer = () => {
                         "center",
                     ]}
                 >
-                    <Text fontWeight={"semibold"} fontSize={"4xl"} mb={2}>
+                    <Text
+                        fontWeight={"semibold"}
+                        fontSize={["2xl", "3xl", "4xl"]}
+                        mb={2}
+                    >
                         More
                     </Text>
                     <VStack

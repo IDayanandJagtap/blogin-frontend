@@ -50,13 +50,15 @@ const DetailedPost = () => {
             payload: "/post",
         });
     });
-
     return (
         <Stack
             w={"full"}
-            mt={20}
+            pt={20}
+            pb={12}
             flexDirection={["column", "column", "column", "row"]}
             minH={"80vh"}
+            // style={mainDivStyles}
+            bgGradient="linear(to-br, blue.800, purple.600, pink.500)"
         >
             <Box
                 w={["96%", "96%", "96%", "70%"]}
@@ -64,9 +66,10 @@ const DetailedPost = () => {
                 p={6}
                 my={8}
                 h={"fit-content"}
-                bgGradient="linear(to-br, purple.200, blue.400)"
+                // bgGradient="linear(to-br, purple.200, blue.400)"
                 borderRadius={"md"}
-                boxShadow={"2px 2px 5px #b4b4b4"}
+                // boxShadow={"2px 2px 5px #b4b4b4"}
+                style={{ backgroundColor: "#F7FAFC" }}
             >
                 <VStack w={"full"} alignItems={"flex-start"}>
                     <Heading
@@ -74,28 +77,31 @@ const DetailedPost = () => {
                         textAlign={"center"}
                         w={"full"}
                         py={3}
-                        fontSize={["xl", "xl", "xl", "2xl", "3xl"]}
+                        fontSize={["xl", "xl", "2xl", "3xl"]}
                     >
                         {title}
                     </Heading>
-                    <Divider></Divider>
+                    <Divider borderColor={"blackAlpha.400"}></Divider>
                     <RenderHtmlComponent htmlContent={description} />
-                    <Divider py={4}></Divider>
+                    <Divider borderColor={"blackAlpha.400"} py={4}></Divider>
                     <HStack w={"full"} justifyContent={"space-between"} py={4}>
                         <HStack>
-                            <Avatar size={"sm"} bg={"blackAlpha.800"}></Avatar>
+                            <Avatar
+                                size={["2xs", "xs", "xs", "sm"]}
+                                bg={"blackAlpha.800"}
+                            ></Avatar>
                             <Text
                                 color={"blackAlpha.800"}
-                                fontSize={["sm", "md"]}
                                 fontWeight={"semibold"}
                                 fontFamily={"Baloo 2"}
+                                fontSize={["xs", "xs", "sm"]}
                             >
                                 {author}
                             </Text>
                         </HStack>
                         <Text
                             color={"blackAlpha.700"}
-                            fontSize={["xs", "sm", "md"]}
+                            fontSize={["xs", "xs", "sm"]}
                         >
                             ~ {createdAt ? date : ""}
                         </Text>
@@ -109,12 +115,14 @@ const DetailedPost = () => {
                 my={8}
                 // bgGradient="linear(to-br, purple.300, blue.600)"
                 borderRadius={"md"}
-                bgGradient="linear(to-br, blue.100, blue.50)"
-                boxShadow={"2px 2px 5px #b4b4b4"}
+                // bgGradient="linear(to-br, blue.100, blue.50)"
+                // bgColor={"blackAlpha.100"}
+                style={{ backgroundColor: "#F7FAFC" }}
+                // boxShadow={"2px 2px 5px #b4b4b4"}
             >
                 <Heading
                     textAlign={"center"}
-                    fontSize={"2xl"}
+                    fontSize={["xl", "xl", "2xl", "3xl"]}
                     color={"blackAlpha.600"}
                     fontFamily={"Roboto"}
                 >
