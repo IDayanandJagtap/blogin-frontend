@@ -20,4 +20,8 @@
 
     -#### Fonts and Quick ui fixes for prod ready app.
 
-    -# Mongodb is now live on mongodb atlas ... just make sure you make the backend live too !
+#Immediately :
+
+        - See the responsiveness mainly font-sizes .
+        - Home screen posts fix.
+        - All components links fix(footer, userdrawer)

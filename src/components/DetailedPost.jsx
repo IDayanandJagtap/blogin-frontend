@@ -74,6 +74,7 @@ const DetailedPost = () => {
                         textAlign={"center"}
                         w={"full"}
                         py={3}
+                        fontSize={["xl", "xl", "xl", "2xl", "3xl"]}
                     >
                         {title}
                     </Heading>
@@ -85,14 +86,17 @@ const DetailedPost = () => {
                             <Avatar size={"sm"} bg={"blackAlpha.800"}></Avatar>
                             <Text
                                 color={"blackAlpha.800"}
-                                fontSize={"md"}
+                                fontSize={["sm", "md"]}
                                 fontWeight={"semibold"}
                                 fontFamily={"Baloo 2"}
                             >
                                 {author}
                             </Text>
                         </HStack>
-                        <Text color={"blackAlpha.700"}>
+                        <Text
+                            color={"blackAlpha.700"}
+                            fontSize={["xs", "sm", "md"]}
+                        >
                             ~ {createdAt ? date : ""}
                         </Text>
                     </HStack>

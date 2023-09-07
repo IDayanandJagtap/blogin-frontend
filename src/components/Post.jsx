@@ -192,9 +192,9 @@ const PreviewPost = ({ postData, handleOnPostClick }) => (
         </Box>
         <Divider mt={6} />
         <HStack mt={6} justifyContent={"flex-end"}>
-            <Button variant={"outline"} colorScheme="purple">
+            {/* <Button variant={"outline"} colorScheme="purple">
                 Draft
-            </Button>
+            </Button> */}
             <Button
                 variant={"solid"}
                 colorScheme="purple"

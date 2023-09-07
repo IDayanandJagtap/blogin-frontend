@@ -67,3 +67,102 @@
     letter-spacing: 1px;
     word-spacing: 4px;
 }
+
+@media (max-width: 399px) {
+    .previewDiv {
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 400px) {
+    .previewDiv {
+        font-size: 1rem;
+    }
+    .previewDiv h1 {
+        font-size: 1.3rem;
+    }
+    .previewDiv h2 {
+        font-size: 1.1rem;
+    }
+    .previewDiv h3 {
+        font-size: 0.9rem;
+    }
+    .previewDiv h4 {
+        font-size: 0.7rem;
+    }
+    .previewDiv h5 {
+        font-size: 0.6rem;
+    }
+    .previewDiv h6 {
+        font-size: 0.4rem;
+    }
+}
+
+@media (min-width: 600px) {
+    .previewDiv {
+        font-size: 1.2rem;
+    }
+    h1 {
+        font-size: 1.6rem;
+    }
+    .previewDiv h2 {
+        font-size: 1.4rem;
+    }
+    .previewDiv h3 {
+        font-size: 1.2rem;
+    }
+    .previewDiv h4 {
+        font-size: 1rem;
+    }
+    .previewDiv h5 {
+        font-size: 0.8rem;
+    }
+    .previewDiv h6 {
+        font-size: 0.6rem;
+    }
+}
+
+@media (min-width: 800px) {
+    .previewDiv {
+        font-size: 1.3rem;
+    }
+    h1 {
+        font-size: 1.9rem;
+    }
+    .previewDiv h2 {
+        font-size: 1.7rem;
+    }
+    .previewDiv h3 {
+        font-size: 1.5rem;
+    }
+    .previewDiv h4 {
+        font-size: 1.3rem;
+    }
+    .previewDiv h5 {
+        font-size: 1.1rem;
+    }
+    .previewDiv h6 {
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 1000px) {
+    h1 {
+        font-size: 2.2rem;
+    }
+    .previewDiv h2 {
+        font-size: 1.9rem;
+    }
+    .previewDiv h3 {
+        font-size: 1.7rem;
+    }
+    .previewDiv h4 {
+        font-size: 1.5rem;
+    }
+    .previewDiv h5 {
+        font-size: 1.3rem;
+    }
+    .previewDiv h6 {
+        font-size: 1.1rem;
+    }
+}
