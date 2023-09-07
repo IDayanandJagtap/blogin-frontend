@@ -77,6 +77,7 @@ const DetailedPost = () => {
                         textAlign={"center"}
                         w={"full"}
                         py={3}
+                        fontSize={["xl", "xl", "2xl", "3xl"]}
                     >
                         {title}
                     </Heading>
@@ -85,17 +86,23 @@ const DetailedPost = () => {
                     <Divider borderColor={"blackAlpha.400"} py={4}></Divider>
                     <HStack w={"full"} justifyContent={"space-between"} py={4}>
                         <HStack>
-                            <Avatar size={"sm"} bg={"blackAlpha.800"}></Avatar>
+                            <Avatar
+                                size={["2xs", "xs", "xs", "sm"]}
+                                bg={"blackAlpha.800"}
+                            ></Avatar>
                             <Text
                                 color={"blackAlpha.800"}
-                                fontSize={"md"}
                                 fontWeight={"semibold"}
                                 fontFamily={"Baloo 2"}
+                                fontSize={["xs", "xs", "sm"]}
                             >
                                 {author}
                             </Text>
                         </HStack>
-                        <Text color={"blackAlpha.700"}>
+                        <Text
+                            color={"blackAlpha.700"}
+                            fontSize={["xs", "xs", "sm"]}
+                        >
                             ~ {createdAt ? date : ""}
                         </Text>
                     </HStack>
@@ -115,7 +122,7 @@ const DetailedPost = () => {
             >
                 <Heading
                     textAlign={"center"}
-                    fontSize={"2xl"}
+                    fontSize={["xl", "xl", "2xl", "3xl"]}
                     color={"blackAlpha.600"}
                     fontFamily={"Roboto"}
                 >

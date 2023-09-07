@@ -20,7 +20,11 @@ const Footer = () => {
                 gap={[12, 12, 12, 0]}
             >
                 <VStack alignItems={"flex-start"} w={"full"}>
-                    <Text fontWeight={"semibold"} fontSize={"4xl"} mb={2}>
+                    <Text
+                        fontWeight={"semibold"}
+                        fontSize={["2xl", "3xl", "4xl"]}
+                        mb={2}
+                    >
                         Blogin
                     </Text>
                     <Text letterSpacing={1.2} wordBreak={"break"}>
@@ -39,7 +43,11 @@ const Footer = () => {
                         "center",
                     ]}
                 >
-                    <Text fontWeight={"semibold"} fontSize={"4xl"} mb={2}>
+                    <Text
+                        fontWeight={"semibold"}
+                        fontSize={["2xl", "3xl", "4xl"]}
+                        mb={2}
+                    >
                         {" "}
                         Quick Links
                     </Text>
@@ -76,7 +84,11 @@ const Footer = () => {
                         "center",
                     ]}
                 >
-                    <Text fontWeight={"semibold"} fontSize={"4xl"} mb={2}>
+                    <Text
+                        fontWeight={"semibold"}
+                        fontSize={["2xl", "3xl", "4xl"]}
+                        mb={2}
+                    >
                         More
                     </Text>
                     <VStack
