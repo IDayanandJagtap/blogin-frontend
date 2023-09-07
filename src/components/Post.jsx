@@ -119,6 +119,7 @@ const Post = () => {
                 ]}
                 mx={["10px", "auto"]}
                 mt={32}
+                mb={20}
                 border={"3px solid #805ad5"}
                 borderRadius={"lg"}
             >
@@ -180,7 +181,7 @@ const PreviewPost = ({ postData, handleOnPostClick }) => (
             "container.xl",
         ]}
         mx={["10px", "auto"]}
-        mt={24}
+        my={24}
         py={4}
         px={6}
         border={"3px solid gray"}

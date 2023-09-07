@@ -6,7 +6,7 @@ import appStoreImg from "../assets/appStore.png";
 
 const Footer = () => {
     return (
-        <Box maxW={"full"} bgColor={"gray.100"} mt={20} p={8}>
+        <Box maxW={"full"} bgColor={"gray.100"} p={8}>
             <Stack
                 w={"full"}
                 flexDirection={["column", "column", "column", "row"]}

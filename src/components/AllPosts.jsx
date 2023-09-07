@@ -75,7 +75,8 @@ const Post = ({ id, title, description, author, createdAt, navigate }) => {
             mx={"auto"}
             my={10}
             p={6}
-            bgGradient="linear(to-br, cyan.300, purple.400)"
+            // bgGradient="linear(to-br, cyan.300, purple.400)"
+            bgColor={"gray.200"}
             cursor={"pointer"}
             borderRadius={"lg"}
             boxShadow={"2px 2px 5px #b4b4b4"}
@@ -88,7 +89,7 @@ const Post = ({ id, title, description, author, createdAt, navigate }) => {
             <HStack w={"full"} justifyContent={"flex-start"} py={2}>
                 <Heading fontFamily={"Roboto"}>{title}</Heading>
             </HStack>
-            <Divider></Divider>
+            <Divider borderColor={"blackAlpha.400"}></Divider>
             <HStack w={"full"} p={2} justifyContent={"flex-start"}>
                 <Text
                     fontFamily={"Baloo 2"}
@@ -99,7 +100,7 @@ const Post = ({ id, title, description, author, createdAt, navigate }) => {
                     <RenderHtmlComponent htmlContent={description} />
                 </Text>
             </HStack>
-            <Divider></Divider>
+            <Divider borderColor={"blackAlpha.400"}></Divider>
             <HStack w={"full"} justifyContent={"space-between"} p={2}>
                 <HStack>
                     {" "}

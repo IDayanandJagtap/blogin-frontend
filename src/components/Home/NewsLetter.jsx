@@ -23,6 +23,7 @@ const NewsLetter = () => {
             bgColor={"purple.600"}
             mx={["20px", "8%", "auto", "auto", "auto"]}
             py={8}
+            mb={24}
             borderRadius={"lg"}
             boxShadow={"lg"}
         >
