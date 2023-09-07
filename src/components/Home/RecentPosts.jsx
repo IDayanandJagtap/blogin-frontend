@@ -6,6 +6,7 @@ import {
     CardBody,
     CardFooter,
     CardHeader,
+    Divider,
     HStack,
     Heading,
     Stack,
@@ -14,8 +15,13 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { HiOutlineArrowNarrowRight } from "react-icons/hi";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import RenderHtmlComponent from "../RenderHtmlComponent";
 
 const RecentPosts = () => {
+    const { posts } = useSelector((state) => state.post);
+
     return (
         <section>
             <Box
@@ -50,12 +56,15 @@ const RecentPosts = () => {
                     gridTemplateColumns={"repeat(auto-fit, minmax(300px, 1fr))"}
                     gap={5}
                 >
-                    {dummyData.map((e, i) => {
+                    {posts.slice(0, 3).map((e) => {
+                        const desc = decodeURI(e.description).substring(0, 300);
                         return (
                             <PostCard
-                                key={i}
+                                key={e._id}
+                                id={e._id}
                                 title={e.title}
-                                description={e.description.substring(0, 300)}
+                                description={desc}
+                                author={e.author}
                             />
                         );
                     })}
@@ -66,34 +75,38 @@ const RecentPosts = () => {
     );
 };
 
-const PostCard = ({ title, description }) => {
-    let shortDesc = description;
+const PostCard = ({ id, title, description, author }) => {
+    const navigate = useNavigate();
     return (
-        <Card variant={"outline"} minH={64} boxShadow={"xl"}>
+        <Card variant={"outline"} minH={64} boxShadow={"xl"} px={2}>
             <CardHeader>
                 <Heading as="h4" size={"md"}>
                     {title}
                 </Heading>
                 <HStack justifyContent={"flex-end"}></HStack>
             </CardHeader>
+            <Divider></Divider>
             <CardBody>
                 <VStack alignItems={"flex-start"}>
-                    <Text>
-                        {shortDesc}
-                        {shortDesc.length < 300 ? "" : "..."}
-                    </Text>
+                    <RenderHtmlComponent
+                        htmlContent={description}
+                    ></RenderHtmlComponent>
                 </VStack>
             </CardBody>
+            <Divider></Divider>
             <CardFooter>
                 <HStack justifyContent={"space-between"} w={"100%"}>
                     <Stack flexDirection={"row"} alignItems={"center"}>
                         <Avatar size={"xs"}></Avatar>
-                        <Text fontSize={"xs"}>Author</Text>
+                        <Text fontSize={"xs"}>{author}</Text>
                     </Stack>
                     <Button
                         colorScheme="purple"
                         size={"sm"}
                         rightIcon={<HiOutlineArrowNarrowRight />}
+                        onClick={() => {
+                            navigate(`/posts/${id}`);
+                        }}
                     >
                         Read more
                     </Button>
@@ -103,22 +116,22 @@ const PostCard = ({ title, description }) => {
     );
 };
 
-const dummyData = [
-    {
-        title: "This is a post to check if the card works properly",
-        description:
-            "I could have pasteh will be huuuhhh.... react is open source spa framework.",
-    },
-    {
-        title: "This is a post to check if the card works properly",
-        description:
-            "I could have paster the lorem epsum but I think it is okay to just keep writing  <PostCard /> <PostCard /> whatever is coming to mind which will be huuuhhh.... react is open source spa framework.",
-    },
-    {
-        title: "This is a post to check if the card works properly",
-        description:
-            "I could have paster the lorem epsum but I think it is okay to just keep writing whatever is coming to mind which will be huuuhhh.... react is open source spa framework.",
-    },
-];
+// const dummyData = [
+//     {
+//         title: "This is a post to check if the card works properly",
+//         description:
+//             "I could have pasteh will be huuuhhh.... react is open source spa framework.",
+//     },
+//     {
+//         title: "This is a post to check if the card works properly",
+//         description:
+//             "I could have paster the lorem epsum but I think it is okay to just keep writing  <PostCard /> <PostCard /> whatever is coming to mind which will be huuuhhh.... react is open source spa framework.",
+//     },
+//     {
+//         title: "This is a post to check if the card works properly",
+//         description:
+//             "I could have paster the lorem epsum but I think it is okay to just keep writing whatever is coming to mind which will be huuuhhh.... react is open source spa framework.",
+//     },
+// ];
 
 export default RecentPosts;

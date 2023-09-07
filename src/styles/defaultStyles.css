@@ -68,13 +68,13 @@
 
 @media (max-width: 399px) {
     .previewDiv {
-        font-size: 0.7rem;
+        font-size: 0.8rem;
     }
 }
 
 @media (min-width: 400px) {
     .previewDiv {
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         font-family: "Baloo 2";
     }
     .previewDiv h1 {
@@ -99,7 +99,7 @@
 
 @media (min-width: 600px) {
     .previewDiv {
-        font-size: 0.9rem;
+        font-size: 1rem;
     }
     .previewDiv h1 {
         font-size: 1.6rem;
