@@ -9,19 +9,45 @@ import {
     VStack,
     useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import axios from "axios";
+import React, { useRef } from "react";
 
 const NewsLetter = () => {
     const toast = useToast();
+    const emailRef = useRef(0);
 
-    const subscribe = () => {
-        toast({
-            title: "Subscribed successfully 😄",
-            status: "success",
-            isClosable: "true",
-            position: "top",
-        });
+    const subscribe = async () => {
+        try {
+            const email = emailRef.current.value;
+            const response = await axios.post(
+                // "https://blogin-kpp7.onrender.com/api/subscribe",
+                "http://localhost:8000/api/subscribe",
+                {
+                    email: email,
+                }
+            );
+
+            const msg = response.data.data;
+            toast({
+                title: msg + " 😄",
+                status: "success",
+                isClosable: "true",
+                position: "top",
+            });
+        } catch (err) {
+            console.log(err);
+            const msg = err.response.data.error.errors[0].msg;
+            console.log(msg);
+            toast({
+                title: msg,
+                status: "error",
+                isClosable: "true",
+                position: "top",
+            });
+        }
+        emailRef.current.value = "";
     };
+
     return (
         <Box
             maxW={[
@@ -64,6 +90,7 @@ const NewsLetter = () => {
                         outline={"none"}
                         focusBorderColor="white"
                         fontSize={["sm", "md", "lg"]}
+                        ref={emailRef}
                         p={3}
                     ></Input>
                     <InputRightElement w={["5rem", "6rem"]}>
@@ -71,7 +98,7 @@ const NewsLetter = () => {
                             variant={"ghost"}
                             colorScheme=""
                             color={"white"}
-                            // onClick={subscribe}
+                            onClick={subscribe}
                         >
                             Subscribe
                         </Button>
