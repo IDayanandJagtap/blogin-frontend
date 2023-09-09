@@ -34,9 +34,11 @@ export const getPosts = createAsyncThunk(
     "post/getPosts",
     async (data, thunkAPI) => {
         try {
-            // const response = await axios.get("http://localhost:8000/api/posts");
+            // const response = await axios.get(
+            //     `http://localhost:8000/api/posts?page=${data.pageno}`
+            // );
             const response = await axios.get(
-                "https://blogin-kpp7.onrender.com/api/posts"
+                `https://blogin-kpp7.onrender.com/api/posts?page=${data.pageno}`
             );
 
             thunkAPI.dispatch(setPosts(response.data.payload));

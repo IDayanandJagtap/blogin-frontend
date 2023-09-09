@@ -10,13 +10,14 @@ import MyPosts from "./components/MyPosts";
 import AllPosts from "./components/AllPosts";
 import "./styles/index.css";
 import DetailedPost from "./components/DetailedPost";
+import { getPosts } from "./redux/postSlice";
 
 function App() {
     const dispatch = useDispatch();
     const userToken = localStorage.getItem("userToken");
     useEffect(() => {
         dispatch({ type: "auth/isLoggedIn" });
-
+        dispatch(getPosts({ pageno: 1 }));
         if (userToken) {
             dispatch(fetchUser(userToken));
         }

@@ -8,22 +8,28 @@ import {
     VStack,
     useToast,
     Stack,
+    Button,
+    Spinner,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import RenderHtmlComponent from "./RenderHtmlComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../redux/postSlice";
+import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 
 export const AllPosts = () => {
     const { posts } = useSelector((state) => state.post);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const toast = useToast();
+    const [pageNo, setPageNo] = useState(1);
 
     useEffect(() => {
+        if (pageNo < 1) setPageNo(1); // avoid negative indices
+
         dispatch({ type: "header/setActiveTab", payload: "/posts" });
-        dispatch(getPosts())
+        dispatch(getPosts({ pageno: pageNo || 1 }))
             .unwrap()
             .then((e) => {})
             .catch((e) => {
@@ -34,7 +40,8 @@ export const AllPosts = () => {
                     isClosable: true,
                 });
             });
-    });
+        // eslint-disable-next-line
+    }, [pageNo]);
 
     return (
         <Stack
@@ -42,34 +49,69 @@ export const AllPosts = () => {
             pt={20}
             pb={12}
             minH={"80vh"}
-            bgGradient="linear(to-br, pink.500, purple.500, purple.500, pink.500)"
+            bgGradient="linear(to-br, pink.500, purple.500, purple.500)"
         >
-            <Box
-                maxW={[
-                    "container.sm",
-                    "container.sm",
-                    "container.md",
-                    "container.lg",
-                    "container.xl",
-                ]}
-                minH={"80vh"}
-                mx={"auto"}
-            >
-                {posts.map((e) => {
-                    const desc = decodeURI(e.description).slice(0, 500) + "...";
-                    return (
-                        <Post
-                            key={e._id}
-                            id={e._id}
-                            title={e.title}
-                            description={desc}
-                            author={e.author}
-                            createdAt={e.createdAt}
-                            navigate={navigate}
-                        />
-                    );
-                })}
-            </Box>
+            {posts.length === 0 ? (
+                <HStack
+                    w={"100%"}
+                    h={"80vh"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                >
+                    <Spinner size={"xl"} thickness="4px" />
+                </HStack>
+            ) : (
+                <Box
+                    maxW={[
+                        "container.sm",
+                        "container.sm",
+                        "container.md",
+                        "container.lg",
+                        "container.xl",
+                    ]}
+                    minH={"80vh"}
+                    mx={"auto"}
+                >
+                    {posts.map((e) => {
+                        const desc =
+                            decodeURI(e.description).slice(0, 500) + "...";
+                        return (
+                            <Post
+                                key={e._id}
+                                id={e._id}
+                                title={e.title}
+                                description={desc}
+                                author={e.author}
+                                createdAt={e.createdAt}
+                                navigate={navigate}
+                            />
+                        );
+                    })}
+
+                    <HStack p={6} justifyContent={"space-between"}>
+                        <Button
+                            isDisabled={pageNo === 1}
+                            leftIcon={<BsArrowLeft />}
+                            colorScheme="blackAlpha"
+                            onClick={() => {
+                                setPageNo(pageNo - 1);
+                            }}
+                        >
+                            Previous
+                        </Button>
+                        <Button
+                            isDisabled={posts.length < 5}
+                            rightIcon={<BsArrowRight />}
+                            colorScheme="blackAlpha"
+                            onClick={() => {
+                                setPageNo(pageNo + 1);
+                            }}
+                        >
+                            Next
+                        </Button>
+                    </HStack>
+                </Box>
+            )}
         </Stack>
     );
 };

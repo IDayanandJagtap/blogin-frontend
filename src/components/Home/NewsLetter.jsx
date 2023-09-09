@@ -20,8 +20,8 @@ const NewsLetter = () => {
         try {
             const email = emailRef.current.value;
             const response = await axios.post(
-                // "https://blogin-kpp7.onrender.com/api/subscribe",
-                "http://localhost:8000/api/subscribe",
+                "https://blogin-kpp7.onrender.com/api/subscribe",
+                // "http://localhost:8000/api/subscribe",
                 {
                     email: email,
                 }
