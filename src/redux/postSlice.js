@@ -49,10 +49,26 @@ export const getPosts = createAsyncThunk(
     }
 );
 
+export const getSinglePost = createAsyncThunk(
+    "posts/getSinglePost",
+    async (data, thunkAPI) => {
+        try {
+            const response = await axios.get(
+                `https://blogin-kpp7.onrender.com/api/view-post/${data.id}`
+                // `http://localhost:8000/api/view-post/${data.id}`
+            );
+            return response.data.payload;
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+);
+
 export const postSlice = createSlice({
     name: "post",
     initialState: {
         posts: [],
+        myPosts: [],
     },
     reducers: {
         setPosts: (state, action) => {
