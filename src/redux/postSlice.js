@@ -69,14 +69,27 @@ export const postSlice = createSlice({
     initialState: {
         posts: [],
         myPosts: [],
+        pageNo: 1,
+        status: {
+            isAllPostLoading: false,
+        },
     },
     reducers: {
         setPosts: (state, action) => {
             state.posts = action.payload;
+            state.status.isAllPostLoading = false;
+        },
+        setPageNo: (state, action) => {
+            if (action.payload === "increment") state.pageNo++;
+            else if (action.payload === "decrement") state.pageNo--;
+            else state.pageNo = 1;
+        },
+        setStatus: (state, action) => {
+            state.status = action.payload;
         },
     },
 });
 
-export const { setPosts } = postSlice.actions;
+export const { setPosts, setPageNo, setStatus } = postSlice.actions;
 
 export default postSlice.reducer;

@@ -66,7 +66,6 @@ const DetailedPost = () => {
                         position: "top",
                     });
                 });
-            console.log("i'm rendering");
         }
         //eslint-disable-next-line
     }, [currentPost]);

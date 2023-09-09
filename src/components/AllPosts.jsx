@@ -11,7 +11,7 @@ import {
     Button,
     Spinner,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import RenderHtmlComponent from "./RenderHtmlComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,14 +19,29 @@ import { getPosts } from "../redux/postSlice";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 
 export const AllPosts = () => {
-    const { posts } = useSelector((state) => state.post);
+    const { posts, pageNo, status } = useSelector((state) => state.post);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const toast = useToast();
-    const [pageNo, setPageNo] = useState(1);
+
+    const handleOnPrevious = () => {
+        dispatch({
+            type: "post/setStatus",
+            payload: { isAllPostLoading: true },
+        });
+        dispatch({ type: "post/setPageNo", payload: "decrement" });
+    };
+    const handleOnNext = () => {
+        dispatch({
+            type: "post/setStatus",
+            payload: { isAllPostLoading: true },
+        });
+        dispatch({ type: "post/setPageNo", payload: "increment" });
+    };
 
     useEffect(() => {
-        if (pageNo < 1) setPageNo(1); // avoid negative indices
+        if (pageNo < 1)
+            dispatch({ type: "post/setPageNo", payload: "initialise" }); // avoid negative indices
 
         dispatch({ type: "header/setActiveTab", payload: "/posts" });
         dispatch(getPosts({ pageno: pageNo || 1 }))
@@ -51,7 +66,7 @@ export const AllPosts = () => {
             minH={"80vh"}
             bgGradient="linear(to-br, pink.500, purple.500, purple.500)"
         >
-            {posts.length === 0 ? (
+            {posts.length === 0 || status.isAllPostLoading ? (
                 <HStack
                     w={"100%"}
                     h={"80vh"}
@@ -93,9 +108,7 @@ export const AllPosts = () => {
                             isDisabled={pageNo === 1}
                             leftIcon={<BsArrowLeft />}
                             colorScheme="blackAlpha"
-                            onClick={() => {
-                                setPageNo(pageNo - 1);
-                            }}
+                            onClick={handleOnPrevious}
                         >
                             Previous
                         </Button>
@@ -103,9 +116,7 @@ export const AllPosts = () => {
                             isDisabled={posts.length < 5}
                             rightIcon={<BsArrowRight />}
                             colorScheme="blackAlpha"
-                            onClick={() => {
-                                setPageNo(pageNo + 1);
-                            }}
+                            onClick={handleOnNext}
                         >
                             Next
                         </Button>
