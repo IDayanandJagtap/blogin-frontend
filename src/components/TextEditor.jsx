@@ -8,8 +8,8 @@ export default function TextEditor({
     setPostData,
     postData,
 }) {
-    //**************  Move this api key to env ***************************
-    const API_KEY = "jgz5jj3s34rhiz3u7ivietk9q3epaj2k1sczpuwzgad2vub7";
+    //**************  Set your api key in env ***************************
+    const API_KEY = process.env.REACT_APP_EDITOR_KEY;
 
     const editorRef = useRef(null);
 
