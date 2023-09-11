@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { HiPlus } from "react-icons/hi";
-import { BiSolidMessageSquare, BiSolidFile, BiSolidCog } from "react-icons/bi";
+import { BiSolidFile, BiSolidCog } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 

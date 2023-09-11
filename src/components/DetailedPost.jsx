@@ -37,6 +37,8 @@ const DetailedPost = () => {
     const date = new Date(createdAt).toDateString();
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+
         dispatch({
             type: "header/setActiveTab",
             payload: "/post",

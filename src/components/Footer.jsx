@@ -1,11 +1,10 @@
 import { Box, Stack, Image, Text, VStack } from "@chakra-ui/react";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import googlePlayImg from "../assets/googlePlay.png";
 import appStoreImg from "../assets/appStore.png";
 
 const Footer = () => {
-    const navigate = useNavigate();
     return (
         <Box maxW={"full"} bgColor={"gray.100"} p={8}>
             <Stack

@@ -104,6 +104,9 @@ const Post = () => {
                 JSON.stringify("Start writing here !")
             );
 
+        // Scroll to top
+        window.scrollTo(0, 0);
+
         // eslint-disable-next-line
     }, []);
 
