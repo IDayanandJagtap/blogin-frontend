@@ -23,6 +23,7 @@ const Post = () => {
     const dispatch = useDispatch();
     const { userToken, userInfo } = useSelector((state) => state.auth);
     const navigate = useNavigate();
+    const [isPostSubmitting, setIsPostSubmitting] = useState(false);
 
     // Show toast notification
     const showMobileToast = () => {
@@ -40,9 +41,11 @@ const Post = () => {
         titleRef.current.value = "";
         localStorage.clear("post");
         setPostData(null);
+        setIsPostSubmitting(false);
     };
 
     const handleOnPostClick = () => {
+        setIsPostSubmitting(true);
         const title = titleRef.current.value;
 
         if (title.length < 3 || postData.length < 5) {
@@ -71,7 +74,7 @@ const Post = () => {
                 });
                 clearPost();
                 // redirect the user to the myposts page !
-                navigate("/");
+                navigate("/my-posts");
             })
             .catch((e) => {
                 toast({
@@ -80,6 +83,7 @@ const Post = () => {
                     position: "bottom",
                     isClosable: true,
                 });
+                setIsPostSubmitting(false);
             });
     };
 
@@ -167,13 +171,14 @@ const Post = () => {
                 <PreviewPost
                     postData={postData}
                     handleOnPostClick={handleOnPostClick}
+                    isPostSubmitting={isPostSubmitting}
                 />
             ) : null}
         </Box>
     );
 };
 
-const PreviewPost = ({ postData, handleOnPostClick }) => (
+const PreviewPost = ({ postData, handleOnPostClick, isPostSubmitting }) => (
     <Box
         maxW={[
             "container.sm",
@@ -202,6 +207,7 @@ const PreviewPost = ({ postData, handleOnPostClick }) => (
                 variant={"solid"}
                 colorScheme="purple"
                 onClick={handleOnPostClick}
+                isLoading={isPostSubmitting}
             >
                 Post
             </Button>
