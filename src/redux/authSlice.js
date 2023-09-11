@@ -125,9 +125,7 @@ export const authSlice = createSlice({
                 localStorage.removeItem("userToken");
                 localStorage.removeItem("user");
                 state.userInfo = { isLoggedIn: false };
-                console.log("inside of logout");
             }
-            console.log("outside of logout");
         },
     },
     extraReducers: (builder) => {

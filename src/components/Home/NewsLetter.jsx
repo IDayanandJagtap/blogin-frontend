@@ -35,9 +35,7 @@ const NewsLetter = () => {
                 position: "top",
             });
         } catch (err) {
-            console.log(err);
             const msg = err.response.data.error.errors[0].msg;
-            console.log(msg);
             toast({
                 title: msg,
                 status: "error",

@@ -349,7 +349,6 @@ const SideDrawer = ({
                             variant={"outline"}
                             colorScheme="purple"
                             onClick={() => {
-                                console.log("clicked");
                                 dispatch({ type: "auth/logout" });
                                 onClose();
                                 toast({

@@ -80,7 +80,6 @@ const Post = () => {
                     position: "bottom",
                     isClosable: true,
                 });
-                console.log(e);
             });
     };
 
