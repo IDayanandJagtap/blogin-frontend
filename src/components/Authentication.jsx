@@ -27,7 +27,6 @@ const Authentication = ({ openModal, setOpenModal }) => {
     const [loginData, setLoginData] = useState({
         email: "",
         password: "",
-        isError: false,
     });
     const [signupData, setSignupData] = useState({
         name: "",
@@ -35,6 +34,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
         confirm_password: "",
         passError: false,
     });
+    const [isAuthLoading, setIsAuthLoading] = useState(false);
     const dispatch = useDispatch();
     const toast = useToast();
 
@@ -48,8 +48,9 @@ const Authentication = ({ openModal, setOpenModal }) => {
         setOpenModal(false);
         onClose();
         // Set all errors to false;
-        setLoginData({ isError: false });
+        setLoginData({});
         setSignupData({ passError: false });
+        setIsAuthLoading(false);
     };
 
     const handleSwitchToLogin = () => {
@@ -65,7 +66,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
         dispatch(loginUser(loginData))
             .unwrap()
             .then((e) => {
-                setLoginData({ ...loginData, isError: false });
+                setLoginData({ ...loginData });
                 handleOnClose();
                 toast({
                     title: "Logged in successfully 😃",
@@ -75,7 +76,14 @@ const Authentication = ({ openModal, setOpenModal }) => {
                 });
             })
             .catch((err) => {
-                setLoginData({ ...loginData, isError: true });
+                setLoginData({
+                    ...loginData,
+                    error:
+                        err.name === "TypeError"
+                            ? "Something went wrong 🙁"
+                            : err.message,
+                });
+                setIsAuthLoading(false);
             });
     };
 
@@ -100,14 +108,24 @@ const Authentication = ({ openModal, setOpenModal }) => {
                 });
             })
             .catch((err) => {
-                // console.log(err);
-                // setSignupData({ ...signupData, passError: true });
-                toast({
-                    title: "Error creating account 🙁",
-                    status: "error",
-                    isClosable: "true",
-                    position: "top",
-                });
+                if (err.name === "TypeError") {
+                    //when it isn't a successful request because of other reasons ... axios will throw an typeError (err.response.data.err) so to check if it is typeError
+                    toast({
+                        title: "Error creating account 🙁",
+                        status: "error",
+                        isClosable: "true",
+                        position: "top",
+                    });
+                } else {
+                    toast({
+                        title: err.message + " 🙁",
+                        status: "error",
+                        isClosable: "true",
+                        position: "top",
+                    });
+                }
+
+                setIsAuthLoading(false);
             });
     };
 
@@ -194,7 +212,11 @@ const Authentication = ({ openModal, setOpenModal }) => {
                                 variant={"solid"}
                                 colorScheme="purple"
                                 alignSelf={"flex-end"}
-                                onClick={handleLogin}
+                                isLoading={isAuthLoading}
+                                onClick={() => {
+                                    handleLogin();
+                                    setIsAuthLoading(true);
+                                }}
                             >
                                 Login
                             </Button>
@@ -215,7 +237,11 @@ const Authentication = ({ openModal, setOpenModal }) => {
                                 variant={"solid"}
                                 colorScheme="purple"
                                 alignSelf={"flex-end"}
-                                onClick={handleSignup}
+                                isLoading={isAuthLoading}
+                                onClick={() => {
+                                    handleSignup();
+                                    setIsAuthLoading(true);
+                                }}
                             >
                                 Signup
                             </Button>

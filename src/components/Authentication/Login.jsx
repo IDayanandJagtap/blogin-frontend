@@ -37,7 +37,7 @@ const Login = ({ loginData, setLoginData }) => {
     return (
         <form method="">
             <VStack gap={5} alignContent={"flex-start"}>
-                {loginData.isError && (
+                {loginData.error && (
                     <HStack
                         bgColor={"red.200"}
                         w={"full"}
@@ -45,7 +45,7 @@ const Login = ({ loginData, setLoginData }) => {
                         px={4}
                         borderRadius={"md"}
                     >
-                        <Text>Invalid credentials</Text>
+                        <Text>{loginData.error}</Text>
                     </HStack>
                 )}
                 <FormControl>

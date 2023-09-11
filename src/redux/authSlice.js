@@ -50,8 +50,7 @@ export const loginUser = createAsyncThunk(
 
             return payload;
         } catch (err) {
-            console.log("Error occured");
-            throw new Error(err);
+            throw new Error(err.response.data.error);
         }
     }
 );
@@ -77,7 +76,7 @@ export const signupUser = createAsyncThunk(
 
             return payload;
         } catch (err) {
-            throw new Error(err);
+            throw new Error(err.response.data.error);
         }
     }
 );
