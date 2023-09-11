@@ -5,6 +5,7 @@ import { FcCheckmark } from "react-icons/fc";
 const About = () => {
     return (
         <Box
+            id="about"
             maxW={[
                 "container.sm",
                 "container.sm",

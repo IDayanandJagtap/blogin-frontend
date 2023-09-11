@@ -43,7 +43,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                 <DrawerOverlay />
                 <DrawerContent>
                     <DrawerCloseButton />
-                    <DrawerHeader>Hello, {userInfo.name}</DrawerHeader>
+                    <DrawerHeader>{userInfo.name}</DrawerHeader>
 
                     <DrawerBody>
                         <Link to={"/post"}>
@@ -88,30 +88,14 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                                     w={"full"}
                                     p="3"
                                     borderRadius={"md"}
-                                    _hover={{ backgroundColor: "#ebf1f7" }}
+                                    // _hover={{ backgroundColor: "#ebf1f7" }}
                                 >
-                                    <BiSolidMessageSquare size={24} />
+                                    <BiSolidCog size={24} color="gray" />
                                     <Text
                                         as={"span"}
                                         fontSize={"lg"}
                                         fontWeight={"semibold"}
-                                    >
-                                        Comments
-                                    </Text>
-                                </HStack>
-                            </Link>
-                            <Link onClick={handleClose}>
-                                <HStack
-                                    w={"full"}
-                                    p="3"
-                                    borderRadius={"md"}
-                                    _hover={{ backgroundColor: "#ebf1f7" }}
-                                >
-                                    <BiSolidCog size={24} />
-                                    <Text
-                                        as={"span"}
-                                        fontSize={"lg"}
-                                        fontWeight={"semibold"}
+                                        color={"gray.500"}
                                     >
                                         Settings
                                     </Text>

@@ -3,4 +3,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2&family=Kalam&family=Poppins&family=Roboto:wght@400;500;700&display=swap");
 * {
     font-family: "Roboto";
+    scroll-behavior: smooth;
 }
