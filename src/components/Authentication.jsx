@@ -37,6 +37,8 @@ const Authentication = ({ openModal, setOpenModal }) => {
     const [isAuthLoading, setIsAuthLoading] = useState(false);
     const dispatch = useDispatch();
     const toast = useToast();
+    const emailRegx =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
     useEffect(() => {
         if (openModal) onOpen();
@@ -62,6 +64,16 @@ const Authentication = ({ openModal, setOpenModal }) => {
     };
 
     const handleLogin = async () => {
+        if (!loginData.email.match(emailRegx)) {
+            setLoginData({
+                ...loginData,
+                error: "Enter a valid email !",
+            });
+
+            return;
+        }
+
+        setIsAuthLoading(true);
         // Thunk always retuns a fullfilled promise so we need to unwrap it first.
         dispatch(loginUser(loginData))
             .unwrap()
@@ -76,6 +88,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
                 });
             })
             .catch((err) => {
+                console.log(err);
                 setLoginData({
                     ...loginData,
                     error:
@@ -94,6 +107,18 @@ const Authentication = ({ openModal, setOpenModal }) => {
             return;
         }
 
+        //check email
+        if (!signupData.email.match(emailRegx)) {
+            toast({
+                title: "Enter a valid email !",
+                status: "error",
+                position: "top",
+            });
+
+            return;
+        }
+
+        setIsAuthLoading(true);
         //Dispatch the signup function.
         dispatch(signupUser(signupData))
             .unwrap()
@@ -213,10 +238,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
                                 colorScheme="purple"
                                 alignSelf={"flex-end"}
                                 isLoading={isAuthLoading}
-                                onClick={() => {
-                                    handleLogin();
-                                    setIsAuthLoading(true);
-                                }}
+                                onClick={handleLogin}
                             >
                                 Login
                             </Button>
@@ -238,10 +260,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
                                 colorScheme="purple"
                                 alignSelf={"flex-end"}
                                 isLoading={isAuthLoading}
-                                onClick={() => {
-                                    handleSignup();
-                                    setIsAuthLoading(true);
-                                }}
+                                onClick={handleSignup}
                             >
                                 Signup
                             </Button>
