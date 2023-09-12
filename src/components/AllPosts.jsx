@@ -5,6 +5,8 @@ import {
     Stack,
     Button,
     Spinner,
+    Text,
+    VStack,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +18,14 @@ export const AllPosts = () => {
     const { posts, pageNo, status } = useSelector((state) => state.post);
     const dispatch = useDispatch();
     const toast = useToast();
+
+    const handleGoToFirst = () => {
+        dispatch({
+            type: "post/setStatus",
+            payload: { name: "allposts", status: true },
+        });
+        dispatch({ type: "post/setPageNo" });
+    };
 
     const handleOnPrevious = () => {
         dispatch({
@@ -59,7 +69,7 @@ export const AllPosts = () => {
             minH={"80vh"}
             bgGradient="linear(to-br, pink.500, purple.500, purple.500)"
         >
-            {posts.length === 0 || status.isAllPostsLoading ? (
+            {status.isAllPostsLoading ? (
                 <HStack
                     w={"100%"}
                     h={"80vh"}
@@ -68,6 +78,36 @@ export const AllPosts = () => {
                 >
                     <Spinner size={"xl"} thickness="4px" />
                 </HStack>
+            ) : posts.length === 0 ? (
+                <VStack
+                    w={"100%"}
+                    h={"80vh"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                >
+                    <Text
+                        fontSize={["xl", "2xl"]}
+                        textAlign={"center"}
+                        lineHeight={2}
+                        color={"whiteAlpha.800"}
+                    >
+                        Congratulations! You've explored all the latest blogs.😃
+                        <br></br>
+                        Feel free to check back soon for new and exciting
+                        content.😊
+                    </Text>
+                    <br></br>
+                    <Text
+                        onClick={handleGoToFirst}
+                        fontSize={["xl", "2xl"]}
+                        textAlign={"center"}
+                        lineHeight={2}
+                        color={"blue.900"}
+                        cursor={"pointer"}
+                    >
+                        Go to first page!
+                    </Text>
+                </VStack>
             ) : (
                 <Box
                     maxW={[
