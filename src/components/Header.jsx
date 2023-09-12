@@ -61,6 +61,19 @@ const Header = () => {
     const handleOnAvatarClick = () => {
         setOpenUserBar(true);
     };
+
+    // handle logout
+    const handleOnLogoutClick = () => {
+        dispatch({ type: "post/setUserPosts", payload: [] });
+        dispatch({ type: "auth/logout" });
+        onClose();
+        toast({
+            title: "Logged out !",
+            status: "warning",
+            isClosable: "true",
+            position: "top",
+        });
+    };
     return (
         <header>
             <Box
@@ -137,30 +150,6 @@ const Header = () => {
                                     Posts
                                 </Text>
                             </Link>
-                            {/* <Link to={"/post"}>
-                                <Text
-                                    fontSize={"lg"}
-                                    fontWeight={"medium"}
-                                    px={1}
-                                    borderBottom={
-                                        activeTab === "/post"
-                                            ? "3px solid #805ad5"
-                                            : "3px solid transparent"
-                                    }
-                                    _hover={{
-                                        borderBottom: "3px solid #805ad5",
-                                    }}
-                                    onClick={() =>
-                                        dispatch({
-                                            type: "header/setActiveTab",
-                                            payload: "/post",
-                                        })
-                                    }
-                                >
-                                    Post
-                                </Text>
-                            </Link> */}
-
                             {!userInfo.isLoggedIn ? (
                                 <Button
                                     colorScheme="purple"
@@ -226,7 +215,7 @@ const Header = () => {
                 handleOnLoginClick={handleOnLoginClick}
                 activeTab={activeTab}
                 dispatch={dispatch}
-                toast={toast}
+                handleOnLogoutClick={handleOnLogoutClick}
             />
 
             {/* user dashboard */}
@@ -245,7 +234,7 @@ const SideDrawer = ({
     handleOnLoginClick,
     activeTab,
     dispatch,
-    toast,
+    handleOnLogoutClick,
 }) => (
     <>
         <Drawer
@@ -305,29 +294,6 @@ const SideDrawer = ({
                                 Posts
                             </Text>
                         </Link>
-                        {/*<Link to={"/post"}>
-                            <Text
-                                fontSize={"2xl"}
-                                fontWeight={"semibold"}
-                                color={
-                                    activeTab === "/post"
-                                        ? "purple.500"
-                                        : "black"
-                                }
-                                _hover={{
-                                    color: "purple.500",
-                                }}
-                                onClick={() => {
-                                    dispatch({
-                                        type: "header/setActiveTab",
-                                        payload: "/post",
-                                    });
-                                    onClose();
-                                }}
-                            >
-                                Post
-                            </Text>
-                        </Link> */}
                     </VStack>
                 </DrawerBody>
 
@@ -348,16 +314,7 @@ const SideDrawer = ({
                         <Button
                             variant={"outline"}
                             colorScheme="purple"
-                            onClick={() => {
-                                dispatch({ type: "auth/logout" });
-                                onClose();
-                                toast({
-                                    title: "Logged out !",
-                                    status: "warning",
-                                    isClosable: "true",
-                                    position: "top",
-                                });
-                            }}
+                            onClick={handleOnLogoutClick}
                             px={6}
                             mb={28}
                         >

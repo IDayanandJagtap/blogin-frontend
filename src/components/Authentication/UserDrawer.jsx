@@ -37,6 +37,20 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
         setOpenUserBar(false);
         onClose();
     };
+
+    const handleOnLogoutClick = () => {
+        handleClose();
+        dispatch({ type: "post/setUserPosts", payload: [] });
+        dispatch({ type: "auth/logout" });
+        navigate("/");
+        toast({
+            title: "Logged out !",
+            status: "warning",
+            isClosable: "true",
+            position: "top",
+        });
+    };
+
     return (
         <>
             <Drawer isOpen={isOpen} placement="right" onClose={handleClose}>
@@ -109,17 +123,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                             <Button
                                 colorScheme="purple"
                                 variant={"outline"}
-                                onClick={() => {
-                                    handleClose();
-                                    dispatch({ type: "auth/logout" });
-                                    navigate("/");
-                                    toast({
-                                        title: "Logged out !",
-                                        status: "warning",
-                                        isClosable: "true",
-                                        position: "top",
-                                    });
-                                }}
+                                onClick={handleOnLogoutClick}
                             >
                                 Logout
                             </Button>
