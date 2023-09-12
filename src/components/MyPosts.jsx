@@ -1,9 +1,17 @@
-import { HStack, SimpleGrid, Spinner, Stack, useToast } from "@chakra-ui/react";
+import {
+    HStack,
+    SimpleGrid,
+    Spinner,
+    Stack,
+    Text,
+    VStack,
+    useToast,
+} from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import SinglePost from "./SinglePost";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersPost } from "../redux/postSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const MyPosts = () => {
     const { userToken, userInfo } = useSelector((state) => state.auth);
@@ -53,7 +61,24 @@ export const MyPosts = () => {
             minH={"80vh"}
             bgGradient="linear(to-br, pink.500, purple.500, purple.500)"
         >
-            {myPosts.length === 0 || status.isPostsLoading ? (
+            {myPosts.length === 0 ? (
+                <VStack
+                    w={"full"}
+                    h={"80vh"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                >
+                    <Text fontSize={["xl", "2x"]} color={"white"}>
+                        No posts yet 🙁!
+                    </Text>
+                    <Text fontSize={["xl", "2x"]} color={"white"}>
+                        Let's create one 😃&nbsp;
+                        <Link to={"/post"} style={{ color: "blue" }}>
+                            click here !
+                        </Link>
+                    </Text>
+                </VStack>
+            ) : status.isPostsLoading ? (
                 <HStack
                     w={"100%"}
                     h={"80vh"}
