@@ -30,8 +30,12 @@ function App() {
                 <Route path="/" exact element={<Home />}></Route>
                 <Route path="/post" exact element={<Post />}></Route>
                 <Route path="/myposts" exact element={<MyPosts />}></Route>
-                <Route path="/posts/:id" element={<DetailedPost />}></Route>
                 <Route path="/posts" exact element={<AllPosts />}></Route>
+                <Route path="/posts/:id" element={<DetailedPost />}></Route>
+                <Route
+                    path="/posts/:user/:id"
+                    element={<DetailedPost />}
+                ></Route>
                 <Route path="*" element={<p>404 not found !</p>}></Route>
             </Routes>
             <Footer />

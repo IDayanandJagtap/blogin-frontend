@@ -1,6 +1,7 @@
 import {
     Avatar,
     Box,
+    Button,
     Divider,
     HStack,
     Heading,
@@ -18,7 +19,8 @@ import { getSinglePost } from "../redux/postSlice";
 
 const DetailedPost = () => {
     const { posts } = useSelector((state) => state.post);
-    const { id } = useParams();
+    const { userInfo } = useSelector((state) => state.auth);
+    const { id, user } = useParams();
     const toast = useToast();
     const dispatch = useDispatch();
     const [status, setStatus] = useState({ isLoading: true });
@@ -31,7 +33,8 @@ const DetailedPost = () => {
         createdAt: "",
     };
 
-    let { title, description, author, createdAt } = currentPost || emptyPost;
+    let { title, description, author, createdAt, user_id } =
+        currentPost || emptyPost;
     description = decodeURI(description);
 
     const date = new Date(createdAt).toDateString();
@@ -142,6 +145,11 @@ const DetailedPost = () => {
                                     ~ {createdAt ? date : ""}
                                 </Text>
                             </HStack>
+                            {user && user_id === userInfo.id && (
+                                <HStack w={"full"} justifyContent={"flex-end"}>
+                                    <Button colorScheme="red">Delete</Button>
+                                </HStack>
+                            )}
                         </VStack>
                     </Box>
                     <Box

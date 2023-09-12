@@ -74,7 +74,7 @@ const Post = () => {
                 });
                 clearPost();
                 // redirect the user to the myposts page !
-                navigate("/my-posts");
+                navigate("/myposts");
             })
             .catch((e) => {
                 toast({

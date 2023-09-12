@@ -66,7 +66,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                         <Divider mt={4} />
 
                         <VStack w={"full"} alignItems={"stretch"} mt={2}>
-                            <Link to={"/posts"} onClick={handleClose}>
+                            <Link to={"/myposts"} onClick={handleClose}>
                                 <HStack
                                     w={"full"}
                                     p="3"
