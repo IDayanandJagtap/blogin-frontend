@@ -20,6 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { loginUser, signupUser } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const Authentication = ({ openModal, setOpenModal }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,6 +38,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
     const [isAuthLoading, setIsAuthLoading] = useState(false);
     const dispatch = useDispatch();
     const toast = useToast();
+    const navigate = useNavigate();
     const emailRegx =
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
@@ -80,6 +82,7 @@ const Authentication = ({ openModal, setOpenModal }) => {
             .then((e) => {
                 setLoginData({ ...loginData });
                 handleOnClose();
+                navigate("/myposts");
                 toast({
                     title: "Logged in successfully 😃",
                     status: "success",

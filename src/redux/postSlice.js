@@ -94,17 +94,18 @@ export const postSlice = createSlice({
         myPosts: [],
         pageNo: 1,
         status: {
-            isPostsLoading: true,
+            isAllPostsLoading: false,
+            isUserPostsLoading: true,
         },
     },
     reducers: {
         setPosts: (state, action) => {
             state.posts = action.payload;
-            state.status.isPostsLoading = false;
+            state.status.isAllPostsLoading = false;
         },
         setUserPosts: (state, action) => {
             state.myPosts = action.payload;
-            state.status.isPostsLoading = false;
+            state.status.isUserPostsLoading = false;
         },
         setPageNo: (state, action) => {
             if (action.payload === "increment") state.pageNo++;
@@ -112,7 +113,17 @@ export const postSlice = createSlice({
             else state.pageNo = 1;
         },
         setStatus: (state, action) => {
-            state.status = action.payload;
+            if (action.payload.name === "userpost")
+                state.status = {
+                    ...state.status,
+                    isUserPostsLoading: action.payload.status,
+                };
+            else if (action.payload.name === "allposts") {
+                state.status = {
+                    ...state.status,
+                    isAllPostsLoading: action.payload.status,
+                };
+            }
         },
     },
 });

@@ -34,13 +34,13 @@ export const MyPosts = () => {
                 .then(() => {
                     dispatch({
                         type: "post/setStatus",
-                        payload: { isPostsLoading: false },
+                        payload: { name: "userpost", status: false },
                     });
                 })
                 .catch(() => {
                     dispatch({
                         type: "post/setStatus",
-                        payload: { isPostsLoading: false },
+                        payload: { name: "userpost", status: false },
                     });
                     toast.closeAll();
                     toast({
@@ -61,7 +61,16 @@ export const MyPosts = () => {
             minH={"80vh"}
             bgGradient="linear(to-br, pink.500, purple.500, purple.500)"
         >
-            {myPosts.length === 0 ? (
+            {myPosts.length === 0 && status.isUserPostsLoading ? (
+                <HStack
+                    w={"100%"}
+                    h={"80vh"}
+                    justifyContent={"center"}
+                    alignItems={"center"}
+                >
+                    <Spinner size={"xl"} thickness="4px" />
+                </HStack>
+            ) : myPosts.length === 0 ? (
                 <VStack
                     w={"full"}
                     h={"80vh"}
@@ -78,15 +87,6 @@ export const MyPosts = () => {
                         </Link>
                     </Text>
                 </VStack>
-            ) : status.isPostsLoading ? (
-                <HStack
-                    w={"100%"}
-                    h={"80vh"}
-                    justifyContent={"center"}
-                    alignItems={"center"}
-                >
-                    <Spinner size={"xl"} thickness="4px" />
-                </HStack>
             ) : (
                 <SimpleGrid
                     w={"100%"}
