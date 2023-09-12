@@ -12,19 +12,20 @@ import {
     useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import RenderHtmlComponent from "./RenderHtmlComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { getSinglePost } from "../redux/postSlice";
 
 const DetailedPost = () => {
-    const { posts } = useSelector((state) => state.post);
+    const { posts, myPosts } = useSelector((state) => state.post);
     const { userInfo } = useSelector((state) => state.auth);
     const { id, user } = useParams();
     const toast = useToast();
     const dispatch = useDispatch();
     const [status, setStatus] = useState({ isLoading: true });
     const [currentPost, setCurrentPost] = useState(null);
+    const navigate = useNavigate();
 
     const emptyPost = {
         title: "",
@@ -47,9 +48,20 @@ const DetailedPost = () => {
             payload: "/post",
         });
 
-        const post = posts.filter((e) => {
-            return id === e._id;
-        });
+        if (!userInfo.isLoggedIn) {
+            navigate(`/posts/${id}`);
+        }
+
+        let post;
+        if (!user) {
+            post = posts.filter((e) => {
+                return id === e._id;
+            });
+        } else {
+            post = myPosts.filter((e) => {
+                return e._id === id;
+            });
+        }
 
         if (post.length !== 0) {
             setCurrentPost(post[0]);
@@ -72,6 +84,7 @@ const DetailedPost = () => {
                     });
                 });
         }
+
         //eslint-disable-next-line
     }, [currentPost]);
     return (

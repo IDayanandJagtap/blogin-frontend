@@ -79,7 +79,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
                                         fontSize={"lg"}
                                         fontWeight={"semibold"}
                                     >
-                                        Posts
+                                        My posts
                                     </Text>
                                 </HStack>
                             </Link>

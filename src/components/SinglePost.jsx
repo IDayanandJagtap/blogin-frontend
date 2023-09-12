@@ -10,7 +10,14 @@ import React from "react";
 import RenderHtmlComponent from "./RenderHtmlComponent";
 import { useNavigate } from "react-router-dom";
 
-const SinglePost = ({ id, title, description, author, createdAt }) => {
+const SinglePost = ({
+    id,
+    title,
+    description,
+    author,
+    createdAt,
+    userPosts,
+}) => {
     const date = new Date(createdAt).toDateString();
     const navigate = useNavigate();
 
@@ -26,7 +33,9 @@ const SinglePost = ({ id, title, description, author, createdAt }) => {
             transition={"transform 0.2s linear"}
             _hover={{ transform: "scale(1.03)" }}
             onClick={() => {
-                navigate(`/posts/${id}`);
+                userPosts
+                    ? navigate(`/posts/user/${id}`)
+                    : navigate(`/posts/${id}`);
             }}
         >
             <HStack w={"full"} justifyContent={"flex-start"} py={2}>

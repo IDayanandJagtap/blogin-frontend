@@ -20,14 +20,14 @@ export const AllPosts = () => {
     const handleOnPrevious = () => {
         dispatch({
             type: "post/setStatus",
-            payload: { isAllPostLoading: true },
+            payload: { isPostsLoading: true },
         });
         dispatch({ type: "post/setPageNo", payload: "decrement" });
     };
     const handleOnNext = () => {
         dispatch({
             type: "post/setStatus",
-            payload: { isAllPostLoading: true },
+            payload: { isPostsLoading: true },
         });
         dispatch({ type: "post/setPageNo", payload: "increment" });
     };
@@ -59,7 +59,7 @@ export const AllPosts = () => {
             minH={"80vh"}
             bgGradient="linear(to-br, pink.500, purple.500, purple.500)"
         >
-            {posts.length === 0 || status.isAllPostLoading ? (
+            {posts.length === 0 || status.isPostsLoading ? (
                 <HStack
                     w={"100%"}
                     h={"80vh"}

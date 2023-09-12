@@ -64,6 +64,29 @@ export const getSinglePost = createAsyncThunk(
     }
 );
 
+export const getUsersPost = createAsyncThunk(
+    "post/getUserPost",
+    async (data, thunkAPI) => {
+        try {
+            const response = await axios.get(
+                // "http://localhost:8000/api/newpost",
+                "https://blogin-kpp7.onrender.com/api/my-posts",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "auth-token": data.userToken,
+                    },
+                }
+            );
+
+            thunkAPI.dispatch(setUserPosts(response.data.payload));
+            return response.data.payload;
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+);
+
 export const postSlice = createSlice({
     name: "post",
     initialState: {
@@ -71,13 +94,17 @@ export const postSlice = createSlice({
         myPosts: [],
         pageNo: 1,
         status: {
-            isAllPostLoading: false,
+            isPostsLoading: true,
         },
     },
     reducers: {
         setPosts: (state, action) => {
             state.posts = action.payload;
-            state.status.isAllPostLoading = false;
+            state.status.isPostsLoading = false;
+        },
+        setUserPosts: (state, action) => {
+            state.myPosts = action.payload;
+            state.status.isPostsLoading = false;
         },
         setPageNo: (state, action) => {
             if (action.payload === "increment") state.pageNo++;
@@ -90,6 +117,7 @@ export const postSlice = createSlice({
     },
 });
 
-export const { setPosts, setPageNo, setStatus } = postSlice.actions;
+export const { setPosts, setUserPosts, setPageNo, setStatus } =
+    postSlice.actions;
 
 export default postSlice.reducer;
