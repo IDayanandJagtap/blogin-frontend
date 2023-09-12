@@ -1,5 +1,6 @@
 import {
     HStack,
+    Heading,
     SimpleGrid,
     Spinner,
     Stack,
@@ -88,28 +89,43 @@ export const MyPosts = () => {
                     </Text>
                 </VStack>
             ) : (
-                <SimpleGrid
-                    w={"100%"}
-                    minH={"80vh"}
-                    mx={"auto"}
-                    columns={{ sm: 1, md: 2 }}
-                >
-                    {myPosts.map((e) => {
-                        const desc =
-                            decodeURI(e.description).slice(0, 500) + "...";
-                        return (
-                            <SinglePost
-                                key={e._id}
-                                id={e._id}
-                                title={e.title}
-                                description={desc}
-                                author={e.author}
-                                createdAt={e.createdAt}
-                                userPosts={true}
-                            />
-                        );
-                    })}
-                </SimpleGrid>
+                <>
+                    <Heading
+                        my={8}
+                        color={"white"}
+                        fontFamily={"Poppins"}
+                        fontSize={["2xl", "3xl", "4xl"]}
+                        borderBottom={"2px solid #44337A"}
+                        w={["60%", "50%", "40%", "30%", "15%"]}
+                        pb={3}
+                        px={1}
+                        mx={8}
+                    >
+                        My posts
+                    </Heading>
+                    <SimpleGrid
+                        w={"100%"}
+                        minH={"80vh"}
+                        mx={"auto"}
+                        columns={{ sm: 1, md: 2 }}
+                    >
+                        {myPosts.map((e) => {
+                            const desc =
+                                decodeURI(e.description).slice(0, 500) + "...";
+                            return (
+                                <SinglePost
+                                    key={e._id}
+                                    id={e._id}
+                                    title={e.title}
+                                    description={desc}
+                                    author={e.author}
+                                    createdAt={e.createdAt}
+                                    userPosts={true}
+                                />
+                            );
+                        })}
+                    </SimpleGrid>
+                </>
             )}
         </Stack>
     );

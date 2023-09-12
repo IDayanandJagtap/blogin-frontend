@@ -7,6 +7,7 @@ import {
     Spinner,
     Text,
     VStack,
+    Heading,
 } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -120,6 +121,17 @@ export const AllPosts = () => {
                     minH={"80vh"}
                     mx={"auto"}
                 >
+                    <Heading
+                        textAlign={"center"}
+                        my={8}
+                        color={"white"}
+                        fontFamily={"Poppins"}
+                        fontSize={["2xl", "3xl", "4xl"]}
+                    >
+                        {pageNo === 1
+                            ? "Explore latest blogs !"
+                            : "Explore blogs !"}
+                    </Heading>
                     {posts.map((e) => {
                         const desc =
                             decodeURI(e.description).slice(0, 500) + "...";
