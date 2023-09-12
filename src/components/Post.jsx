@@ -45,7 +45,6 @@ const Post = () => {
     };
 
     const handleOnPostClick = () => {
-        setIsPostSubmitting(true);
         const title = titleRef.current.value;
 
         if (title.length < 3 || postData.length < 5) {
@@ -57,6 +56,7 @@ const Post = () => {
             });
             return;
         }
+        setIsPostSubmitting(true);
         const data = {
             userToken: userToken,
             title: title,
