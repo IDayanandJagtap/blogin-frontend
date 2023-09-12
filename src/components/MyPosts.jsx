@@ -109,7 +109,7 @@ export const MyPosts = () => {
                         mx={"auto"}
                         columns={{ sm: 1, md: 2 }}
                     >
-                        {myPosts.map((e) => {
+                        {myPosts.toReversed().map((e) => {
                             const desc =
                                 decodeURI(e.description).slice(0, 500) + "...";
                             return (
