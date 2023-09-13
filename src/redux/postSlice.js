@@ -30,6 +30,7 @@ export const savePostToDb = createAsyncThunk(
     }
 );
 
+// Get all posts
 export const getPosts = createAsyncThunk(
     "post/getPosts",
     async (data, thunkAPI) => {
@@ -49,6 +50,7 @@ export const getPosts = createAsyncThunk(
     }
 );
 
+// Fetch a single post by id
 export const getSinglePost = createAsyncThunk(
     "posts/getSinglePost",
     async (data, thunkAPI) => {
@@ -64,6 +66,7 @@ export const getSinglePost = createAsyncThunk(
     }
 );
 
+// Get all posts of the current user:
 export const getUsersPost = createAsyncThunk(
     "post/getUserPost",
     async (data, thunkAPI) => {
@@ -81,6 +84,29 @@ export const getUsersPost = createAsyncThunk(
 
             thunkAPI.dispatch(setUserPosts(response.data.payload));
             return response.data.payload;
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+);
+
+// Delete a post :
+export const deletePost = createAsyncThunk(
+    "post/deletePost",
+    async (data, thunkAPI) => {
+        try {
+            const response = await axios.delete(
+                // `http://localhost:8000/api/delete/${data.id}`,
+                `https://blogin-kpp7.onrender.com/api/delete/${data.id}`,
+                {
+                    headers: {
+                        "auth-token": data.token,
+                    },
+                }
+            );
+            thunkAPI.dispatch(filterUserPosts(data.id));
+            // return the state of the request : success = true | false;
+            return response.data.success;
         } catch (err) {
             throw new Error(err.message);
         }
@@ -125,10 +151,16 @@ export const postSlice = createSlice({
                 };
             }
         },
+        filterUserPosts: (state, action) => {
+            console.log(action);
+            state.myPosts = state.myPosts.filter((e) => {
+                return e._id !== action.payload;
+            });
+        },
     },
 });
 
-export const { setPosts, setUserPosts, setPageNo, setStatus } =
+export const { setPosts, setUserPosts, setPageNo, setStatus, filterUserPosts } =
     postSlice.actions;
 
 export default postSlice.reducer;

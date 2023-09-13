@@ -15,17 +15,44 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import RenderHtmlComponent from "./RenderHtmlComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { getSinglePost } from "../redux/postSlice";
+import { deletePost, getSinglePost } from "../redux/postSlice";
 
 const DetailedPost = () => {
     const { posts, myPosts } = useSelector((state) => state.post);
-    const { userInfo } = useSelector((state) => state.auth);
+    const { userInfo, userToken } = useSelector((state) => state.auth);
     const { id, user } = useParams();
     const toast = useToast();
     const dispatch = useDispatch();
-    const [status, setStatus] = useState({ isLoading: true });
+    const [status, setStatus] = useState({
+        isLoading: true,
+        isDelBtnLoading: false,
+    });
     const [currentPost, setCurrentPost] = useState(null);
     const navigate = useNavigate();
+
+    const handleDeletePost = () => {
+        setStatus({ ...status, isDelBtnLoading: true });
+
+        const data = { id: id, token: userToken };
+        dispatch(deletePost(data))
+            .unwrap()
+            .then(() => {
+                setStatus({ ...status, isDelBtnLoading: false });
+                navigate("/myposts");
+                toast({
+                    title: "Post Deleted !",
+                    status: "success",
+                });
+            })
+            .catch(() => {
+                setStatus({ ...status, isDelBtnLoading: false });
+                navigate("/myposts");
+                toast({
+                    title: "Something went wrong !",
+                    status: "error",
+                });
+            });
+    };
 
     const emptyPost = {
         title: "",
@@ -65,16 +92,16 @@ const DetailedPost = () => {
 
         if (post.length !== 0) {
             setCurrentPost(post[0]);
-            setStatus({ isLoading: false });
+            setStatus({ ...status, isLoading: false });
         }
 
         if (post.length === 0 && currentPost === null) {
-            setStatus({ isLoading: true });
+            setStatus({ ...status, isLoading: true });
             dispatch(getSinglePost({ id: id }))
                 .unwrap()
                 .then((e) => {
                     setCurrentPost(e.post);
-                    setStatus({ isLoading: false });
+                    setStatus({ ...status, isLoading: false });
                 })
                 .catch(() => {
                     toast({
@@ -160,28 +187,37 @@ const DetailedPost = () => {
                             </HStack>
                             {user && user_id === userInfo.id && (
                                 <HStack w={"full"} justifyContent={"flex-end"}>
-                                    <Button colorScheme="red">Delete</Button>
+                                    <Button
+                                        isLoading={status.isDelBtnLoading}
+                                        colorScheme="red"
+                                        onClick={handleDeletePost}
+                                    >
+                                        Delete
+                                    </Button>
                                 </HStack>
                             )}
                         </VStack>
                     </Box>
-                    <Box
-                        w={["96%", "96%", "96%", "30%"]}
-                        mx={["auto", "auto", "auto", 6]}
-                        p={6}
-                        my={8}
-                        borderRadius={"md"}
-                        style={{ backgroundColor: "#F7FAFC" }}
-                    >
-                        <Heading
-                            textAlign={"center"}
-                            fontSize={["xl", "xl", "2xl", "3xl"]}
-                            color={"blackAlpha.600"}
-                            fontFamily={"Roboto"}
+                    {/* Hide this box when in my posts */}
+                    {user_id !== userInfo.id && (
+                        <Box
+                            w={["96%", "96%", "96%", "30%"]}
+                            mx={["auto", "auto", "auto", 6]}
+                            p={6}
+                            my={8}
+                            borderRadius={"md"}
+                            style={{ backgroundColor: "#F7FAFC" }}
                         >
-                            Other links and info
-                        </Heading>
-                    </Box>
+                            <Heading
+                                textAlign={"center"}
+                                fontSize={["xl", "xl", "2xl", "3xl"]}
+                                color={"blackAlpha.600"}
+                                fontFamily={"Roboto"}
+                            >
+                                Other links and info
+                            </Heading>
+                        </Box>
+                    )}
                 </>
             )}
         </Stack>
