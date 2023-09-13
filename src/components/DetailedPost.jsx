@@ -209,7 +209,7 @@ const DetailedPost = () => {
                         </VStack>
                     </Box>
                     {/* Hide this box when in my posts */}
-                    {user_id !== userInfo.id && (
+                    {!user && (
                         <Box
                             w={["96%", "96%", "96%", "30%"]}
                             mx={["auto", "auto", "auto", 6]}
