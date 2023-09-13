@@ -96,7 +96,8 @@ export const deletePost = createAsyncThunk(
     async (data, thunkAPI) => {
         try {
             const response = await axios.delete(
-                `http://localhost:8000/api/delete/${data.id}`,
+                // `http://localhost:8000/api/delete/${data.id}`,
+                `https://blogin-kpp7.onrender.com/api/delete/${data.id}`,
                 {
                     headers: {
                         "auth-token": data.token,
