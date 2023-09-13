@@ -122,6 +122,7 @@ const DetailedPost = () => {
                 });
         }
 
+        console.log(window.screen.width);
         //eslint-disable-next-line
     }, [currentPost]);
     return (
@@ -209,7 +210,7 @@ const DetailedPost = () => {
                         </VStack>
                     </Box>
                     {/* Hide this box when in my posts */}
-                    {!user && (
+                    {window.screen.width > 768 && !user && (
                         <Box
                             w={["96%", "96%", "96%", "30%"]}
                             mx={["auto", "auto", "auto", 6]}
@@ -217,6 +218,9 @@ const DetailedPost = () => {
                             my={8}
                             borderRadius={"md"}
                             style={{ backgroundColor: "#F7FAFC" }}
+                            display={
+                                window.screen.width < 768 ? "hidden" : "block"
+                            }
                         >
                             <Heading
                                 textAlign={"center"}
