@@ -29,28 +29,26 @@ export const MyPosts = () => {
             return;
         }
 
-        if (!myPosts.length) {
-            dispatch(getUsersPost({ userToken }))
-                .unwrap()
-                .then(() => {
-                    dispatch({
-                        type: "post/setStatus",
-                        payload: { name: "userpost", status: false },
-                    });
-                })
-                .catch(() => {
-                    dispatch({
-                        type: "post/setStatus",
-                        payload: { name: "userpost", status: false },
-                    });
-                    toast.closeAll();
-                    toast({
-                        title: "Error loading posts 😔",
-                        status: "error",
-                        isClosable: true,
-                    });
+        dispatch(getUsersPost({ userToken }))
+            .unwrap()
+            .then(() => {
+                dispatch({
+                    type: "post/setStatus",
+                    payload: { name: "userpost", status: false },
                 });
-        }
+            })
+            .catch(() => {
+                dispatch({
+                    type: "post/setStatus",
+                    payload: { name: "userpost", status: false },
+                });
+                toast.closeAll();
+                toast({
+                    title: "Error loading posts 😔",
+                    status: "error",
+                    isClosable: true,
+                });
+            });
         //eslint-disable-next-line
     }, []);
 
@@ -105,7 +103,6 @@ export const MyPosts = () => {
                     </Heading>
                     <SimpleGrid
                         w={"100%"}
-                        minH={"80vh"}
                         mx={"auto"}
                         columns={{ sm: 1, md: 2 }}
                     >
