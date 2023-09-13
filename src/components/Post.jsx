@@ -57,6 +57,10 @@ const Post = () => {
             return;
         }
         setIsPostSubmitting(true);
+        dispatch({
+            type: "post/setStatus",
+            payload: { name: "userpost", status: true },
+        });
         const data = {
             userToken: userToken,
             title: title,

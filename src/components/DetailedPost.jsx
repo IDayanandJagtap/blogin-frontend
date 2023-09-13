@@ -31,7 +31,15 @@ const DetailedPost = () => {
     const navigate = useNavigate();
 
     const handleDeletePost = () => {
+        const isTrue = window.confirm(
+            "Do you really want to delete this post ? This action is irreversible"
+        );
+        if (!isTrue) return;
         setStatus({ ...status, isDelBtnLoading: true });
+        dispatch({
+            type: "post/setStatus",
+            payload: { name: "userpost", status: true },
+        });
 
         const data = { id: id, token: userToken };
         dispatch(deletePost(data))
@@ -60,6 +68,8 @@ const DetailedPost = () => {
         author: "",
         createdAt: "",
     };
+
+    if (!currentPost) navigate("/myposts");
 
     let { title, description, author, createdAt, user_id } =
         currentPost || emptyPost;
