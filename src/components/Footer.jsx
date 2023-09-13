@@ -66,7 +66,7 @@ const Footer = () => {
                             <Link to={"/post"}>Post</Link>
                         </Text>
                         <Text _hover={{ color: "purple.500" }}>
-                            <a href="#about">About</a>
+                            <a href="/#about">About</a>
                         </Text>
                         <Text _hover={{ color: "purple.500" }}>
                             <Link to={"#"}>Contact</Link>

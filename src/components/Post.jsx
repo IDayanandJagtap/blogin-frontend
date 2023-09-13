@@ -99,7 +99,13 @@ const Post = () => {
         });
         // Check if user is logged in.
         if (!userInfo.isLoggedIn) {
-            navigate("/");
+            navigate("/posts");
+            toast({
+                title: "You need to have an account to make post!",
+                status: "info",
+                position: "top",
+                isClosable: "true",
+            });
         }
         // Show alert if user is on smaller device.
         const screenWidth = window.screen.width;
