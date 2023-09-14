@@ -24,6 +24,7 @@ function App() {
         if (userToken) {
             dispatch(fetchUser(userToken));
         }
+        toast.closeAll();
         toast({
             title: "Refresh or switch home and posts tabs",
             status: "info",
