@@ -250,10 +250,12 @@ const SideDrawer = ({
 
                 <DrawerBody>
                     <VStack h={"full"} justifyContent={"center"} gap={12}>
-                        <Link to={"/"}>
+                        <Link to={"/"} tabIndex={-1}>
                             <Text
                                 fontSize={"2xl"}
                                 fontWeight={"semibold"}
+                                outline={"none"}
+                                border={"none"}
                                 color={
                                     activeTab === "/" ? "purple.500" : "black"
                                 }
@@ -271,7 +273,7 @@ const SideDrawer = ({
                                 Home
                             </Text>
                         </Link>
-                        <Link to={"/posts"}>
+                        <Link to={"/posts"} tabIndex={-1}>
                             <Text
                                 fontSize={"2xl"}
                                 fontWeight={"semibold"}

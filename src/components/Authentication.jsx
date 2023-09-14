@@ -83,12 +83,6 @@ const Authentication = ({ openModal, setOpenModal }) => {
                 setLoginData({ ...loginData });
                 handleOnClose();
                 navigate("/myposts");
-                toast({
-                    title: "Logged in successfully 😃",
-                    status: "success",
-                    isClosable: "true",
-                    position: "top",
-                });
             })
             .catch((err) => {
                 console.log(err);

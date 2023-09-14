@@ -11,16 +11,27 @@ import AllPosts from "./components/AllPosts";
 import "./styles/index.css";
 import DetailedPost from "./components/DetailedPost";
 import { getPosts } from "./redux/postSlice";
+import { useToast } from "@chakra-ui/react";
 
 function App() {
     const dispatch = useDispatch();
     const userToken = localStorage.getItem("userToken");
+    const toast = useToast();
+
     useEffect(() => {
         dispatch({ type: "auth/isLoggedIn" });
         dispatch(getPosts({ pageno: 1 }));
         if (userToken) {
             dispatch(fetchUser(userToken));
         }
+        toast({
+            title: "Refresh or switch home and posts tabs",
+            status: "info",
+            duration: null,
+            isClosable: true,
+            description:
+                "The backend has downtime as it is hosted on shared services! It might take some time to load the posts. If you are still unable to see the posts try checking after 3-5 mins!",
+        });
         //eslint-disable-next-line
     }, []);
     return (
