@@ -52,24 +52,30 @@ const SinglePost = ({
             </HStack>
             <Divider borderColor={"blackAlpha.400"}></Divider>
             <HStack w={"full"} justifyContent={"space-between"} p={2}>
-                <HStack>
-                    {" "}
-                    <Avatar
-                        size={["2xs", "xs", "xs", "sm"]}
-                        bg={"blackAlpha.800"}
-                    ></Avatar>
+                {author && (
+                    <HStack>
+                        <Avatar
+                            size={["2xs", "xs", "xs", "sm"]}
+                            bg={"blackAlpha.800"}
+                        ></Avatar>
+                        <Text
+                            color={"blackAlpha.800"}
+                            fontSize={["xs", "xs", "sm"]}
+                            fontWeight={["normal"]}
+                            fontFamily={"Baloo 2"}
+                        >
+                            {author}
+                        </Text>
+                    </HStack>
+                )}
+                {createdAt && (
                     <Text
-                        color={"blackAlpha.800"}
+                        color={"blackAlpha.600"}
                         fontSize={["xs", "xs", "sm"]}
-                        fontWeight={["normal"]}
-                        fontFamily={"Baloo 2"}
                     >
-                        {author}
+                        ~ {date}
                     </Text>
-                </HStack>
-                <Text color={"blackAlpha.600"} fontSize={["xs", "xs", "sm"]}>
-                    ~ {createdAt ? date : ""}
-                </Text>
+                )}
             </HStack>
         </VStack>
     );

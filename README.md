@@ -43,14 +43,14 @@ To run Blogin locally for your project purposes, follow these steps:
 1. **Clone this repository:**
 
     ```bash
-    git clone https://github.com/yourusername/blogin.git
+    git clone https://github.com/TheCodingGuyDJ/blogin-frontend.git
 
     ```
 
 2. **Install the required dependencies:**
 
     ```bash
-    cd blogin
+    cd blogin-frontend
     npm install
 
     ```
@@ -73,7 +73,7 @@ Configure your database connection settings in the .env file.
 
 ## **Contributors**
 
-Dayanand Jagtap - Project Creator and Developer
+[Dayanand Jagtap](https://github.com/TheCodingGuyDJ) - Project Creator and Developer
 
 <br>
 

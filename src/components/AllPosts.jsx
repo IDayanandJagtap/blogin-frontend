@@ -8,15 +8,20 @@ import {
     Text,
     VStack,
     Heading,
+    Input,
+    InputGroup,
+    InputRightElement,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../redux/postSlice";
+import { getPosts, searchPosts } from "../redux/postSlice";
 import { BsArrowRight, BsArrowLeft } from "react-icons/bs";
 import SinglePost from "./SinglePost";
 
 export const AllPosts = () => {
     const { posts, pageNo, status } = useSelector((state) => state.post);
+    const [isSearching, setIsSearching] = useState(false);
+    const searchRef = useRef();
     const dispatch = useDispatch();
     const toast = useToast();
 
@@ -43,6 +48,30 @@ export const AllPosts = () => {
         dispatch({ type: "post/setPageNo", payload: "increment" });
     };
 
+    const handleOnInputEnter = (e) => {
+        if (e.key.toLowerCase() === "enter") {
+            handleOnSearch();
+        }
+    };
+    const handleOnSearch = () => {
+        setIsSearching(true);
+        dispatch(searchPosts({ query: searchRef.current.value }))
+            .unwrap()
+            .then(() => {
+                setIsSearching(false);
+            })
+            .catch((e) => {
+                setIsSearching(false);
+                toast.closeAll();
+                toast({
+                    title: "Error while searching",
+                    position: "top",
+                    isClosable: "true",
+                    status: "error",
+                });
+            });
+    };
+
     useEffect(() => {
         if (pageNo < 1)
             dispatch({ type: "post/setPageNo", payload: "initialise" }); // avoid negative indices
@@ -59,6 +88,7 @@ export const AllPosts = () => {
                     isClosable: true,
                 });
             });
+
         // eslint-disable-next-line
     }, [pageNo]);
 
@@ -132,6 +162,40 @@ export const AllPosts = () => {
                             ? "Explore latest blogs !"
                             : "Explore blogs !"}
                     </Heading>
+
+                    <HStack w={"95%"} mx={"auto"}>
+                        <InputGroup>
+                            <Input
+                                type="text"
+                                variant={"flushed"}
+                                placeholder="Search..."
+                                _placeholder={{
+                                    opacity: 1,
+                                    color: "whiteAlpha.800",
+                                }}
+                                color={"whiteAlpha.800"}
+                                outline={"none"}
+                                focusBorderColor="white"
+                                fontSize={["sm", "md", "lg"]}
+                                ref={searchRef}
+                                p={3}
+                                onKeyDown={handleOnInputEnter}
+                            ></Input>
+                            <InputRightElement w={["5rem", "6rem"]}>
+                                <Button
+                                    variant={"ghost"}
+                                    colorScheme=""
+                                    color={"white"}
+                                    type="submit"
+                                    isLoading={isSearching}
+                                    onClick={handleOnSearch}
+                                >
+                                    Search
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                    </HStack>
+
                     {posts.map((e) => {
                         const desc =
                             decodeURI(e.description).slice(0, 500) + "...";

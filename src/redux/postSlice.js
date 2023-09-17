@@ -113,6 +113,26 @@ export const deletePost = createAsyncThunk(
     }
 );
 
+// Search the posts :
+export const searchPosts = createAsyncThunk(
+    "posts/searchPosts",
+    async (data, thunkAPI) => {
+        try {
+            const response = await axios.get(
+                // `http://localhost:8000/api/search?query=${data.query}`
+                `https://blogin-kpp7.onrender.com/api/search?query=${data.query}`
+            );
+
+            if (!response.data.success)
+                throw new Error("Invalid search query...");
+
+            thunkAPI.dispatch(setPostsOnSearch(response.data.payload));
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+);
+
 export const postSlice = createSlice({
     name: "post",
     initialState: {
@@ -152,15 +172,33 @@ export const postSlice = createSlice({
             }
         },
         filterUserPosts: (state, action) => {
-            console.log(action);
             state.myPosts = state.myPosts.filter((e) => {
                 return e._id !== action.payload;
             });
         },
+        setPostsOnSearch: (state, action) => {
+            if (!action.payload || !action.payload.length) {
+                state.posts = [
+                    {
+                        _id: 0,
+                        title: "No posts found !",
+                        description: "Try searching something different!",
+                    },
+                ];
+            } else {
+                state.posts = action.payload;
+            }
+        },
     },
 });
 
-export const { setPosts, setUserPosts, setPageNo, setStatus, filterUserPosts } =
-    postSlice.actions;
+export const {
+    setPosts,
+    setUserPosts,
+    setPageNo,
+    setStatus,
+    filterUserPosts,
+    setPostsOnSearch,
+} = postSlice.actions;
 
 export default postSlice.reducer;
