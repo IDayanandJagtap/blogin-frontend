@@ -69,7 +69,7 @@ const DetailedPost = () => {
         createdAt: "",
     };
 
-    if (!currentPost) navigate("/myposts");
+    // if (!currentPost) navigate("/myposts");
 
     let { title, description, author, createdAt, user_id } =
         currentPost || emptyPost;
@@ -122,7 +122,6 @@ const DetailedPost = () => {
                 });
         }
 
-        console.log(window.screen.width);
         //eslint-disable-next-line
     }, [currentPost]);
     return (
@@ -209,7 +208,7 @@ const DetailedPost = () => {
                             )}
                         </VStack>
                     </Box>
-                    {/* Hide this box when in my posts */}
+                    {/* Hide this box when not in my posts */}
                     {window.screen.width > 768 && !user && (
                         <Box
                             w={["96%", "96%", "96%", "30%"]}
