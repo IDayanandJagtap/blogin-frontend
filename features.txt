@@ -2,12 +2,15 @@ Creating a blog application :
 
 
 features : 
-	enabling comments on every single post 
-	sharing to social media 
+
+	- post sharing (dynamic route)
+	- enabling comments on every single post 
+	- sharing to social media 
 
 
 Right now : 
-	- Throw proper error on unsucessfull api req.
+	- logout -> redirect to posts page after logout
+	- Caching ... and (go on next page and then visit home again)
 	- catch that error in authentication component.
 	- close the login on successfull signup/login.
 	- commit 

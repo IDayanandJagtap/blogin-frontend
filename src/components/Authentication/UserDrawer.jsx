@@ -42,7 +42,7 @@ const UserDrawer = ({ openUserBar, setOpenUserBar }) => {
         handleClose();
         dispatch({ type: "post/setUserPosts", payload: [] });
         dispatch({ type: "auth/logout" });
-        navigate("/");
+        navigate("/posts");
         toast({
             title: "Logged out !",
             status: "warning",

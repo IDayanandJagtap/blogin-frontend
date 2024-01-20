@@ -16,7 +16,7 @@ import {
     useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Authentication from "./Authentication";
 import { HiOutlineMenuAlt3 } from "react-icons/hi";
 import { AiOutlineUser } from "react-icons/ai";
@@ -29,6 +29,7 @@ const Header = () => {
 
     const { activeTab } = useSelector((state) => state.header);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const toast = useToast();
 
     // For userDashboard
@@ -67,6 +68,7 @@ const Header = () => {
         dispatch({ type: "post/setUserPosts", payload: [] });
         dispatch({ type: "auth/logout" });
         onClose();
+        navigate("/posts");
         toast({
             title: "Logged out !",
             status: "warning",
