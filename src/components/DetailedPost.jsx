@@ -16,6 +16,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import RenderHtmlComponent from "./RenderHtmlComponent";
 import { useDispatch, useSelector } from "react-redux";
 import { deletePost, getSinglePost } from "../redux/postSlice";
+import { MdKeyboardBackspace } from "react-icons/md";
 
 const DetailedPost = () => {
     const { posts, myPosts } = useSelector((state) => state.post);
@@ -129,110 +130,134 @@ const DetailedPost = () => {
             w={"full"}
             pt={20}
             pb={12}
-            flexDirection={["column", "column", "column", "row"]}
+            flexDirection={"column"}
             minH={"80vh"}
             bgGradient="linear(to-br, blue.800, purple.600, pink.500)"
         >
-            {status.isLoading ? (
-                <HStack
-                    h={"80vh"}
-                    w={"full"}
-                    alignItems={"center"}
-                    justifyContent={"center"}
+            <HStack px={6} mt={4}>
+                <Button
+                    background={"gray.50"}
+                    borderRadius={"full"}
+                    px={2}
+                    onClick={() => {
+                        navigate("/posts");
+                    }}
                 >
-                    <Spinner thickness="4px" size="xl"></Spinner>
-                </HStack>
-            ) : (
-                <>
-                    <Box
-                        w={["96%", "96%", "96%", "70%"]}
-                        mx={["auto", "auto", "auto", 6]}
-                        p={6}
-                        my={8}
-                        h={"fit-content"}
-                        borderRadius={"md"}
-                        style={{ backgroundColor: "#F7FAFC" }}
+                    <MdKeyboardBackspace size={20} />
+                </Button>
+            </HStack>
+
+            <Stack flexDirection={["column", "column", "column", "row"]}>
+                {status.isLoading ? (
+                    <HStack
+                        h={"80vh"}
+                        w={"full"}
+                        alignItems={"center"}
+                        justifyContent={"center"}
                     >
-                        <VStack w={"full"} alignItems={"flex-start"}>
-                            <Heading
-                                fontFamily={"Poppins"}
-                                textAlign={"center"}
-                                w={"full"}
-                                py={3}
-                                fontSize={["xl", "xl", "2xl", "3xl"]}
-                            >
-                                {title}
-                            </Heading>
-                            <Divider borderColor={"blackAlpha.400"}></Divider>
-                            <RenderHtmlComponent htmlContent={description} />
-                            <Divider
-                                borderColor={"blackAlpha.400"}
-                                py={4}
-                            ></Divider>
-                            <HStack
-                                w={"full"}
-                                justifyContent={"space-between"}
-                                py={4}
-                            >
-                                <HStack>
-                                    <Avatar
-                                        size={["2xs", "xs", "xs", "sm"]}
-                                        bg={"blackAlpha.800"}
-                                    ></Avatar>
-                                    <Text
-                                        color={"blackAlpha.800"}
-                                        fontWeight={"semibold"}
-                                        fontFamily={"Baloo 2"}
-                                        fontSize={["xs", "xs", "sm"]}
-                                    >
-                                        {author}
-                                    </Text>
-                                </HStack>
-                                <Text
-                                    color={"blackAlpha.700"}
-                                    fontSize={["xs", "xs", "sm"]}
-                                >
-                                    ~ {createdAt ? date : ""}
-                                </Text>
-                            </HStack>
-                            {user && user_id === userInfo.id && (
-                                <HStack w={"full"} justifyContent={"flex-end"}>
-                                    <Button
-                                        isLoading={status.isDelBtnLoading}
-                                        colorScheme="red"
-                                        onClick={handleDeletePost}
-                                    >
-                                        Delete
-                                    </Button>
-                                </HStack>
-                            )}
-                        </VStack>
-                    </Box>
-                    {/* Hide this box when not in my posts */}
-                    {window.screen.width > 768 && !user && (
+                        <Spinner thickness="4px" size="xl"></Spinner>
+                    </HStack>
+                ) : (
+                    <>
                         <Box
-                            w={["96%", "96%", "96%", "30%"]}
+                            w={["96%", "96%", "96%", "70%"]}
                             mx={["auto", "auto", "auto", 6]}
                             p={6}
-                            my={8}
+                            my={4}
+                            h={"fit-content"}
                             borderRadius={"md"}
                             style={{ backgroundColor: "#F7FAFC" }}
-                            display={
-                                window.screen.width < 768 ? "hidden" : "block"
-                            }
                         >
-                            <Heading
-                                textAlign={"center"}
-                                fontSize={["xl", "xl", "2xl", "3xl"]}
-                                color={"blackAlpha.600"}
-                                fontFamily={"Roboto"}
-                            >
-                                Other links and info
-                            </Heading>
+                            <VStack w={"full"} alignItems={"flex-start"}>
+                                <Heading
+                                    fontFamily={"Poppins"}
+                                    textAlign={"center"}
+                                    w={"full"}
+                                    py={3}
+                                    fontSize={["xl", "xl", "2xl", "3xl"]}
+                                >
+                                    {title}
+                                </Heading>
+                                <Divider
+                                    borderColor={"blackAlpha.400"}
+                                ></Divider>
+                                <RenderHtmlComponent
+                                    htmlContent={description}
+                                />
+                                <Divider
+                                    borderColor={"blackAlpha.400"}
+                                    py={4}
+                                ></Divider>
+                                <HStack
+                                    w={"full"}
+                                    justifyContent={"space-between"}
+                                    py={4}
+                                >
+                                    <HStack>
+                                        <Avatar
+                                            size={["2xs", "xs", "xs", "sm"]}
+                                            bg={"blackAlpha.800"}
+                                        ></Avatar>
+                                        <Text
+                                            color={"blackAlpha.800"}
+                                            fontWeight={"semibold"}
+                                            fontFamily={"Baloo 2"}
+                                            fontSize={["xs", "xs", "sm"]}
+                                        >
+                                            {author}
+                                        </Text>
+                                    </HStack>
+                                    <Text
+                                        color={"blackAlpha.700"}
+                                        fontSize={["xs", "xs", "sm"]}
+                                    >
+                                        ~ {createdAt ? date : ""}
+                                    </Text>
+                                </HStack>
+                                {user && user_id === userInfo.id && (
+                                    <HStack
+                                        w={"full"}
+                                        justifyContent={"flex-end"}
+                                    >
+                                        <Button
+                                            isLoading={status.isDelBtnLoading}
+                                            colorScheme="red"
+                                            onClick={handleDeletePost}
+                                        >
+                                            Delete
+                                        </Button>
+                                    </HStack>
+                                )}
+                            </VStack>
                         </Box>
-                    )}
-                </>
-            )}
+                        {/* Hide this box when not in my posts */}
+                        {window.screen.width > 768 && !user && (
+                            <Box
+                                w={["96%", "96%", "96%", "30%"]}
+                                mx={["auto", "auto", "auto", 6]}
+                                p={6}
+                                my={4}
+                                borderRadius={"md"}
+                                style={{ backgroundColor: "#F7FAFC" }}
+                                display={
+                                    window.screen.width < 768
+                                        ? "hidden"
+                                        : "block"
+                                }
+                            >
+                                <Heading
+                                    textAlign={"center"}
+                                    fontSize={["xl", "xl", "2xl", "3xl"]}
+                                    color={"blackAlpha.600"}
+                                    fontFamily={"Roboto"}
+                                >
+                                    Other links and info
+                                </Heading>
+                            </Box>
+                        )}
+                    </>
+                )}
+            </Stack>
         </Stack>
     );
 };

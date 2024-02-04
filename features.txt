@@ -2,8 +2,6 @@ Creating a blog application :
 
 
 features : 
-	- back button
-	- post sharing (dynamic route)
 	- enabling comments on every single post 
 	- sharing to social media 
 
