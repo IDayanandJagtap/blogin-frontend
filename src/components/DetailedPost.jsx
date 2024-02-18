@@ -134,7 +134,7 @@ const DetailedPost = () => {
             minH={"80vh"}
             bgGradient="linear(to-br, blue.800, purple.600, pink.500)"
         >
-            <HStack px={6} mt={4}>
+            <HStack mx={[2, 3, 4, 6]} mt={4}>
                 <Button
                     background={"gray.50"}
                     borderRadius={"full"}

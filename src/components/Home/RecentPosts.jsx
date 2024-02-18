@@ -21,6 +21,8 @@ import RenderHtmlComponent from "../RenderHtmlComponent";
 
 const RecentPosts = () => {
     const { posts } = useSelector((state) => state.post);
+    const postsFromLocalStorage = JSON.parse(localStorage.getItem("homePosts"));
+    const homePosts = postsFromLocalStorage || posts;
 
     return (
         <section>
@@ -56,7 +58,7 @@ const RecentPosts = () => {
                     gridTemplateColumns={"repeat(auto-fit, minmax(300px, 1fr))"}
                     gap={5}
                 >
-                    {posts.slice(0, 3).map((e) => {
+                    {homePosts.slice(0, 3).map((e) => {
                         const desc = decodeURI(e.description).substring(0, 300);
                         return (
                             <PostCard

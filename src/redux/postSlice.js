@@ -136,7 +136,8 @@ export const searchPosts = createAsyncThunk(
 export const postSlice = createSlice({
     name: "post",
     initialState: {
-        posts: [],
+        // load the posts present in localStorage initially if present, else an empty array!
+        posts: JSON.parse(localStorage.getItem("homePosts")) || [],
         myPosts: [],
         pageNo: 1,
         status: {
@@ -148,6 +149,13 @@ export const postSlice = createSlice({
         setPosts: (state, action) => {
             state.posts = action.payload;
             state.status.isAllPostsLoading = false;
+
+            // save to localStorage when the posts are loaded for first time
+            // Online when the page is loaded for first time we will change the localstorage posts
+            if (window.history.length <= 2) {
+                let posts = action.payload;
+                localStorage.setItem("homePosts", JSON.stringify(posts));
+            }
         },
         setUserPosts: (state, action) => {
             state.myPosts = action.payload;
