@@ -137,7 +137,9 @@ export const postSlice = createSlice({
     name: "post",
     initialState: {
         // load the posts present in localStorage initially if present, else an empty array!
-        posts: JSON.parse(localStorage.getItem("homePosts")) || [],
+        // Here caching is not because it reduces performance by 2% ! lighthouse report;
+        // posts: JSON.parse(localStorage.getItem("homePosts")) || [],
+        posts: [],
         myPosts: [],
         pageNo: 1,
         status: {
