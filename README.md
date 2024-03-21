@@ -48,7 +48,7 @@ To run Blogin locally for your project purposes, follow these steps:
 1. **Clone this repository:**
 
     ```bash
-    git clone https://github.com/TheCodingGuyDJ/blogin-frontend.git
+    git clone https://github.com/IDayanandJagtap/blogin-frontend.git
     ```
 
 2. **Install the required dependencies:**
