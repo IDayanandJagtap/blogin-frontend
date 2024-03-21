@@ -9,6 +9,9 @@ Blogin is a blog sharing platform designed for project purposes, allowing users 
 -   **User Registration**: Users can create accounts and log in securely.
 -   **Blog Submission**: Registered users can submit their blogs with a title, content, and optional images.
 -   **Blog Viewing**: Anyone can view the blogs shared on the platform.
+-   **CRUD operations** : For both posts and users
+-   **Authentication** : User authentication using JWT tokens
+-   **Caching** : The backend is on shared server so it takes time to respond to requests after some interval of downtime. To solve this problem local caching is applied. 
 
 ## Usage
 
@@ -30,6 +33,8 @@ Blogin is a blog sharing platform designed for project purposes, allowing users 
 Blogin is built using the following technologies:
 
 -   React.js
+-   Redux toolkit
+-   Chakra UI
 -   Node.js
 -   Express.js
 -   MongoDB
